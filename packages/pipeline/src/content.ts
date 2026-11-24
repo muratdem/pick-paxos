@@ -68,6 +68,16 @@ const BANNED: [RegExp, string][] = [
   [/\b[12][ab]\s+(message|request|response)/i, 'message codes like "2b message"'],
   [/\bmax(Bal|VBal|Val)\b/, 'a TLA+ variable name'],
   [/\bmsgs\b/, 'a TLA+ variable name'],
+  /* One name per concept. The protocol calls them acceptors and the message is
+   * an accept, so "vote" is a second metaphor for the same event — and the app
+   * was using both, labelling one action "accepts" and the state right above it
+   * "last voted". Ballots stay, since a ballot really is a numbered round. */
+  [/\bvot(e|es|ed|ing)\b/i, '"vote" — the acceptor accepts; say accept/accepted/acceptance'],
+  /* Flourishes I keep reaching for. They read as padding, a reader called them
+   * out twice, and unlike most style questions they are cheap to just ban. */
+  [/and this is the point|here is the thing/i, 'a rhetorical flourish; state the fact'],
+  [/\bwhatsoever\b|\bprecisely because\b|\bnot merely\b/i, 'padding; cut it'],
+  [/is the one thing|is the thing that|is exactly what makes/i, 'padding; say it plainly'],
 ];
 
 export function checkNoNotation(): void {

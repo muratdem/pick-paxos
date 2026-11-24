@@ -86,12 +86,12 @@ const msgCount = (s: PaxosState) => s.msgs.length;
 
 const ballotWord = (b: number) => (b < 0 ? 'nothing' : `ballot ${b}`);
 const voteWord = (s: PaxosState, a: number) =>
-  s.maxVBal[a] < 0 ? 'no vote at all' : `${s.maxVal[a]} in ballot ${s.maxVBal[a]}`;
+  s.maxVBal[a] < 0 ? 'nothing at all' : `${s.maxVal[a]} in ballot ${s.maxVBal[a]}`;
 const reportWord = (m: Msg) =>
   m.t === '1b'
     ? m.mbal < 0
-      ? 'that it has never voted'
-      : `its last vote, ${m.mval} in ballot ${m.mbal}`
+      ? 'that it has not accepted anything'
+      : `what it last accepted, ${m.mval} in ballot ${m.mbal}`
     : '';
 
 /** Say exactly WHICH part of the step is wrong, by diffing the state it
@@ -114,11 +114,11 @@ function describeEffectDifference(step: StepCand<PaxosState>): string[] {
         `promising must raise ${accName(a)}'s promised ballot to ${correct.maxBal[a]}, and this ` +
           `step leaves it ${shown.maxBal[a] < 0 ? 'unset' : `at ${shown.maxBal[a]}`} — so ` +
           `${accName(a)} has not actually committed to anything and could still go on to accept ` +
-          `an older ballot, which is the one thing a promise is supposed to rule out`,
+          `an older ballot, which is what a promise is supposed to prevent`,
       );
     if (shown.maxVBal[a] !== correct.maxVBal[a] || shown.maxVal[a] !== correct.maxVal[a])
       out.push(
-        `it must record ${accName(a)}'s last vote as ${voteWord(correct, a)}, ` +
+        `it must record that ${accName(a)} last accepted ${voteWord(correct, a)}, ` +
           `but this step records ${voteWord(shown, a)}`,
       );
   }
@@ -134,7 +134,7 @@ function describeEffectDifference(step: StepCand<PaxosState>): string[] {
     const instead = extra.find((m) => m.t === want.t);
     if (instead && want.t === '1b' && instead.t === '1b') {
       out.push(
-        `the promise must report ${accName(want.acc)}'s last vote — ${reportWord(want).replace(/^its last vote, /, '')} ` +
+        `the promise must report what ${accName(want.acc)} last accepted — ${reportWord(want).replace(/^what it last accepted, /, '')} ` +
           `— and this one reports ${reportWord(instead)}`,
       );
       extra.splice(extra.indexOf(instead), 1);
@@ -183,15 +183,15 @@ function describeGuardFailure(step: StepCand<PaxosState>, id: string): string | 
 
     case 'phase2b.ballotAtLeastPromised':
       return (
-        `${accName(acc)} has promised ballot ${s.maxBal[acc]}, so it will not vote in the ` +
+        `${accName(acc)} has promised ballot ${s.maxBal[acc]}, so it will not accept in the ` +
         `lower ballot ${bal} — that promise is exactly a commitment to ignore anything older`
       );
     case 'phase2b.ballotStrictlyGreater':
       return `${accName(acc)} has promised ballot ${s.maxBal[acc]} and ballot ${bal} is not above it`;
     case 'phase2b.proposalExists':
-      return `nobody has proposed ${val} in ballot ${bal}, so there is nothing to vote for`;
+      return `nobody has proposed ${val} in ballot ${bal}, so there is nothing to accept`;
     case 'phase2b.neverVoted':
-      return `${accName(acc)} has already voted once, for ${s.maxVal[acc]} in ballot ${s.maxVBal[acc]}`;
+      return `${accName(acc)} has already accepted once, ${s.maxVal[acc]} in ballot ${s.maxVBal[acc]}`;
 
     case 'phase2a.noPriorProposal': {
       const prior = s.msgs.find((m) => m.t === '2a' && m.bal === bal);
@@ -218,7 +218,7 @@ function describeGuardFailure(step: StepCand<PaxosState>, id: string): string | 
       const top = Math.max(...reports.map((m) => m.mbal));
       const must = reports.find((m) => m.mbal === top)!;
       return (
-        `the highest vote reported to this proposer is ${must.mval} in ballot ${must.mbal}, ` +
+        `the highest acceptance reported to this proposer is ${must.mval} in ballot ${must.mbal}, ` +
         `from ${accName(must.acc)}. That forces the proposer to propose ${must.mval}, not ${val}`
       );
     }
@@ -389,7 +389,7 @@ const STEP_LEVELS: LevelSpec[] = [
     level: 'paxos-phase2-steps',
     title: 'Phase 2 — proposing and accepting',
     blurb:
-      'The proposer has heard back and now proposes a value; acceptors vote. ' +
+      'The proposer has heard back and now proposes a value; acceptors accept it. ' +
       'This is where the protocol is won or lost.',
     actions: ['Phase2a', 'Phase2b'],
     mutants: PHASE2_MUTANTS,

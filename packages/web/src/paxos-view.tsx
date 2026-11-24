@@ -52,10 +52,10 @@ export function msgSentence(m: Msg): JSX.Element {
         <>
           <strong>{accName(m.acc!)}</strong> promises this ballot
           {m.mbal! < 0 ? (
-            <>, and reports that it has never voted.</>
+            <>, and reports that it has not accepted anything.</>
           ) : (
             <>
-              , and reports its last vote: <strong className="value">{m.mval}</strong> in ballot{' '}
+              , and reports what it last accepted: <strong className="value">{m.mval}</strong> in ballot{' '}
               {m.mbal}.
             </>
           )}
@@ -116,10 +116,10 @@ export function AcceptorStanding({
               )}
               {' · '}
               {state.maxVBal[i] < 0 ? (
-                <>has never voted</>
+                <>has not accepted anything</>
               ) : (
                 <>
-                  last voted <strong className="value">{state.maxVal[i]}</strong> in ballot{' '}
+                  last accepted <strong className="value">{state.maxVal[i]}</strong> in ballot{' '}
                   {state.maxVBal[i]}
                 </>
               )}
@@ -256,7 +256,7 @@ export function StepDelta({
                   )}
                   {(pre.maxVBal[i] !== post.maxVBal[i] || pre.maxVal[i] !== post.maxVal[i]) && (
                     <span className="change">
-                      last vote is now{' '}
+                      last accepted is now{' '}
                       {post.maxVBal[i] < 0 ? (
                         'none'
                       ) : (

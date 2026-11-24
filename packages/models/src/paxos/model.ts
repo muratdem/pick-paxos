@@ -122,7 +122,7 @@ const has2a = (s: PaxosState, bal: number) => s.msgs.some((m) => m.t === '2a' &&
 const get2a = (s: PaxosState, bal: number, val: string) =>
   s.msgs.find((m) => m.t === '2a' && m.bal === bal && m.val === val);
 
-/** The 1b messages for ballot `bal` from quorum `q` that report a prior vote. */
+/** The 1b messages for ballot `bal` from quorum `q` that report a prior acceptance. */
 function reported(s: PaxosState, q: number[], bal: number): Extract<Msg, { t: '1b' }>[] {
   const out: Extract<Msg, { t: '1b' }>[] = [];
   for (const a of q) {
@@ -292,7 +292,7 @@ export function paxos(k: PaxosConstants, flags: Flags = {}): Model<PaxosState> {
       },
       reads: (_s, p) => [{ t: '1a', bal: p.bal as number } as unknown as Value],
       describe: (p) =>
-        `${accName(p.acc as number)} promises ballot ${p.bal}, and reports its last vote.`,
+        `${accName(p.acc as number)} promises ballot ${p.bal}, and reports what it last accepted.`,
     },
     {
       name: 'Phase2a',

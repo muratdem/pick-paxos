@@ -141,7 +141,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -229,7 +229,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -348,7 +348,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+     "text": "No. Bob can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Alice as the highest acceptance it has seen, which forces that proposer to propose Alice rather than Bob. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -436,7 +436,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -562,7 +562,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -657,7 +657,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -776,7 +776,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+     "text": "No. Bob can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Alice as the highest acceptance it has seen, which forces that proposer to propose Alice rather than Bob. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -864,7 +864,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -997,7 +997,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -1099,7 +1099,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+     "text": "No. Bob can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Alice as the highest acceptance it has seen, which forces that proposer to propose Alice rather than Bob. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "distance": 1,
@@ -1225,7 +1225,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+     "text": "No. Bob can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Alice as the highest acceptance it has seen, which forces that proposer to propose Alice rather than Bob. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -1320,7 +1320,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -1439,7 +1439,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -1527,7 +1527,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -1653,7 +1653,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+     "text": "No. Bob can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Alice as the highest acceptance it has seen, which forces that proposer to propose Alice rather than Bob. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -1748,7 +1748,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -1867,7 +1867,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -1955,7 +1955,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -2074,7 +2074,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -2162,7 +2162,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "distance": 1,
@@ -2289,7 +2289,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -2385,7 +2385,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 2 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 2 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -2499,7 +2499,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 2 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 2 more steps from here would do it."
     }
    },
    "b": {
@@ -2581,7 +2581,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -2695,7 +2695,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -2777,7 +2777,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -2898,7 +2898,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -2987,7 +2987,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -3096,7 +3096,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 3 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 3 more steps from here would do it."
     }
    },
    "b": {
@@ -3173,7 +3173,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 3 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 3 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -3275,7 +3275,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -3345,7 +3345,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -3454,7 +3454,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -3531,7 +3531,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -3647,7 +3647,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -3731,7 +3731,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -3852,7 +3852,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 2 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 2 more steps from here would do it."
     }
    },
    "b": {
@@ -3941,7 +3941,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -4068,7 +4068,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -4163,7 +4163,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -4276,7 +4276,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -4358,7 +4358,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -4485,7 +4485,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -4580,7 +4580,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -4699,7 +4699,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -4787,7 +4787,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -4906,7 +4906,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -4994,7 +4994,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -5127,7 +5127,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -5229,7 +5229,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -5355,7 +5355,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -5450,7 +5450,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -5576,7 +5576,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -5671,7 +5671,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -5790,7 +5790,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -5878,7 +5878,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -5997,7 +5997,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -6085,7 +6085,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -6204,7 +6204,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -6292,7 +6292,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "distance": 1,
@@ -6411,7 +6411,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -6499,7 +6499,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+     "text": "No. Bob can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Alice as the highest acceptance it has seen, which forces that proposer to propose Alice rather than Bob. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "distance": 1,
@@ -6625,7 +6625,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -6720,7 +6720,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "distance": 1,
@@ -6846,7 +6846,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -6941,7 +6941,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+     "text": "No. Bob can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Alice as the highest acceptance it has seen, which forces that proposer to propose Alice rather than Bob. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "distance": 1,
@@ -7067,7 +7067,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -7162,7 +7162,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "distance": 1,
@@ -7281,7 +7281,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -7369,7 +7369,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -7488,7 +7488,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+     "text": "No. Bob can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Alice as the highest acceptance it has seen, which forces that proposer to propose Alice rather than Bob. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -7576,7 +7576,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -7702,7 +7702,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -7797,7 +7797,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -7916,7 +7916,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+     "text": "No. Bob can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Alice as the highest acceptance it has seen, which forces that proposer to propose Alice rather than Bob. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -8004,7 +8004,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -8137,7 +8137,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -8239,7 +8239,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+     "text": "No. Bob can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Alice as the highest acceptance it has seen, which forces that proposer to propose Alice rather than Bob. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "distance": 1,
@@ -8365,7 +8365,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+     "text": "No. Bob can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Alice as the highest acceptance it has seen, which forces that proposer to propose Alice rather than Bob. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -8460,7 +8460,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -8579,7 +8579,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -8667,7 +8667,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -8793,7 +8793,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+     "text": "No. Bob can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Alice as the highest acceptance it has seen, which forces that proposer to propose Alice rather than Bob. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -8888,7 +8888,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -9007,7 +9007,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -9095,7 +9095,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -9214,7 +9214,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -9302,7 +9302,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "distance": 1,
@@ -9429,7 +9429,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -9525,7 +9525,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 2 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 2 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -9639,7 +9639,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 2 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 2 more steps from here would do it."
     }
    },
    "b": {
@@ -9721,7 +9721,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -9835,7 +9835,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -9917,7 +9917,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -10038,7 +10038,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -10127,7 +10127,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -10236,7 +10236,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 3 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 3 more steps from here would do it."
     }
    },
    "b": {
@@ -10313,7 +10313,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 3 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 3 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -10415,7 +10415,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -10485,7 +10485,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -10594,7 +10594,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -10671,7 +10671,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -10787,7 +10787,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -10871,7 +10871,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -10992,7 +10992,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 2 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 2 more steps from here would do it."
     }
    },
    "b": {
@@ -11081,7 +11081,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -11208,7 +11208,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -11303,7 +11303,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -11416,7 +11416,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -11498,7 +11498,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -11625,7 +11625,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -11720,7 +11720,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -11839,7 +11839,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -11927,7 +11927,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -12046,7 +12046,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -12134,7 +12134,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -12267,7 +12267,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -12369,7 +12369,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -12495,7 +12495,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -12590,7 +12590,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -12716,7 +12716,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "b": {
@@ -12811,7 +12811,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -12930,7 +12930,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -13018,7 +13018,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 6 more steps from here would do it."
     }
    },
    "distance": 1,
@@ -13137,7 +13137,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "b": {
@@ -13225,7 +13225,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "distance": 1,
@@ -13344,7 +13344,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -13432,7 +13432,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "distance": 1,
@@ -13551,7 +13551,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -13639,7 +13639,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+     "text": "No. Bob can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Alice as the highest acceptance it has seen, which forces that proposer to propose Alice rather than Bob. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "distance": 1,
@@ -13765,7 +13765,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -13860,7 +13860,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "distance": 1,
@@ -13986,7 +13986,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Alice can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -14081,7 +14081,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+     "text": "No. Bob can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Alice as the highest acceptance it has seen, which forces that proposer to propose Alice rather than Bob. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "distance": 1,
@@ -14207,7 +14207,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+     "text": "Yes. Bob can still be chosen: 1 more step from here would do it."
     }
    },
    "b": {
@@ -14302,7 +14302,7 @@
     "justification": {
      "verdict": "illegal",
      "refs": [],
-     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+     "text": "No. Alice can no longer be chosen, whatever happens from here. Every majority a future proposer could gather would report Bob as the highest acceptance it has seen, which forces that proposer to propose Bob rather than Alice. Nothing has been chosen yet, and no acceptor in this situation knows that, but it is already decided."
     }
    },
    "distance": 1,

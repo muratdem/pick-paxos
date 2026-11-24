@@ -89,7 +89,7 @@ function Setup({ open }: { open: boolean }) {
         </p>
         <p>
           Each ballot has its own <strong>proposer</strong>, which is a separate thing from the
-          acceptors. Proposers do the asking; acceptors do the promising and the voting. A proposer
+          acceptors. Proposers do the asking; acceptors do the promising and the accepting. A proposer
           needs a <strong>majority</strong> — any two of the three acceptors — to get anywhere.
         </p>
         <h4>The four things that can happen</h4>
@@ -100,19 +100,19 @@ function Setup({ open }: { open: boolean }) {
           </li>
           <li>
             <strong>An acceptor promises.</strong> It agrees to ignore anything older from now on,
-            and reports what it last voted for — which is how a decision that was already made gets
+            and reports what it last accepted — which is how a decision that was already made gets
             discovered by someone who missed it.
           </li>
           <li>
             <strong>A proposer proposes a value.</strong> Only after a majority has promised. And if
-            any of them reported a previous vote, the proposer is not free to pick what it likes.
+            any of them reported something it had already accepted, the proposer is not free to pick.
           </li>
           <li>
-            <strong>An acceptor accepts.</strong> It votes for the value that was proposed.
+            <strong>An acceptor accepts.</strong> It accepts the value that was proposed.
           </li>
         </ol>
         <p className="setup-chosen">
-          A value is <strong>chosen</strong> when a majority of acceptors have all voted for it{' '}
+          A value is <strong>chosen</strong> when a majority of acceptors have all accepted it{' '}
           <em>in the same ballot</em>. Votes spread across different ballots do not add up to a
           decision.
         </p>

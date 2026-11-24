@@ -31,8 +31,8 @@ rules:
     text: >-
       An acceptor promises a ballot only if that ballot is strictly higher than
       the highest one it has already promised. Having promised, it never goes
-      back and promises something lower — that is what makes a promise worth
-      anything.
+      back and promises something lower. A promise that did not bind would be
+      worth nothing.
 
   phase2a.noPriorProposal:
     short: a ballot may carry at most one proposal
@@ -62,7 +62,7 @@ rules:
   phase2a.unanimousPromised:
     short: every acceptor must have promised this ballot
     text: >-
-      All three acceptors, not merely a majority, must promise before a value may
+      All three acceptors, rather than a majority, must promise before a value may
       be proposed. This is NOT a Paxos rule, and requiring it would throw away
       the fault tolerance that is the whole reason for running Paxos: one
       crashed acceptor would block all progress forever.
@@ -70,7 +70,7 @@ rules:
   phase2a.highestReported:
     short: propose the value reported from the highest ballot
     text: >-
-      If any acceptor in the majority reported a previous vote, the proposer is
+      If any acceptor in the majority reported something it had already accepted, the proposer is
       not free to choose. It must propose the value that was reported together
       with the highest ballot number among those reports. This single rule is
       what makes Paxos safe: it is how a value that may already have been agreed
@@ -80,37 +80,37 @@ rules:
     short: propose any value that was reported
     text: >-
       Any previously accepted value may be proposed again. This is NOT a Paxos
-      rule. Among the reported votes, only the one from the highest ballot could
+      rule. Among the things reported, only the one from the highest ballot could
       possibly be the agreed value; proposing an older one can overwrite a
       decision that has already been made.
 
   phase2b.proposalExists:
     short: there must be a proposal to accept
     text: >-
-      An acceptor only votes for a value that some proposer actually proposed for
-      that ballot. It cannot vote for something nobody put forward.
+      An acceptor only accepts a value that some proposer actually proposed for
+      that ballot. It cannot accept something nobody put forward.
 
   phase2b.ballotAtLeastPromised:
     short: the ballot must be at least as high as the promise
     text: >-
-      An acceptor votes in a ballot only if that ballot is the same as, or higher
+      An acceptor accepts in a ballot only if that ballot is the same as, or higher
       than, the highest ballot it has promised. The same as matters: the normal
-      path through the protocol is an acceptor promising a ballot and then voting
+      path through the protocol is an acceptor promising a ballot and then accepting
       in that very ballot.
 
   phase2b.ballotStrictlyGreater:
     short: the ballot must be strictly higher than the promise
     text: >-
-      An acceptor only votes in a ballot strictly higher than the one it
+      An acceptor only accepts in a ballot strictly higher than the one it
       promised. This is NOT a Paxos rule, and it would stop the protocol dead:
-      an acceptor could never vote in the very ballot it just promised, which is
+      an acceptor could never accept in the very ballot it just promised, which is
       exactly what it is supposed to do.
 
   phase2b.neverVoted:
-    short: an acceptor votes at most once, ever
+    short: an acceptor accepts at most once, ever
     text: >-
-      Having voted once, an acceptor never votes again. This is NOT a Paxos rule.
-      An acceptor may vote many times, in increasing ballots. What keeps that
+      Having accepted once, an acceptor never accepts again. This is NOT a Paxos rule.
+      An acceptor may accept many times, in increasing ballots. What keeps that
       safe is not the acceptor refusing to change its mind, but the rule that
       forces later proposers to carry the same value forward.
 
@@ -122,10 +122,10 @@ effects:
     text: When a proposer asks for promises, it says which ballot and nothing else.
 
   Phase1b.effect:
-    short: a promise reports the acceptor's last vote
+    short: a promise reports what the acceptor last accepted
     text: >-
       A promise is not a bare acknowledgement. It carries the ballot and value of
-      the last vote the acceptor cast, or says it has never voted. It also raises
+      the last value the acceptor accepted, or says it has not accepted anything. It also raises
       the acceptor's promised ballot. Both halves matter: the report is how an
       already-agreed value is discovered, and the raise is what makes the promise
       binding.
@@ -135,8 +135,8 @@ effects:
     text: A proposal says which ballot it belongs to and which value is being put forward.
 
   Phase2b.effect:
-    short: voting records the ballot and value, and raises the promise
+    short: accepting records the ballot and value, and raises the promise
     text: >-
-      When an acceptor votes for a value in some ballot, it records that ballot
-      as both its promised ballot and the ballot of its last vote, records the
-      value it voted for, and announces the vote so everyone can see it.
+      When an acceptor accepts a value in some ballot, it records that ballot
+      as both its promised ballot and the ballot of its last acceptance, records the
+      value, and announces it so everyone can see.

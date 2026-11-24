@@ -391,8 +391,8 @@ export function buildAnchoredBank(seed: number, plan: BallotPlan): AnchoredResul
     const path = witnessTo(g3, c.id3, chosen(values[vi]));
     const steps = path ? path.length - 1 : 0;
     return (
-      `Yes. ${values[vi]} can still end up being chosen — it takes ${steps} more step${steps === 1 ? '' : 's'} ` +
-      `from here, and nothing in the situation rules it out.`
+      `Yes. ${values[vi]} can still be chosen: ${steps} more step${steps === 1 ? '' : 's'} ` +
+      `from here would do it.`
     );
   };
 
@@ -404,15 +404,15 @@ export function buildAnchoredBank(seed: number, plan: BallotPlan): AnchoredResul
       .filter((a) => a >= 0);
     const majorityBlocked = holders.length * 2 > c.s.maxBal.length;
     const because = majorityBlocked
-      ? `${holders.map(accName).join(' and ')} have both already voted for ${other} at the highest ballot ` +
-        `anyone has reached. Any future proposer needs a majority, and every majority overlaps with those two, ` +
-        `so it will always hear about ${other} and be forced to propose it.`
-      : `Every majority a future proposer could gather would report ${other} as the highest vote it ` +
+      ? `${holders.map(accName).join(' and ')} have both already accepted ${other} at the highest ` +
+        `ballot anyone has reached. Any future proposer needs a majority, every majority overlaps ` +
+        `with those two, so it will hear about ${other} and have to propose it.`
+      : `Every majority a future proposer could gather would report ${other} as the highest acceptance it ` +
         `has seen, which forces that proposer to propose ${other} rather than ${values[vi]}.`;
     return (
-      `No — and this is the point. ${values[vi]} can never be chosen now, in any continuation whatsoever, ` +
-      `even though nothing has been chosen yet and no acceptor could tell you so. ${because} ` +
-      `The outcome was sealed before anyone could observe it.`
+      `No. ${values[vi]} can no longer be chosen, whatever happens from here. ${because} ` +
+      `Nothing has been chosen yet, and no acceptor in this situation knows that, ` +
+      `but it is already decided.`
     );
   };
 

@@ -2,7 +2,7 @@
  "protocol": "paxos",
  "level": "paxos-phase2-steps",
  "title": "Phase 2 — proposing and accepting",
- "blurb": "The proposer has heard back and now proposes a value; acceptors vote. This is where the protocol is won or lost.",
+ "blurb": "The proposer has heard back and now proposes a value; acceptors accept it. This is where the protocol is won or lost.",
  "generatedFrom": {
   "modelVersion": "0.1.0",
   "constants": {
@@ -306,7 +306,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not vote in the lower ballot 1 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not accept in the lower ballot 1 — that promise is exactly a commitment to ignore anything older. An acceptor accepts in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then accepting in that very ballot."
     }
    },
    "b": {
@@ -496,7 +496,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 1,
@@ -1150,7 +1150,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest acceptance reported to this proposer is Bob in ballot 1, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported something it had already accepted, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "distance": 1,
@@ -1687,7 +1687,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 2,
@@ -2019,7 +2019,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -2320,7 +2320,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest acceptance reported to this proposer is Bob in ballot 1, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported something it had already accepted, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "distance": 2,
@@ -2894,7 +2894,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 2,
@@ -3695,7 +3695,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 0, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest acceptance reported to this proposer is Bob in ballot 0, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported something it had already accepted, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "b": {
@@ -3933,7 +3933,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 2,
@@ -4781,7 +4781,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not vote in the lower ballot 1 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not accept in the lower ballot 1 — that promise is exactly a commitment to ignore anything older. An acceptor accepts in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then accepting in that very ballot."
     }
    },
    "b": {
@@ -4983,7 +4983,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 1,
@@ -5661,7 +5661,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest acceptance reported to this proposer is Bob in ballot 1, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported something it had already accepted, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "distance": 1,
@@ -6165,7 +6165,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: Acceptor 2 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 2 has promised ballot 2, so it will not accept in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor accepts in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then accepting in that very ballot."
     }
    },
    "distance": 2,
@@ -6454,7 +6454,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -7196,7 +7196,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 2,
@@ -7483,7 +7483,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -7732,7 +7732,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: Acceptor 3 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 3 has promised ballot 2, so it will not accept in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor accepts in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then accepting in that very ballot."
     }
    },
    "distance": 1,
@@ -8498,7 +8498,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -8811,7 +8811,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Alice in ballot 0, from Acceptor 1. That forces the proposer to propose Alice, not Bob. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest acceptance reported to this proposer is Alice in ballot 0, from Acceptor 1. That forces the proposer to propose Alice, not Bob. If any acceptor in the majority reported something it had already accepted, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "distance": 2,
@@ -9119,7 +9119,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -9386,7 +9386,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: nobody has proposed Bob in ballot 2, so there is nothing to vote for. An acceptor only votes for a value that some proposer actually proposed for that ballot. It cannot vote for something nobody put forward."
+     "text": "Paxos does not allow this step: nobody has proposed Bob in ballot 2, so there is nothing to accept. An acceptor only accepts a value that some proposer actually proposed for that ballot. It cannot accept something nobody put forward."
     }
    },
    "distance": 1,
@@ -10380,7 +10380,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 3. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest acceptance reported to this proposer is Bob in ballot 1, from Acceptor 3. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported something it had already accepted, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "b": {
@@ -10959,7 +10959,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -11220,7 +11220,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not accept in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor accepts in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then accepting in that very ballot."
     }
    },
    "distance": 1,
@@ -11868,7 +11868,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -12498,7 +12498,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: nobody has proposed Alice in ballot 0, so there is nothing to vote for. An acceptor only votes for a value that some proposer actually proposed for that ballot. It cannot vote for something nobody put forward."
+     "text": "Paxos does not allow this step: nobody has proposed Alice in ballot 0, so there is nothing to accept. An acceptor only accepts a value that some proposer actually proposed for that ballot. It cannot accept something nobody put forward."
     }
    },
    "distance": 2,
@@ -12861,7 +12861,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Alice in ballot 1, from Acceptor 3. That forces the proposer to propose Alice, not Bob. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest acceptance reported to this proposer is Alice in ballot 1, from Acceptor 3. That forces the proposer to propose Alice, not Bob. If any acceptor in the majority reported something it had already accepted, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "b": {
@@ -13424,7 +13424,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not accept in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor accepts in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then accepting in that very ballot."
     }
    },
    "b": {
@@ -13602,7 +13602,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 1,
@@ -13905,7 +13905,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -14631,7 +14631,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 2,
@@ -15339,7 +15339,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: nobody has proposed Bob in ballot 1, so there is nothing to vote for. An acceptor only votes for a value that some proposer actually proposed for that ballot. It cannot vote for something nobody put forward."
+     "text": "Paxos does not allow this step: nobody has proposed Bob in ballot 1, so there is nothing to accept. An acceptor only accepts a value that some proposer actually proposed for that ballot. It cannot accept something nobody put forward."
     }
    },
    "b": {
@@ -15495,7 +15495,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 1,
@@ -16129,7 +16129,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 3. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest acceptance reported to this proposer is Bob in ballot 1, from Acceptor 3. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported something it had already accepted, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "distance": 1,
@@ -16460,7 +16460,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: Acceptor 2 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 2 has promised ballot 2, so it will not accept in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor accepts in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then accepting in that very ballot."
     }
    },
    "b": {
@@ -16650,7 +16650,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 1,
@@ -16946,7 +16946,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -17148,7 +17148,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 1,
@@ -17706,7 +17706,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 2,
@@ -18366,7 +18366,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -18556,7 +18556,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 1,
@@ -18879,7 +18879,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -19422,7 +19422,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -19612,7 +19612,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 1,
@@ -20251,7 +20251,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -20429,7 +20429,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 1,
@@ -20743,7 +20743,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -21300,7 +21300,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "b": {
@@ -21502,7 +21502,7 @@
        "field": "maxBal"
       }
      ],
-     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+     "text": "Paxos allows this step — there must be a proposal to accept; the ballot must be at least as high as the promise. When an acceptor accepts a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last acceptance, records the value, and announces it so everyone can see."
     }
    },
    "distance": 1,
@@ -21842,7 +21842,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Alice in ballot 1, from Acceptor 3. That forces the proposer to propose Alice, not Bob. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest acceptance reported to this proposer is Alice in ballot 1, from Acceptor 3. That forces the proposer to propose Alice, not Bob. If any acceptor in the majority reported something it had already accepted, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "b": {
@@ -22930,7 +22930,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Alice in ballot 0, from Acceptor 2. That forces the proposer to propose Alice, not Bob. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest acceptance reported to this proposer is Alice in ballot 0, from Acceptor 2. That forces the proposer to propose Alice, not Bob. If any acceptor in the majority reported something it had already accepted, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "b": {
@@ -23802,7 +23802,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: Acceptor 3 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 3 has promised ballot 2, so it will not accept in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor accepts in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then accepting in that very ballot."
     }
    },
    "distance": 2,
@@ -24739,7 +24739,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 3. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest acceptance reported to this proposer is Bob in ballot 1, from Acceptor 3. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported something it had already accepted, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "b": {
@@ -25062,7 +25062,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 3. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest acceptance reported to this proposer is Bob in ballot 1, from Acceptor 3. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported something it had already accepted, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "distance": 1,
@@ -25354,7 +25354,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not accept in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor accepts in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then accepting in that very ballot."
     }
    },
    "b": {
@@ -25930,7 +25930,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: nobody has proposed Alice in ballot 0, so there is nothing to vote for. An acceptor only votes for a value that some proposer actually proposed for that ballot. It cannot vote for something nobody put forward."
+     "text": "Paxos does not allow this step: nobody has proposed Alice in ballot 0, so there is nothing to accept. An acceptor only accepts a value that some proposer actually proposed for that ballot. It cannot accept something nobody put forward."
     }
    },
    "b": {
@@ -26211,7 +26211,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: Acceptor 2 has promised ballot 2, so it will not vote in the lower ballot 1 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 2 has promised ballot 2, so it will not accept in the lower ballot 1 — that promise is exactly a commitment to ignore anything older. An acceptor accepts in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then accepting in that very ballot."
     }
    },
    "distance": 1,
@@ -26582,7 +26582,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: Acceptor 2 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 2 has promised ballot 2, so it will not accept in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor accepts in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then accepting in that very ballot."
     }
    },
    "b": {
@@ -26895,7 +26895,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest acceptance reported to this proposer is Bob in ballot 1, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported something it had already accepted, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "distance": 2,

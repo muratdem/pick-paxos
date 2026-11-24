@@ -16,9 +16,9 @@ misconceptions:
       wanted to propose in the first place.
     correct: >-
       Winning phase 1 does not buy the proposer the right to choose. If any
-      acceptor in its quorum reported a previous vote, the proposer must propose
+      acceptor in its quorum reported something it had already accepted, the proposer must propose
       the value reported with the highest ballot. It only gets a free choice when
-      the whole quorum reports no vote at all.
+      the whole majority reports nothing at all.
     whyItMatters: >-
       This is the single most common misreading of Paxos, and it is fatal:
       a value can already have been chosen without the new proposer knowing it,
@@ -48,7 +48,7 @@ misconceptions:
     correct: >-
       Promises from a whole quorum - a majority - are required before proposing.
     whyItMatters: >-
-      Quorums are not about counting votes, they are about intersection. A single
+      Majorities are not about counting heads, they are about intersection. A single
       promise guarantees nothing, because that one acceptor may be precisely the
       one that knows nothing about a value the other two already chose.
 
@@ -57,7 +57,7 @@ misconceptions:
     belief: >-
       An acceptor is a passive store: when a proposal arrives, it records it.
     correct: >-
-      An acceptor votes in a ballot only if that ballot is at least as high as
+      An acceptor accepts in a ballot only if that ballot is at least as high as
       the highest one it has promised. A promise is a commitment to ignore
       everything older.
     whyItMatters: >-
@@ -71,7 +71,7 @@ misconceptions:
       Promising is a simple "yes, I hear you" - a handshake that carries no
       information back to the proposer.
     correct: >-
-      A promise carries the ballot and value of the acceptor's last vote. That
+      A promise carries the ballot and value of what the acceptor last accepted. That
       report is the only channel through which an already-chosen value becomes
       visible to a new proposer.
     whyItMatters: >-
@@ -108,16 +108,16 @@ misconceptions:
   P8:
     title: An acceptor cannot accept the ballot it promised
     belief: >-
-      Having promised a ballot, the acceptor will only vote in something
+      Having promised a ballot, the acceptor will only accept in something
       strictly higher than it.
     correct: >-
       The test is "at least as high", not "higher". Promising a ballot and then
-      voting in that same ballot is the normal path through the protocol, not an
+      accepting in that same ballot is the normal path through the protocol, not an
       exception to it.
     whyItMatters: >-
       This one does not break safety - it breaks liveness, completely. An
-      acceptor that will never vote in the ballot it just promised can never
-      vote at all, so nothing is ever chosen.
+      acceptor that will never accept in the ballot it just promised can never
+      accept at all, so nothing is ever chosen.
 
   P9:
     title: Phase 1 needs everyone, not a majority
@@ -132,18 +132,18 @@ misconceptions:
       unreachable.
 
   P10:
-    title: An acceptor votes at most once, ever
+    title: An acceptor accepts at most once, ever
     belief: >-
-      Once an acceptor has voted for a value, it is committed and will not vote
+      Once an acceptor has accepted a value, it is committed and will not accept
       again.
     correct: >-
-      An acceptor may vote repeatedly, in increasing ballots, and may vote for
+      An acceptor may accept repeatedly, in increasing ballots, and may accept
       different values over time.
     whyItMatters: >-
       Safety does not come from acceptors being stubborn. It comes from the
       rule that forces each later proposer to carry forward whatever might
-      already have been agreed. Acceptors are free to change their vote precisely
-      because proposers are not free to change the value.
+      already have been agreed. Acceptors can change their mind because proposers
+      cannot change the value.
 
   P11:
     title: Ballots must be used in order, with no gaps
@@ -164,12 +164,12 @@ theories:
   T1:
     title: Nothing is settled until it is chosen
     belief: >-
-      Until a majority has actually voted for something in one ballot, the
+      Until a majority has actually accepted something in one ballot, the
       outcome is still open and either value could win.
     correct: >-
       The outcome can be sealed long before it is chosen, and long before anyone
-      could observe that it is. Once every majority a future proposer might
-      gather would report the same value as its highest vote, every future
+      could see that it is. Once every majority a future proposer might
+      gather would report the same value as its highest acceptance, every future
       proposer is forced to propose that value - so no other value can ever be
       chosen, whatever happens next.
     whyItMatters: >-
@@ -180,28 +180,28 @@ theories:
       is a mathematical consequence of the state, not an event anyone witnesses.
 
   T2:
-    title: Whoever has the highest vote wins
+    title: Whoever accepted most recently wins
     belief: >-
-      The value attached to the highest ballot anyone has voted in is the one
+      The value attached to the highest ballot anyone has accepted in is the one
       that will be chosen; everything else is out of the running.
     correct: >-
-      A single high vote settles nothing on its own. What matters is whether
+      A single high acceptance settles nothing on its own. What matters is whether
       EVERY majority that could still form would be forced to report that value.
-      One acceptor with a high vote can be outvoted by a majority that has never
+      One acceptor with a high acceptance can be overtaken by a majority that has never
       heard of it.
     whyItMatters: >-
       This is the right instinct about recency attached to the wrong unit. Paxos
-      reasons about majorities precisely because any two of them overlap; an
-      individual acceptor, however recent its vote, carries no such guarantee.
+      reasons about majorities because any two of them overlap; an
+      individual acceptor, however recent its acceptance, carries no such guarantee.
 
   T3:
-    title: The first vote locks it in
+    title: The first acceptance locks it in
     belief: >-
-      As soon as any acceptor has voted for a value, that value is the one that
+      As soon as any acceptor has accepted a value, that value is the one that
       will be chosen.
     correct: >-
-      One vote is evidence, not a commitment. A later ballot can gather a
-      majority that does not include that acceptor, hear nothing about its vote,
+      One acceptance is evidence, not a commitment. A later ballot can gather a
+      majority that does not include that acceptor, hear nothing about its acceptance,
       and go on to choose something else entirely.
     whyItMatters: >-
       Treating a single acceptor as authoritative is the same error as treating
@@ -213,14 +213,14 @@ definitions:
   D1:
     title: Chosen means a majority accepted it at some point
     belief: >-
-      If a majority of acceptors have each voted for a value at some point, then
-      it is chosen - it does not matter which ballot each of them was voting in.
+      If a majority of acceptors have each accepted a value at some point, then
+      it is chosen - it does not matter which ballot each of them was accepting in.
     correct: >-
-      The quorum must have voted for v in the SAME ballot. Votes for v scattered
+      The majority must have accepted it in the SAME ballot. Acceptances scattered
       across different ballots do not add up to a decision.
     whyItMatters: >-
       This is the most important confusion in the whole protocol and the hardest
-      to shake. Votes from different ballots are not comparable: between them,
+      to shake. Acceptances from different ballots are not comparable: between them,
       other values may have been proposed and accepted, so the scattered majority
       never existed at any single moment.
 
@@ -228,7 +228,7 @@ definitions:
     title: Chosen means proposed
     belief: A value is chosen once a proposer has proposed it.
     correct: >-
-      Proposing is a request. A value is chosen only when a quorum has voted for
+      Proposing is a request. A value is chosen only when a majority has accepted
       it in one ballot.
     whyItMatters: >-
       A proposal can be ignored entirely - by a quorum that has promised a higher
@@ -236,10 +236,10 @@ definitions:
 
   D3:
     title: Chosen means accepted by anyone
-    belief: A value is chosen as soon as some acceptor has voted for it.
-    correct: A quorum must vote for it, in the same ballot.
+    belief: A value is chosen as soon as some acceptor has accepted it.
+    correct: A majority must accept it, in the same ballot.
     whyItMatters: >-
-      A single vote can be left behind by a later ballot. One acceptor's vote is
+      A single acceptance can be left behind by a later ballot. One acceptor's acceptance is
       evidence, not a decision.
 
   D4:
@@ -249,9 +249,9 @@ definitions:
       accepted value, v is chosen.
     correct: >-
       Chosen is a property of the message history, not of the current state. The
-      quorum must have voted for v in one ballot, which the current snapshot may
+      majority must have accepted it in one ballot, which the current snapshot may
       no longer show.
     whyItMatters: >-
       This one is seductive because the state table is right in front of you. But
-      acceptors overwrite their last vote, so the present snapshot can both hide
-      a value that was chosen and display a majority that never voted together.
+      acceptors overwrite their last acceptance, so the present snapshot can both hide
+      a value that was chosen and display a majority that never accepted together.
