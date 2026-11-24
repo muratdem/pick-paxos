@@ -260,6 +260,12 @@ function QuestionView({
           : question.kind === 'chosen'
             ? 'Which of these has been chosen? It may be one, both, or neither.'
             : 'Which of these steps does Paxos allow? It may be one, both, or neither.'}
+        {question.contrast === 'effect' && (
+          <span className="hint">
+            Both options are the <strong>same action</strong> by the same acceptor — they differ
+            only in what it does. Look at what each one records and announces.
+          </span>
+        )}
       </p>
 
       <div className="cards">

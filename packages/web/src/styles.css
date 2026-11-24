@@ -239,3 +239,8 @@ kbd {
 .panel em { color: var(--muted); font-style: normal; font-weight: 600; }
 .note { color: var(--muted); font-size: 13px !important; font-style: italic; }
 .receipt { font-size: 13px !important; color: var(--muted); border-top: 1px solid var(--line); padding-top: 9px; }
+
+.hint {
+  display: block; margin-top: 6px; font-size: 13.5px; color: var(--muted);
+  border-left: 3px solid var(--accent); padding-left: 10px;
+}

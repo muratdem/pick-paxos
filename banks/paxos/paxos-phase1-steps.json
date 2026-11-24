@@ -426,10 +426,11 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 1's promised ballot to 1, and this step leaves it at 0 — so Acceptor 1 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "distance": 1,
+   "contrast": "effect",
    "answer": {
     "C": [
      true,
@@ -657,7 +658,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 2's promised ballot to 2, and this step leaves it unset — so Acceptor 2 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "b": {
@@ -733,6 +734,7 @@
     }
    },
    "distance": 2,
+   "contrast": "action",
    "answer": {
     "C": [
      false,
@@ -1170,10 +1172,11 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: the promise must report Acceptor 3's last vote — Alice in ballot 0 — and this one reports that it has never voted. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      true,
@@ -1401,7 +1404,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 1's promised ballot to 0, and this step leaves it unset — so Acceptor 1 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "b": {
@@ -1477,6 +1480,7 @@
     }
    },
    "distance": 2,
+   "contrast": "action",
    "answer": {
     "C": [
      false,
@@ -1762,7 +1766,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 1's promised ballot to 2, and this step leaves it unset — so Acceptor 1 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "b": {
@@ -1918,6 +1922,7 @@
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      false,
@@ -2203,7 +2208,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 3's promised ballot to 1, and this step leaves it unset — so Acceptor 3 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "b": {
@@ -2359,6 +2364,7 @@
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      false,
@@ -2644,7 +2650,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: the promise must report Acceptor 1's last vote — Bob in ballot 1 — and this one reports that it has never voted. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "b": {
@@ -2800,6 +2806,7 @@
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      false,
@@ -3041,7 +3048,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 2's promised ballot to 2, and this step leaves it unset — so Acceptor 2 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "b": {
@@ -3131,6 +3138,7 @@
     }
    },
    "distance": 2,
+   "contrast": "action",
    "answer": {
     "C": [
      false,
@@ -3568,10 +3576,11 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 2's promised ballot to 2, and this step leaves it unset — so Acceptor 2 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      true,
@@ -3799,7 +3808,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 3's promised ballot to 1, and this step leaves it unset — so Acceptor 3 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "b": {
@@ -3897,6 +3906,7 @@
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      false,
@@ -4339,10 +4349,11 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: the promise must report Acceptor 3's last vote — Alice in ballot 0 — and this one reports that it has never voted. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      true,
@@ -4680,10 +4691,11 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 3's promised ballot to 0, and this step leaves it unset — so Acceptor 3 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      true,
@@ -4908,7 +4920,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 1's promised ballot to 1, and this step leaves it unset — so Acceptor 1 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "b": {
@@ -5014,6 +5026,7 @@
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      false,
@@ -5287,6 +5300,7 @@
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      false,
@@ -5486,6 +5500,7 @@
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      true,
@@ -5731,6 +5746,7 @@
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      true,
@@ -6004,6 +6020,7 @@
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      true,
@@ -6277,6 +6294,7 @@
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      true,
@@ -6566,6 +6584,7 @@
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      true,
@@ -6852,7 +6871,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: the promise must report Acceptor 3's last vote — Alice in ballot 0 — and this one reports that it has never voted. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "b": {
@@ -7069,10 +7088,11 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 2's promised ballot to 1, and this step leaves it unset — so Acceptor 2 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      false,
@@ -7322,7 +7342,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 1's promised ballot to 2, and this step leaves it unset — so Acceptor 1 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "b": {
@@ -7491,10 +7511,11 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 3's promised ballot to 2, and this step leaves it at 1 — so Acceptor 3 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      false,
@@ -7727,7 +7748,7 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 2's promised ballot to 2, and this step leaves it unset — so Acceptor 2 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "b": {
@@ -7890,10 +7911,11 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 2's promised ballot to 0, and this step leaves it unset — so Acceptor 2 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      false,
@@ -8244,10 +8266,11 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 1's promised ballot to 2, and this step leaves it unset — so Acceptor 1 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      false,
@@ -8598,10 +8621,11 @@
        "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+     "text": "Paxos does not allow this step as shown: promising must raise Acceptor 3's promised ballot to 0, and this step leaves it unset — so Acceptor 3 has not actually committed to anything and could still go on to accept an older ballot, which is the one thing a promise is supposed to rule out. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
     }
    },
    "distance": 1,
+   "contrast": "params",
    "answer": {
     "C": [
      false,

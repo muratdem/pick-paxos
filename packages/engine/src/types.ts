@@ -131,6 +131,11 @@ export interface Question {
   a: Scenario;
   b?: Scenario;
   distance: 1 | 2;
+  /** What the two options differ in. `effect` means the SAME action with the
+   *  same parameters, landing in different states — the two cards then carry
+   *  identical titles and the reader needs telling that the difference is in
+   *  what the action does, not in which action it is. */
+  contrast?: 'effect' | 'params' | 'action';
   /** Per config: the pair membership [inA, inB], or a kind-specific answer. */
   answer: Record<string, AnswerValue>;
   /** Config pairs this question separates, as "C|P3" strings. */

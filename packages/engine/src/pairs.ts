@@ -99,6 +99,7 @@ export interface PairCand<S> {
   a: StepCand<S>;
   b: StepCand<S>;
   distance: 1 | 2;
+  contrast: 'effect' | 'params' | 'action';
   type: PairType;
   /** config pairs separated, as "X|Y" */
   targets: string[];
@@ -170,10 +171,14 @@ export function buildPairs<S>(
       const bc = b.membership[correct];
       const type: PairType = ac && bc ? 'both' : !ac && !bc ? 'neither' : 'one';
 
+      const sameParams = Object.keys(a.params).every(
+        (k) => stableStringify(a.params[k]) === stableStringify(b.params[k]),
+      );
       out.push({
         a,
         b,
         distance: d as 1 | 2,
+        contrast: a.action !== b.action ? 'action' : sameParams ? 'effect' : 'params',
         type,
         targets,
         misconceptions,

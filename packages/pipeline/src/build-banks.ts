@@ -33,9 +33,12 @@ import {
   MUTANTS,
   PHASE1_MUTANTS,
   PHASE2_MUTANTS,
+  accName,
   defaultConstants,
   flagsFor,
+  msgKey,
   paxos,
+  type Msg,
   type PaxosState,
 } from '@dyp/models';
 import { buildAnchoredBank } from './anchored.js';
@@ -81,6 +84,70 @@ const msgCount = (s: PaxosState) => s.msgs.length;
 
 /* ---- justification ---------------------------------------------------- */
 
+const ballotWord = (b: number) => (b < 0 ? 'nothing' : `ballot ${b}`);
+const voteWord = (s: PaxosState, a: number) =>
+  s.maxVBal[a] < 0 ? 'no vote at all' : `${s.maxVal[a]} in ballot ${s.maxVBal[a]}`;
+const reportWord = (m: Msg) =>
+  m.t === '1b'
+    ? m.mbal < 0
+      ? 'that it has never voted'
+      : `its last vote, ${m.mval} in ballot ${m.mbal}`
+    : '';
+
+/** Say exactly WHICH part of the step is wrong, by diffing the state it
+ *  produces against the one Paxos would produce.
+ *
+ *  Naming the rule is not enough when a rule has two halves. A promise both
+ *  reports the acceptor's last vote AND raises its promised ballot; a step that
+ *  gets the second half wrong was being explained with a paragraph covering
+ *  both, leaving the reader to work out which one broke. The correct successor
+ *  is right there at build time, so the difference can simply be stated.
+ */
+function describeEffectDifference(step: StepCand<PaxosState>): string[] {
+  const correct = CM.actions.find((a) => a.name === step.action)!.effect(step.pre, step.params);
+  const shown = step.post;
+  const out: string[] = [];
+
+  for (let a = 0; a < shown.maxBal.length; a++) {
+    if (shown.maxBal[a] !== correct.maxBal[a])
+      out.push(
+        `promising must raise ${accName(a)}'s promised ballot to ${correct.maxBal[a]}, and this ` +
+          `step leaves it ${shown.maxBal[a] < 0 ? 'unset' : `at ${shown.maxBal[a]}`} — so ` +
+          `${accName(a)} has not actually committed to anything and could still go on to accept ` +
+          `an older ballot, which is the one thing a promise is supposed to rule out`,
+      );
+    if (shown.maxVBal[a] !== correct.maxVBal[a] || shown.maxVal[a] !== correct.maxVal[a])
+      out.push(
+        `it must record ${accName(a)}'s last vote as ${voteWord(correct, a)}, ` +
+          `but this step records ${voteWord(shown, a)}`,
+      );
+  }
+
+  const shownKeys = new Set(shown.msgs.map(msgKey));
+  const correctKeys = new Set(correct.msgs.map(msgKey));
+  const missing = correct.msgs.filter((m) => !shownKeys.has(msgKey(m)));
+  const extra = shown.msgs.filter((m) => !correctKeys.has(msgKey(m)));
+
+  for (const want of missing) {
+    // A message of the same kind that was sent instead is a changed message,
+    // not a missing one plus a spurious one.
+    const instead = extra.find((m) => m.t === want.t);
+    if (instead && want.t === '1b' && instead.t === '1b') {
+      out.push(
+        `the promise must report ${accName(want.acc)}'s last vote — ${reportWord(want).replace(/^its last vote, /, '')} ` +
+          `— and this one reports ${reportWord(instead)}`,
+      );
+      extra.splice(extra.indexOf(instead), 1);
+    } else if (!instead) {
+      out.push(`it must announce something it does not announce here`);
+    }
+  }
+  for (const spurious of extra)
+    out.push(`it announces a ${spurious.t} message that Paxos would not send`);
+
+  return out;
+}
+
 function justify(step: StepCand<PaxosState>): Justification {
   const action = CM.actions.find((a) => a.name === step.action)!;
 
@@ -90,6 +157,24 @@ function justify(step: StepCand<PaxosState>): Justification {
     const refs = id.endsWith('.effect')
       ? CM.view.displayed(step.pre).filter((r) => r.kind !== 'param')
       : (action.guard.find((c) => c.id === id)?.reads(step.pre, step.params) ?? []);
+
+    if (id.endsWith('.effect')) {
+      const diffs = describeEffectDifference(step);
+      const what =
+        diffs.length === 0
+          ? 'the state it leaves behind is not the one Paxos would produce'
+          : diffs.length === 1
+            ? diffs[0]
+            : `${diffs.slice(0, -1).join('; ')}; and ${diffs[diffs.length - 1]}`;
+      return {
+        verdict: 'illegal',
+        conjunct: id,
+        refs,
+        // Lead with the concrete difference; the rule follows as the reason.
+        text: `Paxos does not allow this step as shown: ${what}. ${rule.text}`,
+      };
+    }
+
     return {
       verdict: 'illegal',
       conjunct: id,
@@ -351,6 +436,7 @@ for (const spec of STEP_LEVELS) {
       a: scenarioOf(x),
       b: scenarioOf(y),
       distance: p.distance,
+      contrast: p.contrast,
       answer,
       targets: p.targets,
       misconceptions: p.misconceptions,
