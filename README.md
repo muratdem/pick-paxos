@@ -53,7 +53,15 @@ reachable states**.
 | Phase 2 — proposing and accepting | 51 | 31/10/10 | 23 | P1, P2, P3, P4, P7, P8, P9, P10 |
 | Is it already decided? | 68 | 32/36/0 | — | T1, T2, T3 |
 
-Each level shows 14 questions, drawn adaptively from its bank.
+Each level shows 14 questions, drawn adaptively from its bank. Selection is seeded per
+browser and remembers what you were asked before, so two people get different sequences
+and a retry draws fresh questions.
+
+A misconception is named only if the posterior is high **and** the answers are coherent
+with it — matching that candidate's predictions on the questions where it agrees with
+Paxos, not only where it disagrees. Without that gate, answering at random produced a
+confident diagnosis 26% of the time. It is now 1-2%, and a low score that fits no single
+misconception is reported as exactly that, which is PICK's zero-candidate outcome.
 
 Every targeted misconception is identified in **93–100%** of simulated runs, with
 off-diagonal confusion at or below 2% except for the P1/P2 pair noted below. No

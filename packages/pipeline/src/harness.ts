@@ -15,9 +15,11 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import {
   EPSILON,
+  FIT_FLOOR,
   PRIOR,
   Rng,
   clusterReport,
+  fitOf,
   membershipAnswer,
   recompute,
   recomputeCategorical,
@@ -87,6 +89,8 @@ interface SessionResult {
   correctAnswers: number;
   total: number;
   p: Record<string, number>;
+  /** misconceptions the results screen would actually name */
+  named: string[];
 }
 
 function runSession(bank: Bank, learner: Learner, seed: number): SessionResult {
@@ -98,9 +102,14 @@ function runSession(bank: Bank, learner: Learner, seed: number): SessionResult {
   let correct = 0;
 
   for (let n = 0; n < MAX_QUESTIONS; n++) {
+    /* Each simulated session gets its own selection seed, exactly as a real
+     * browser does. Without it every session for a given believer walked the
+     * same path through the bank, so the harness was verifying one sequence
+     * rather than the bank. */
+    const variation = { rng: new Rng(seed * 7919 + n) };
     const q = bank.exclusive
-      ? selectNextExclusive(bank.questions, asked, p, bank.configs)
-      : selectNext(bank.questions, asked, p);
+      ? selectNextExclusive(bank.questions, asked, p, bank.configs, variation)
+      : selectNext(bank.questions, asked, p, variation);
     if (!q) break;
     const ans = learner(q, rng);
     if (ans === membershipAnswer(pairOf(q, 'C'))) correct++;
@@ -115,12 +124,15 @@ function runSession(bank: Bank, learner: Learner, seed: number): SessionResult {
      * would end the session before it ever had to choose between them. */
     if (
       bank.exclusive
-        ? Math.max(...bank.configs.map((c) => p[c] ?? 0)) > 0.95
+        ? asked.size >= 12 && Math.max(...bank.configs.map((c) => p[c] ?? 0)) > 0.95
         : misconceptions.every((m) => p[m] < 0.1 || p[m] > 0.9)
     )
       break;
   }
-  return { correctAnswers: correct, total: answers.length, p };
+  const named = misconceptions.filter(
+    (m) => verdict(p[m]) === 'likely' && fitOf(bank.questions, answers, m) >= FIT_FLOOR,
+  );
+  return { correctAnswers: correct, total: answers.length, p, named };
 }
 
 /* ---- report ------------------------------------------------------------ */
@@ -181,7 +193,7 @@ for (const bank of loadBanks()) {
     let clean = 0;
     for (let s = 0; s < SEEDS; s++) {
       const r = runSession(bank, believer('C', EPSILON), 7000 + s);
-      if (misconceptions.every((m) => verdict(r.p[m]) !== 'likely')) clean++;
+      if (r.named.length === 0) clean++;
     }
     const pct = (100 * clean) / SEEDS;
     const bad = pct < 85;
@@ -189,6 +201,26 @@ for (const bank of loadBanks()) {
     console.log(
       `\n  learner with NO misconceptions reported clean: ${pct.toFixed(0)}%` +
         `${bad ? '   <-- FALSE POSITIVES' : ''}`,
+    );
+  }
+
+  /* A learner answering at random must not be handed a confident diagnosis.
+   * Before the coherence gate this was the single worst failure mode: random
+   * answers drift onto a mutant's side often enough to cross the posterior
+   * threshold, and the results screen named a specific misconception. */
+  {
+    let diagnosed = 0;
+    for (let s = 0; s < SEEDS; s++) {
+      const rng = new Rng(5000 + s);
+      const r = runSession(bank, (_q) => rng.pick(['A', 'B', 'both', 'neither'] as Answer[]), 5000 + s);
+      if (r.named.length > 0) diagnosed++;
+    }
+    const pct = (100 * diagnosed) / SEEDS;
+    const bad = pct > 15;
+    if (bad) failures++;
+    console.log(
+      `  random guesser handed a confident diagnosis: ${pct.toFixed(0)}%` +
+        `${bad ? '   <-- FALSE DIAGNOSES' : ''}`,
     );
   }
 
@@ -203,8 +235,8 @@ for (const bank of loadBanks()) {
     let identified = 0;
     for (let s = 0; s < SEEDS; s++) {
       const r = runSession(bank, believer(truth, EPSILON), 2000 + s);
-      for (const m of misconceptions) if (verdict(r.p[m]) === 'likely') hits[m]++;
-      if (verdict(r.p[truth]) === 'likely') identified++;
+      for (const m of r.named) hits[m]++;
+      if (r.named.includes(truth)) identified++;
     }
     confusion[truth] = Object.fromEntries(misconceptions.map((m) => [m, hits[m] / SEEDS]));
     const row = misconceptions

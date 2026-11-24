@@ -9,6 +9,7 @@
  *  individually (see `clusterReport`).
  */
 
+import { Rng } from './rng.js';
 import type { Question } from './types.js';
 
 export type Answer = 'A' | 'B' | 'both' | 'neither' | 'unsure';
@@ -140,6 +141,39 @@ export function recomputeCategorical(
   return out;
 }
 
+/** How well the learner's answers match a candidate's predictions ACROSS ALL
+ *  answered questions, including the ones where that candidate agrees with
+ *  Paxos.
+ *
+ *  The Bayes update only looks at questions where a mutant disagrees with the
+ *  truth, which is correct for weighing evidence but blind to incoherence:
+ *  someone answering at random drifts onto a mutant's side often enough to push
+ *  its posterior over the threshold, and gets told confidently that they hold a
+ *  specific misconception. Someone who genuinely follows mutant i also matches
+ *  it where it agrees with Paxos; a guesser does not. Measured here: a true
+ *  believer scores about 0.8 at the configured noise, a uniform guesser 0.25.
+ */
+export function fitOf(
+  questions: Question[],
+  answers: AnswerRecord[],
+  config: string,
+): number {
+  const byId = new Map(questions.map((q) => [q.id, q]));
+  let match = 0;
+  let total = 0;
+  for (const rec of answers) {
+    if (rec.answer === 'unsure') continue;
+    const q = byId.get(rec.questionId);
+    if (!q || !q.answer[config]) continue;
+    total++;
+    if (rec.answer === membershipAnswer(q.answer[config] as [boolean, boolean])) match++;
+  }
+  return total === 0 ? 1 : match / total;
+}
+
+/** Minimum coherence before a misconception may be named. */
+export const FIT_FLOOR = 0.6;
+
 export type Verdict = 'likely' | 'not-detected' | 'unclear';
 
 export function verdict(pi: number): Verdict {
@@ -148,6 +182,27 @@ export function verdict(pi: number): Verdict {
   return 'unclear';
 }
 
+/** Variation across runs.
+ *
+ *  Selection is otherwise fully determined by the bank and the answers so far,
+ *  which means every learner sees the same first question and two learners who
+ *  answer alike see identical sequences. The banks hold far more questions
+ *  than any one run shows, so without this most of the material is unreachable.
+ *
+ *  `rng` jitters the score enough to reorder comparably-good questions without
+ *  overriding the adaptive focus; `seen` holds questions from the learner's
+ *  previous runs at this level, which get pushed down so a retry is fresh. */
+export interface SelectVariation {
+  rng?: Rng;
+  seen?: Set<string>;
+}
+
+const JITTER = 2.5;
+const REPEAT_PENALTY = 6;
+
+const vary = (q: Question, v: SelectVariation | undefined, jitter: number) =>
+  (v?.rng ? v.rng.next() * jitter : 0) - (v?.seen?.has(q.id) ? REPEAT_PENALTY : 0);
+
 /** Pick the next question: the misconception with the highest uncertainty that
  *  still has unused questions, then an under-represented pair type, then
  *  distance 1, then smaller size (§7.3). */
@@ -155,6 +210,7 @@ export function selectNext(
   questions: Question[],
   asked: Set<string>,
   p: Record<string, number>,
+  variation?: SelectVariation,
 ): Question | null {
   const pool = questions.filter((q) => !asked.has(q.id));
   if (pool.length === 0) return null;
@@ -180,7 +236,9 @@ export function selectNext(
       99,
     );
     const deficit = want[q.type] - seenTypes[q.type] / totalAsked;
-    const score = -focusRank * 3 + deficit * 5 - (q.distance - 1) * 1.5 - q.size * 0.2;
+    const score =
+      -focusRank * 3 + deficit * 5 - (q.distance - 1) * 1.5 - q.size * 0.2 +
+      vary(q, variation, JITTER);
     if (score > bestScore) {
       bestScore = score;
       best = q;
@@ -200,6 +258,7 @@ export function selectNextExclusive(
   asked: Set<string>,
   p: Record<string, number>,
   configs: string[],
+  variation?: SelectVariation,
 ): Question | null {
   const pool = questions.filter((q) => !asked.has(q.id));
   if (pool.length === 0) return null;
@@ -236,7 +295,9 @@ export function selectNextExclusive(
           massSplit += Math.min(p[configs[i]] ?? 0, p[configs[j]] ?? 0);
 
     const deficit = want[q.type] - seenTypes[q.type] / totalAsked;
-    const score = splitsTop * 10 + massSplit * 8 + deficit * 3 - q.size * 0.1;
+    const score =
+      splitsTop * 10 + massSplit * 8 + deficit * 3 - q.size * 0.1 +
+      vary(q, variation, JITTER * 0.8);
     if (score > bestScore) {
       bestScore = score;
       best = q;

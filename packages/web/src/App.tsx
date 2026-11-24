@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
+  FIT_FLOOR,
+  Rng,
   answerMembership,
+  fitOf,
   membershipAnswer,
   recompute,
   recomputeCategorical,
@@ -31,17 +34,24 @@ interface Content {
 
 interface Progress {
   answers: Record<string, AnswerRecord[]>;
+  /** Questions asked in PREVIOUS runs, per level, so a retry is fresh. */
+  seen: Record<string, string[]>;
+  /** Per-browser seed, so two people do not get an identical sequence. */
+  seed: number;
 }
 
-const EMPTY: Progress = { answers: {} };
-const KEY = 'dyp:v2:progress';
+const newSeed = () => Math.floor(Math.random() * 2 ** 31);
+const EMPTY: Progress = { answers: {}, seen: {}, seed: 0 };
+const KEY = 'dyp:v3:progress';
 
 function load(): Progress {
   try {
     const raw = localStorage.getItem(KEY);
-    return raw ? { ...EMPTY, ...(JSON.parse(raw) as Progress) } : EMPTY;
+    const p = raw ? { ...EMPTY, ...(JSON.parse(raw) as Progress) } : { ...EMPTY };
+    if (!p.seed) p.seed = newSeed();
+    return p;
   } catch {
-    return EMPTY;
+    return { ...EMPTY, seed: newSeed() };
   }
 }
 function save(p: Progress) {
@@ -345,7 +355,12 @@ function Results({
     if (a.answer === membershipAnswer(q.answer['C'] as [boolean, boolean])) right++;
   }
 
-  const likely = misconceptions.filter((m) => verdict(p[m]) === 'likely');
+  /* A misconception is named only if the posterior is high AND the answers are
+   * actually coherent with it. Without the second test, random answering
+   * reliably produces a confident diagnosis. */
+  const likely = misconceptions.filter(
+    (m) => verdict(p[m]) === 'likely' && fitOf(bank.questions, answers, m) >= FIT_FLOOR,
+  );
 
   const receiptFor = (m: string) => {
     let best: { q: Question; a: AnswerRecord } | null = null;
@@ -373,18 +388,40 @@ function Results({
     <div className="results">
       <h2>{bank.title} — results</h2>
       <p className="score">
-        You answered <strong>{right}</strong> of <strong>{scored}</strong> questions the way Paxos
-        does.
+        You got <strong>{right}</strong> right and <strong>{scored - right}</strong> wrong, out of{' '}
+        {scored} answered.
       </p>
 
       {likely.length === 0 ? (
-        <div className="panel clean">
-          <h3>Nothing to flag.</h3>
-          <p>
-            Your answers match the protocol on every rule this level tests. That is a result the
-            level is built to be able to give, not a default it falls back to.
-          </p>
-        </div>
+        /* Two very different situations end up here, and conflating them was a
+         * bug: telling someone "your answers match the protocol" after they got
+         * half of them wrong is simply false. Scoring badly without matching any
+         * single misconception is PICK's zero-candidate outcome, and the paper
+         * treats it as informative rather than as a failure - it means either
+         * you were guessing or you hold something that is not in our list. */
+        right >= Math.ceil(scored * 0.75) ? (
+          <div className="panel clean">
+            <h3>Nothing to flag.</h3>
+            <p>
+              Your answers match the protocol on every rule this level tests. That is a result the
+              level is built to be able to give, not a default it falls back to.
+            </p>
+          </div>
+        ) : (
+          <div className="panel unclear">
+            <h3>No single misconception fits.</h3>
+            <p>
+              You got {scored - right} of these wrong, but the wrong answers do not line up with
+              any one of the misunderstandings this level knows how to recognise.
+            </p>
+            <p>
+              That usually means one of two things. Either you were unsure and guessing, in which
+              case the explanations under each question are the thing to read. Or you are carrying
+              a misunderstanding that is not in our list, which is more interesting and which we
+              would like to hear about.
+            </p>
+          </div>
+        )
       ) : (
         likely.map((m) => {
           const info = content.misconceptions[content.members[m]?.[0] ?? m];
@@ -432,7 +469,7 @@ function Results({
       )}
 
       <div className="row">
-        <button onClick={onRestart}>Try this level again</button>
+        <button onClick={onRestart}>Try again with different questions</button>
         <button className="ghost" onClick={onHome}>
           Back to the menu
         </button>
@@ -491,13 +528,23 @@ export default function App() {
     const p = bank.exclusive
       ? recomputeCategorical(bank.questions, history, bank.configs)
       : recompute(bank.questions, history, misconceptions);
+
+    /* Seeded from (browser, level, how far in) so the choice is stable across
+     * re-renders but differs between people and between runs. */
+    let h = progress.seed >>> 0;
+    for (const ch of `${active}:${asked.size}`) h = (Math.imul(h, 31) + ch.charCodeAt(0)) >>> 0;
+    const variation = { rng: new Rng(h), seen: new Set(progress.seen[active!] ?? []) };
+
     if (bank.exclusive) {
-      if (asked.size >= 8 && Math.max(...bank.configs.map((c) => p[c] ?? 0)) > 0.97) return null;
-      return selectNextExclusive(bank.questions, asked, p, bank.configs);
+      /* Stop late, not early. `fitOf` is the check that keeps a guesser from
+       * being handed a confident diagnosis, and over eight answers it is too
+       * noisy to tell a guesser from a believer. */
+      if (asked.size >= 12 && Math.max(...bank.configs.map((c) => p[c] ?? 0)) > 0.97) return null;
+      return selectNextExclusive(bank.questions, asked, p, bank.configs, variation);
     }
     if (asked.size >= 8 && misconceptions.every((m) => p[m] < 0.05 || p[m] > 0.95)) return null;
-    return selectNext(bank.questions, asked, p);
-  }, [bank, history]);
+    return selectNext(bank.questions, asked, p, variation);
+  }, [bank, history, progress.seed, progress.seen, active]);
 
   if (err)
     return (
@@ -524,7 +571,7 @@ export default function App() {
       <main className="shell">
         <header className="top">
           <h1>Do You Paxos?</h1>
-          <button className="ghost small" onClick={() => update(() => EMPTY)}>
+          <button className="ghost small" onClick={() => update(() => ({ ...EMPTY, seed: newSeed() }))}>
             Reset progress
           </button>
         </header>
@@ -549,7 +596,7 @@ export default function App() {
                       ? 'finished — results available'
                       : done > 0
                         ? `in progress — ${done} of ${MAX_PER_LEVEL} answered`
-                        : `${MAX_PER_LEVEL} questions`}
+                        : `${MAX_PER_LEVEL} questions, drawn from ${b.questions.length}`}
                   </span>
                 </button>
               </li>
@@ -593,7 +640,22 @@ export default function App() {
           bank={bank!}
           content={content}
           answers={history}
-          onRestart={() => update((p) => ({ ...p, answers: { ...p.answers, [active]: [] } }))}
+          onRestart={() =>
+            update((p) => ({
+              ...p,
+              // Remember what was asked so the next run draws different questions.
+              seen: {
+                ...p.seen,
+                [active]: [
+                  ...new Set([
+                    ...(p.seen[active] ?? []),
+                    ...(p.answers[active] ?? []).map((a) => a.questionId),
+                  ]),
+                ],
+              },
+              answers: { ...p.answers, [active]: [] },
+            }))
+          }
           onHome={() => setActive(null)}
         />
       )}

@@ -244,3 +244,4 @@ kbd {
   display: block; margin-top: 6px; font-size: 13.5px; color: var(--muted);
   border-left: 3px solid var(--accent); padding-left: 10px;
 }
+.panel.unclear { border-left-color: var(--new); }
