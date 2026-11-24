@@ -144,6 +144,22 @@ for (const bank of loadBanks()) {
    * single trajectory, not an average, and swings by 1/n between rebuilds.
    * "What fraction of this bank would this strategy get right?" is a stable
    * property of the artifact and is what we actually want to bound. */
+  /* A baseline is only a cheat if it is content-free. On the anchored level
+   * "always say both" is not a cheat at all: it is exactly what a learner who
+   * believes nothing is settled until it is chosen would answer, that is a
+   * real modelled misconception, and the level diagnoses it correctly. Scoring
+   * it as an exploit would mean deleting the questions that test the single
+   * most important idea in the protocol. So: a baseline that answers
+   * identically to one of the modelled candidates is reported as coinciding
+   * with it, not as beating the bank. */
+  const profile = (ans: (q: Question) => Answer) =>
+    bank.questions.map((q) => ans(q)).join(',');
+  const believerProfiles = new Map<string, string>();
+  for (const c of bank.configs) {
+    const rng0 = new Rng(1);
+    believerProfiles.set(profile((q) => believer(c, 0)(q, rng0)), c);
+  }
+
   console.log('\n  baseline accuracy over the whole bank (must stay near chance, <=40%)');
   for (const [name, l] of Object.entries(BASELINES)) {
     const rng = new Rng(99);
@@ -151,9 +167,13 @@ for (const bank of loadBanks()) {
     for (const q of bank.questions)
       if (l(q, rng) === membershipAnswer(pairOf(q, 'C'))) acc++;
     const pct = (100 * acc) / bank.questions.length;
-    const bad = pct > 40;
+    const coincides = believerProfiles.get(profile((q) => l(q, new Rng(99))));
+    const bad = pct > 40 && !coincides;
     if (bad) failures++;
-    console.log(`    ${name.padEnd(20)} ${pct.toFixed(1).padStart(5)}%  ${bad ? '  <-- BEATS CHANCE' : ''}`);
+    console.log(
+      `    ${name.padEnd(20)} ${pct.toFixed(1).padStart(5)}%  ` +
+        (bad ? '  <-- BEATS CHANCE' : coincides ? `  (is exactly believer ${coincides})` : ''),
+    );
   }
 
   /* an honest learner must come out clean */

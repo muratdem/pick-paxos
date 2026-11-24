@@ -158,6 +158,56 @@ misconceptions:
       There is no coordinator handing out ballot numbers in order - if there
       were, you would already have the consensus you are trying to build.
 
+# Competing theories of what is still possible, for the anchored level.
+# A learner holds exactly one of these, so they are scored categorically.
+theories:
+  T1:
+    title: Nothing is settled until it is chosen
+    belief: >-
+      Until a majority has actually voted for something in one ballot, the
+      outcome is still open and either value could win.
+    correct: >-
+      The outcome can be sealed long before it is chosen, and long before anyone
+      could observe that it is. Once every majority a future proposer might
+      gather would report the same value as its highest vote, every future
+      proposer is forced to propose that value - so no other value can ever be
+      chosen, whatever happens next.
+    whyItMatters: >-
+      This is the single most important idea in Paxos and the one that is almost
+      never taught. Agreement does not come from acceptors noticing that a
+      decision was made. It comes from the fact that, once a value is anchored,
+      there is no run of the protocol in which anything else wins. The decision
+      is a mathematical consequence of the state, not an event anyone witnesses.
+
+  T2:
+    title: Whoever has the highest vote wins
+    belief: >-
+      The value attached to the highest ballot anyone has voted in is the one
+      that will be chosen; everything else is out of the running.
+    correct: >-
+      A single high vote settles nothing on its own. What matters is whether
+      EVERY majority that could still form would be forced to report that value.
+      One acceptor with a high vote can be outvoted by a majority that has never
+      heard of it.
+    whyItMatters: >-
+      This is the right instinct about recency attached to the wrong unit. Paxos
+      reasons about majorities precisely because any two of them overlap; an
+      individual acceptor, however recent its vote, carries no such guarantee.
+
+  T3:
+    title: The first vote locks it in
+    belief: >-
+      As soon as any acceptor has voted for a value, that value is the one that
+      will be chosen.
+    correct: >-
+      One vote is evidence, not a commitment. A later ballot can gather a
+      majority that does not include that acceptor, hear nothing about its vote,
+      and go on to choose something else entirely.
+    whyItMatters: >-
+      Treating a single acceptor as authoritative is the same error as treating
+      one promise as a quorum. The whole protocol is built on the idea that no
+      individual acceptor is ever decisive, only overlapping majorities are.
+
 # Definition-level candidates for the `chosen` level (DESIGN.md §5.4).
 definitions:
   D1:

@@ -51,7 +51,7 @@ reachable states**.
 |---|---|---|---|
 | Phase 1 — promises | 24 | 14/5/5 | P5, P6, P11 |
 | Phase 2 — proposing and accepting | 40 | 24/8/8 | P1, P2, P3, P4, P7, P8, P9, P10 |
-| What does "chosen" mean? | 38 | 24/0/14 | D1+D4, D2, D3 |
+| Is it already decided? | 34 | 16/18/0 | T1, T2, T3 |
 
 Every targeted misconception is identified in **93–100%** of simulated runs, with
 off-diagonal confusion at or below 2% except for the P1/P2 pair noted below. No
@@ -73,8 +73,13 @@ they disagree, the TypeScript is wrong.
 (adding / restricting / overlapping) and its agreement verdict are *derived* by the test
 suite and compared against the declaration in `mutants.ts`, rather than asserted by hand.
 
-**Layer 3 — the bounded answer is the real answer.** Not yet needed: no shipped level
-asks a reachability-closure question. Required before the `future` level (design §6.4).
+**Layer 3 — the bounded answer is the real answer.** The anchored level asks a
+reachability-closure question ("could this still be chosen?"), whose answer could easily
+be an artifact of how many ballots the model allows. Three guards: situations are drawn
+only from states with an entirely unused ballot in reserve; anchoring is checked to be
+monotone across every edge of the 185k-state graph, which is a property of Paxos rather
+than of the fixpoint that computed it; and a sample is re-derived by forward search with
+a *second* spare ballot, which must not change any answer.
 
 **Layer 4 — the question is answerable.** Every scenario carries a machine-generated
 justification naming the first failing guard conjunct; the build asserts that those
@@ -97,10 +102,14 @@ works, and it is the one that found most of the real bugs.
   allows every step P2 ("any reported value is safe") allows, plus more. Containment
   means evidence for P2 is equally evidence for P1. The harness detects this and the
   results screen reports them as a cluster rather than naming both.
-- **D1 and D4 are provably equivalent** on reachable Paxos states, so they are collapsed
-  into a single candidate at build time, following PICK's equivalence-collapsing step.
-  This is not a bound artifact: it is Paxos's safety theorem showing through. Once a
-  majority has voted for a value, no later ballot can break that majority up.
+- **Some candidates turn out not to be misconceptions.** "A majority currently holds
+  this value" is exactly the anchoring condition on every reachable situation the
+  anchored level can show, so the build drops it rather than reporting a correct belief
+  as an error. The same machinery collapsed D1 and D4 in the earlier `chosen` level.
+  Both follow PICK's equivalence-collapsing step, and neither is a bound artifact.
+- **"Whoever has the highest vote wins" and "the first vote locks it in" agree on 165 of
+  179 situations.** The bank reserves a floor of the 14 that separate them; without it
+  the posterior splits and a learner holding either is told nothing.
 - **P2's questions are big.** Separating it needs a quorum reporting two different values
   at two different ballots; the smallest such state carries thirteen messages. This is
   where PICK's requirement that scenarios be "small, self-contained" starts to strain.

@@ -164,7 +164,10 @@ export function selectNext(
   const seenTypes = { one: 0, both: 0, neither: 0 } as Record<string, number>;
   for (const q of questions) if (asked.has(q.id)) seenTypes[q.type]++;
   const totalAsked = asked.size || 1;
-  const want = { one: 0.6, both: 0.2, neither: 0.2 } as Record<string, number>;
+  // Target mix follows the bank's own composition; see selectNextExclusive.
+  const want = { one: 0, both: 0, neither: 0 } as Record<string, number>;
+  for (const q of questions) want[q.type]++;
+  for (const k of Object.keys(want)) want[k] /= questions.length || 1;
 
   let best: Question | null = null;
   let bestScore = -Infinity;
@@ -204,9 +207,15 @@ export function selectNextExclusive(
   const ranked = [...configs].sort((a, b) => (p[b] ?? 0) - (p[a] ?? 0));
   const top = ranked.slice(0, 2);
 
+  /* Derive the target type mix from what the bank actually contains, rather
+   * than hardcoding one. A fixed preference tuned for the step levels steers
+   * hard away from `both` questions — which on the anchored level is half the
+   * bank and precisely where the interesting misconceptions live. */
   const seenTypes: Record<string, number> = { one: 0, both: 0, neither: 0 };
   for (const q of questions) if (asked.has(q.id)) seenTypes[q.type]++;
-  const want: Record<string, number> = { one: 0.65, both: 0.1, neither: 0.25 };
+  const want: Record<string, number> = { one: 0, both: 0, neither: 0 };
+  for (const q of questions) want[q.type]++;
+  for (const k of Object.keys(want)) want[k] /= questions.length || 1;
   const totalAsked = asked.size || 1;
 
   let best: Question | null = null;

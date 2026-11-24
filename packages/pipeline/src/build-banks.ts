@@ -38,6 +38,7 @@ import {
   paxos,
   type PaxosState,
 } from '@dyp/models';
+import { buildAnchoredBank } from './anchored.js';
 import {
   CONTENT_STATUS,
   MISCONCEPTIONS,
@@ -387,298 +388,28 @@ for (const spec of STEP_LEVELS) {
   );
 }
 
-/* ---- chosen level ------------------------------------------------------ */
-/* Definition-level candidates (§5.4). The "configs" here are competing
- * definitions of Chosen rather than protocol variants, but the pair machinery
- * and the Bayes update are identical: C0 plays the role of the correct config.
- *
- * The contrast is the same state asked about BOTH values. That always has a
- * partner, it differs in exactly one feature, and it is the form that exposes
- * D4 ("a majority currently holds v") most sharply. */
-
-let DEFS = ['C', 'D1', 'D2', 'D3', 'D4'];
-
-/* PICK collapses candidates with equivalent languages before generating
- * scenarios (paper §2.3), and the same step is needed here.
- *
- * D1 ("a majority voted for v at some point, in any ballots") and D4 ("a
- * majority currently holds v") turn out to agree on EVERY reachable Paxos
- * state. That is not an artifact of the bound: it is Paxos's safety theorem
- * showing through. For a majority to have voted for v and then be broken up,
- * some acceptor would have to vote for a different value later - and the
- * phase-2a rule makes that impossible, because any quorum promising a later
- * ballot intersects the majority that voted v and is forced to re-propose it.
- *
- * So the two are indistinguishable BY CONSTRUCTION, and no amount of question
- * generation will separate them. Reporting them as two candidates would mean
- * the results screen naming a misconception the learner may not hold. */
-function collapseEquivalentDefs(states: PaxosState[]): Map<string, string[]> {
-  const sig = new Map<string, string[]>();
-  for (const d of DEFS.filter((x) => x !== 'C')) {
-    const id = d === 'C' ? 'C0' : d;
-    let bits = '';
-    for (const s of states)
-      bits += (CM.predicates[`${id}:${K.values[0]}`](s) ? '1' : '0') +
-        (CM.predicates[`${id}:${K.values[1]}`](s) ? '1' : '0');
-    const key = hash(bits);
-    (sig.get(key) ?? sig.set(key, []).get(key)!).push(d);
-  }
-  const classes = new Map<string, string[]>();
-  for (const group of sig.values()) classes.set(group.join('+'), group);
-  return classes;
-}
-
+/* ---- the anchored level ---------------------------------------- */
+/* Replaces the old `chosen` level. Asking "has a majority voted for this
+ * inside one ballot" is bookkeeping with a nearly-always-no answer; asking
+ * "could this still end up being chosen" is the idea the protocol is built
+ * around. See packages/pipeline/src/anchored.ts. */
 {
   t = Date.now();
-  {
-    const probe = allStates.filter((s) => msgCount(s) >= 3 && msgCount(s) <= 12);
-    const classes = collapseEquivalentDefs(probe);
-    const merged = [...classes.keys()].filter((k) => k.includes('+'));
-    if (merged.length)
-      console.log(`  collapsing equivalent definitions: ${merged.join(', ')} (agree on all ${probe.length} states)`);
-    DEFS = ['C', ...classes.keys()];
-  }
-  const DEFMEMBERS: Record<string, string> = {};
-  for (const d of DEFS) DEFMEMBERS[d] = d.split('+')[0];
-
-  /* Scan EVERY reachable state, not a stratified sample. These are pure
-   * predicate evaluations and cost nothing, and the states that separate D1
-   * ("a majority voted for v at some point") from D4 ("a majority holds v
-   * right now") are genuinely rare: they need an acceptor to have voted for v
-   * and then voted again for something else. A sample of a thousand states
-   * contains almost none of them, and the level then cannot tell the two
-   * definitions apart at all. */
-  interface DefCand {
-    s: PaxosState;
-    m: Record<string, [boolean, boolean]>; // per def: [chosen x?, chosen y?]
-  }
-  const cands: DefCand[] = [];
-  const seenDef = new Set<string>();
-  for (const s of allStates) {
-    if (msgCount(s) < 3 || msgCount(s) > 12) continue;
-    const m: Record<string, [boolean, boolean]> = {};
-    for (const d of DEFS) {
-      const id = d === 'C' ? 'C0' : DEFMEMBERS[d];
-      m[d] = [CM.predicates[`${id}:${K.values[0]}`](s), CM.predicates[`${id}:${K.values[1]}`](s)];
-    }
-    // useful only if some definition disagrees with C0 on at least one value
-    if (!DEFS.some((d) => m[d][0] !== m['C'][0] || m[d][1] !== m['C'][1])) continue;
-    const rep = CM.symmetry!.orbit(s).map((x) => CM.key(x)).sort()[0];
-    if (seenDef.has(rep)) continue;
-    seenDef.add(rep);
-    cands.push({ s, m });
-  }
-  const pool = cands;
-
-  const dis = (d: string) => cands.filter((c) => c.m[d][0] !== c.m['C'][0] || c.m[d][1] !== c.m['C'][1]).length;
-  console.log(
-    `  chosen-level candidates: ${cands.length}; disagree with C0: ` +
-      `${DEFS.filter((d) => d !== 'C').map((d) => `${d}:${dis(d)}`).join(' ')}`,
-  );
-
-  const rng = new Rng(SEED + 2);
-  const byType: Record<string, DefCand[]> = { one: [], both: [], neither: [] };
-  for (const c of rng.shuffle(cands)) {
-    const [cx, cy] = c.m['C'];
-    byType[cx && cy ? 'both' : !cx && !cy ? 'neither' : 'one'].push(c);
-  }
-
-  /* No `both` quota: two values chosen at once IS an agreement violation, so a
-   * `both` pair cannot exist in a reachable state of correct Paxos. The level
-   * is structurally one/neither, which still defeats every constant answer. */
-  /* Keep `neither` well under half, or "answer neither to everything" walks
-   * the level - the harness catches this directly. */
-  const quota = { one: 24, both: 0, neither: 12 };
-  const coverage = new Map<string, number>();
-  /* As with the step levels, separating each definition from C0 is not enough:
-   * D1-D4 disagree with C0 on heavily overlapping sets of states, so without
-   * explicitly rewarding states that split two DEFINITIONS from each other the
-   * bank reports all four as likely whichever one the learner actually holds. */
-  const sepCoverage = new Map<string, number>();
-  const sepsOf = (c: DefCand) => {
-    const out: string[] = [];
-    for (let i = 0; i < DEFS.length; i++)
-      for (let j = i + 1; j < DEFS.length; j++) {
-        const [x, y] = [DEFS[i], DEFS[j]];
-        if (x === 'C' || y === 'C') continue;
-        if (c.m[x][0] !== c.m[y][0] || c.m[x][1] !== c.m[y][1]) out.push(`${x}|${y}`);
-      }
-    return out;
-  };
-  const picked: DefCand[] = [];
-
-  /* Guarantee a floor per definition before filling by score. D1+D4 disagrees
-   * with C0 on only 174 of 2165 states, and those states are large (a value
-   * voted across two ballots needs ten-plus messages), so the size penalty
-   * means pure greedy scoring leaves it with two questions and the level
-   * cannot detect it. A floor is blunt but it is the thing that makes the
-   * level able to diagnose what it claims to diagnose. */
-  const MIN_PER_DEF = 6;
-  for (const d of DEFS.filter((x) => x !== 'C')) {
-    const disagreeing = rng
-      .shuffle(cands.filter((c) => c.m[d][0] !== c.m['C'][0] || c.m[d][1] !== c.m['C'][1]))
-      .sort((a, b) => msgCount(a.s) - msgCount(b.s));
-    let n = 0;
-    for (const c of disagreeing) {
-      if (n >= MIN_PER_DEF) break;
-      if (picked.includes(c)) continue;
-      picked.push(c);
-      n++;
-      for (const x of DEFS)
-        if (x !== 'C' && (c.m[x][0] !== c.m['C'][0] || c.m[x][1] !== c.m['C'][1]))
-          coverage.set(x, (coverage.get(x) ?? 0) + 1);
-      for (const tt of sepsOf(c)) sepCoverage.set(tt, (sepCoverage.get(tt) ?? 0) + 1);
-    }
-  }
-
-  /* A second floor, over definition PAIRS. D1+D4 implies D3, so every state
-   * that is evidence FOR D1+D4 is equally evidence for D3 and can never tell
-   * them apart. The only questions that separate them are the ones where some
-   * acceptor voted for v but no majority did: there D3 says "chosen", D1+D4
-   * says "not", and the learner's answer picks a side. Without a floor on
-   * these the level reports both whichever one is held. */
-  const MIN_PER_SEP = 5;
-  const allSeps = new Set<string>();
-  for (const c of cands) for (const tt of sepsOf(c)) allSeps.add(tt);
-  for (const tt of allSeps) {
-    const having = rng
-      .shuffle(cands.filter((c) => sepsOf(c).includes(tt)))
-      .sort((a, b) => msgCount(a.s) - msgCount(b.s));
-    let n = picked.filter((c) => sepsOf(c).includes(tt)).length;
-    for (const c of having) {
-      if (n >= MIN_PER_SEP) break;
-      if (picked.includes(c)) continue;
-      const mis = DEFS.filter((d) => d !== 'C' && (c.m[d][0] !== c.m['C'][0] || c.m[d][1] !== c.m['C'][1]));
-      if (!mis.length) continue;
-      picked.push(c);
-      n++;
-      for (const x of mis) coverage.set(x, (coverage.get(x) ?? 0) + 1);
-      for (const u of sepsOf(c)) sepCoverage.set(u, (sepCoverage.get(u) ?? 0) + 1);
-    }
-  }
-
-  for (const type of ['one', 'both', 'neither'] as const) {
-    const already = picked.filter((c) => {
-      const [cx, cy] = c.m['C'];
-      return (cx && cy ? 'both' : !cx && !cy ? 'neither' : 'one') === type;
-    }).length;
-    for (let n = already; n < quota[type]; n++) {
-      let best: DefCand | null = null;
-      let bestScore = -Infinity;
-      for (const c of byType[type]) {
-        if (picked.includes(c)) continue;
-        const mis = DEFS.filter((d) => d !== 'C' && (c.m[d][0] !== c.m['C'][0] || c.m[d][1] !== c.m['C'][1]));
-        if (!mis.length) continue;
-        const novel = mis.reduce((a, d) => a + 1 / (1 + (coverage.get(d) ?? 0)), 0);
-        const sep = sepsOf(c).reduce((a, t) => a + 1 / (1 + (sepCoverage.get(t) ?? 0)), 0);
-        const score = novel * 4 + sep * 5 - msgCount(c.s) * 0.3;
-        if (score > bestScore) {
-          bestScore = score;
-          best = c;
-        }
-      }
-      if (!best) break;
-      picked.push(best);
-      for (const d of DEFS)
-        if (d !== 'C' && (best.m[d][0] !== best.m['C'][0] || best.m[d][1] !== best.m['C'][1]))
-          coverage.set(d, (coverage.get(d) ?? 0) + 1);
-      for (const t of sepsOf(best)) sepCoverage.set(t, (sepCoverage.get(t) ?? 0) + 1);
-    }
-  }
-
-  const explain = (s: PaxosState, v: string, yes: boolean): string =>
-    yes
-      ? `Yes — some majority of acceptors all voted for ${v} in the SAME ballot, which is what "chosen" means.`
-      : `No — no majority voted for ${v} within a single ballot. Votes for ${v} scattered across ` +
-        `different ballots do not add up to a decision; neither does a proposal, a single vote, ` +
-        `or a majority that merely holds ${v} right now.`;
-
-  /* Alternate which value is asked first, for the same reason the step levels
-   * alternate sides: otherwise "x" is systematically the unchosen one and
-   * "always answer B" walks the level. */
-  const questions: Question[] = picked.map((c, i): Question => {
-    const flip = i % 2 === 1;
-    const vi = (n: number) => (flip ? 1 - n : n);
-    const answer: Record<string, [boolean, boolean]> = {};
-    for (const d of DEFS) answer[d] = flip ? [c.m[d][1], c.m[d][0]] : c.m[d];
-    const misconceptions = DEFS.filter(
-      (d) => d !== 'C' && (c.m[d][0] !== c.m['C'][0] || c.m[d][1] !== c.m['C'][1]),
-    );
-    const mk = (slot: number): Scenario => {
-      const v = vi(slot);
-      return {
-        payload: { kind: 'state', state: c.s as unknown as Value, subject: K.values[v] },
-        justification: {
-          verdict: c.m['C'][v] ? 'legal' : 'illegal',
-          refs: [],
-          text: explain(c.s, K.values[v], c.m['C'][v]),
-        },
-      };
-    };
-    const [cx, cy] = answer['C'];
-    return {
-      id: `paxos-chosen-${String(i).padStart(3, '0')}`,
-      kind: 'chosen',
-      type: cx && cy ? 'both' : !cx && !cy ? 'neither' : 'one',
-      a: mk(0),
-      b: mk(1),
-      distance: 1,
-      answer,
-      targets: [],
-      misconceptions,
-      size: msgCount(c.s),
-      subject: `${K.values[vi(0)]}/${K.values[vi(1)]}`,
-    };
-  });
-
-  /* Cap the `neither` share at a third. The coverage floors above pick purely
-   * for separation and happily push it past half, at which point "answer
-   * neither to everything" beats chance - which the harness flags. */
-  const capped: Question[] = [];
-  const nMax = Math.ceil(questions.length / 3);
-  let nSeen = 0;
-  for (const q of questions) {
-    if (q.type === 'neither' && ++nSeen > nMax) continue;
-    capped.push(q);
-  }
-  questions.length = 0;
-  questions.push(...capped);
-
-  const mix = { one: 0, both: 0, neither: 0 };
-  for (const q of questions) mix[q.type]++;
+  const { bank, report } = buildAnchoredBank(SEED);
+  for (const line of report) console.log(line);
   const cover = new Map<string, number>();
-  for (const q of questions) for (const m of q.misconceptions) cover.set(m, (cover.get(m) ?? 0) + 1);
-
+  for (const q of bank.questions) for (const d of q.misconceptions) cover.set(d, (cover.get(d) ?? 0) + 1);
   writeBank(
-    {
-      protocol: 'paxos',
-      level: 'paxos-chosen',
-      title: 'What does "chosen" mean?',
-      blurb:
-        'One situation, two candidate values. Decide which of them has actually been ' +
-        'chosen — it may be one, or neither. The definition is exact, and the plausible ' +
-        'near-misses are not it.',
-      generatedFrom: {
-        modelVersion: '0.1.0',
-        constants: K as unknown as Record<string, Value>,
-        configs: DEFS,
-        seed: SEED,
-      },
-      configs: DEFS,
-      exclusive: true,
-      questions,
-      mix,
-    },
-    `paxos-chosen${' '.repeat(9)}q=${String(questions.length).padStart(3)} ` +
-      `mix=${mix.one}/${mix.both}/${mix.neither}  ${pool.length} states, ${cands.length} useful\n` +
-      `    selected  [${DEFS.filter((d) => d !== 'C').map((d) => `${d}:${cover.get(d) ?? 0}`).join(' ')}]  ${Date.now() - t}ms`,
+    bank,
+    `paxos-anchored${' '.repeat(7)}q=${String(bank.questions.length).padStart(3)} ` +
+      `mix=${bank.mix.one}/${bank.mix.both}/${bank.mix.neither}  ` +
+      `[${bank.configs.filter((d) => d !== 'C').map((d) => `${d}:${cover.get(d) ?? 0}`).join(' ')}]  ${Date.now() - t}ms`,
   );
 }
 
 /* Ship the human-written text alongside the banks so the web app has no
  * build-time dependency on the YAML or on a parser. */
 const defMembers: Record<string, string[]> = {};
-for (const d of DEFS) if (d !== 'C') defMembers[d] = d.split('+');
 writeFileSync(
   join(BANK_DIR, 'content.json'),
   JSON.stringify(
@@ -691,7 +422,7 @@ writeFileSync(
       levels: [
         { id: 'paxos-phase1-steps', order: 1, track: 'both' },
         { id: 'paxos-phase2-steps', order: 2, track: 'both' },
-        { id: 'paxos-chosen', order: 3, track: 'both' },
+        { id: 'paxos-anchored', order: 3, track: 'both' },
       ],
     },
     null,

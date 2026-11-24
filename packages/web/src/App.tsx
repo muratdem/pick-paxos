@@ -142,7 +142,11 @@ function ScenarioCard({
     >
       <div className="card-head">
         <span className="card-label">{label}</span>
-        {kind === 'chosen' ? (
+        {kind === 'future' ? (
+          <span className="card-q">
+            Could <strong className="value">{String(p.subject)}</strong> still end up being chosen?
+          </span>
+        ) : kind === 'chosen' ? (
           <span className="card-q">
             Has <strong className="value">{String(p.subject)}</strong> been chosen?
           </span>
@@ -151,13 +155,17 @@ function ScenarioCard({
         )}
         {revealed && (
           <span className={'verdict ' + (legal ? 'yes' : 'no')}>
-            {kind === 'chosen'
+            {kind === 'future'
               ? legal
-                ? 'yes, chosen'
-                : 'no, not chosen'
-              : legal
-                ? 'Paxos allows this'
-                : 'Paxos forbids this'}
+                ? 'still possible'
+                : 'no longer possible'
+              : kind === 'chosen'
+                ? legal
+                  ? 'yes, chosen'
+                  : 'no, not chosen'
+                : legal
+                  ? 'Paxos allows this'
+                  : 'Paxos forbids this'}
           </span>
         )}
       </div>
@@ -247,9 +255,11 @@ function QuestionView({
       </section>
 
       <p className="prompt">
-        {question.kind === 'chosen'
-          ? 'Which of these has been chosen? It may be one, both, or neither.'
-          : 'Which of these steps does Paxos allow? It may be one, both, or neither.'}
+        {question.kind === 'future'
+          ? 'Nothing has been chosen here yet. Which of these could still end up being chosen?'
+          : question.kind === 'chosen'
+            ? 'Which of these has been chosen? It may be one, both, or neither.'
+            : 'Which of these steps does Paxos allow? It may be one, both, or neither.'}
       </p>
 
       <div className="cards">

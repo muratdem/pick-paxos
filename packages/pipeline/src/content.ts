@@ -29,12 +29,14 @@ const miscDoc = YAML.parse(readFileSync(join(CONTENT_DIR, 'misconceptions.yaml')
   status: string;
   misconceptions: Record<string, Misconception>;
   definitions: Record<string, Misconception>;
+  theories: Record<string, Misconception>;
 };
 
 export const RULES: Record<string, Rule> = { ...rulesDoc.rules, ...rulesDoc.effects };
 export const MISCONCEPTIONS: Record<string, Misconception> = {
   ...miscDoc.misconceptions,
   ...miscDoc.definitions,
+  ...miscDoc.theories,
 };
 export const CONTENT_STATUS = rulesDoc.status;
 

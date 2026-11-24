@@ -549,7 +549,7 @@ Reordered from the previous draft: steps first, states late. See §1.2.
 | 0 | Learn | Tutorial | — | What a state and a step are, using the toy model. Three guided pairs with feedback. *(not yet built)* |
 | 1 | Learn | Paxos | `step` | Phase 1: promises and what they report. Targets P5, P6, P11. **Shipped — 24 questions.** |
 | 2 | **both** | Paxos | `step` | Phase 2: the value-selection rule. The heart of the protocol. Targets P1, P2, P3, P4, P7, P8, P9, P10. **Shipped — 40 questions.** |
-| 3 | both | Paxos | `chosen` | C0 vs D1+D4, D2, D3. Definitions, scored categorically (§7.2). **Shipped — 38 questions.** |
+| 3 | both | Paxos | `future` | **Is it already decided?** Anchoring — the fate is sealed before anyone can observe it. Scored categorically (§7.2). **Shipped — 34 questions.** The `chosen` level it replaced is described in §5.4 and is no longer built. |
 | 4 | both | Paxos | `future` | "Is `v` locked in?" Value locking before anyone knows. Bound-stability filtered. |
 | 5 | both | Paxos | `trace-locate` | Space-time diagrams; find the first illegal step in a run that ends in disagreement. |
 | 6 | both | Paxos | `state` | Reachability, restricted per §6.6. The hardest level, deliberately last. |
