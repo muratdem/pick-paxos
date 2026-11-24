@@ -189,11 +189,18 @@ export function buildPairs<S>(
   return out;
 }
 
-export interface SelectOptions {
+export interface SelectOptions<S = unknown> {
   /** target share per pair type (DESIGN.md §6.1) */
   mix: Record<PairType, number>;
   total: number;
   seed: number;
+  /** id of the correct config, needed to work out what each pair teaches */
+  correct: string;
+  /** Optional protocol-specific description of the SHAPE of the situation.
+   *  Two questions that turn on the same rule still feel different if one has
+   *  an acceptor that already voted and the other does not, so shape joins the
+   *  rule in deciding what counts as a repeat. */
+  shapeOf?: (p: PairCand<S>) => string;
   /** only pairs that bear on one of these mutants are eligible */
   restrictTo?: string[];
 }
@@ -203,7 +210,7 @@ export interface SelectOptions {
  *  the seed (§6.2 step 8). */
 export function selectPairs<S>(
   pairs: PairCand<S>[],
-  opts: SelectOptions,
+  opts: SelectOptions<S>,
 ): PairCand<S>[] {
   const rng = new Rng(opts.seed);
   const quota: Record<PairType, number> = {
@@ -223,8 +230,28 @@ export function selectPairs<S>(
   const coverage = new Map<string, number>();
   /** coverage of CONFIG PAIRS ("P1|P2"), not just individual mutants. */
   const sepCoverage = new Map<string, number>();
+  /** coverage of LESSONS: which rule each side turns on. */
+  const lessonCoverage = new Map<string, number>();
+  /** coverage of SHAPES: what kind of situation the question is set in. */
+  const shapeCoverage = new Map<string, number>();
   const chosen: PairCand<S>[] = [];
   const usedFrom = new Map<string, number>();
+
+  /** What a question actually teaches: for each side, the action and either
+   *  "legal" or the rule it breaks.
+   *
+   *  Diagnostic coverage and pedagogical variety are different things, and
+   *  optimising only the first produces a bank that is formally excellent and
+   *  deadly dull. Measured on the first release: 24 phase-1 questions carried
+   *  7 distinct lessons, one of them repeated 10 times, and readers noticed
+   *  immediately that the questions "all feel the same". Symmetry dedup does
+   *  not help - it removes exact relabelings, while these were genuinely
+   *  different states telling an identical story. */
+  const lessonOf = (p: PairCand<S>) => {
+    const side = (c: StepCand<S>) =>
+      `${c.action}:${c.membership[opts.correct] ? 'legal' : c.failed[opts.correct]}`;
+    return [side(p.a), side(p.b)].sort().join('|') + '#' + p.type;
+  };
 
   const inScope = (m: string) => !opts.restrictTo || opts.restrictTo.includes(m);
   const relevantTargets = (p: PairCand<S>) =>
@@ -253,8 +280,25 @@ export function selectPairs<S>(
       return acc + 1 / (1 + (sepCoverage.get(t) ?? 0));
     }, 0);
 
+    // Variety, as TWO independent terms. Folding shape into the lesson
+    // signature does not work: a pair then earns full credit for a novel
+    // shape while repeating a lesson for the eighth time, and lesson variety
+    // collapses. They have to compete separately.
+    const freshLesson = 1 / (1 + (lessonCoverage.get(lessonOf(p)) ?? 0));
+    const freshShape = opts.shapeOf
+      ? 1 / (1 + (shapeCoverage.get(opts.shapeOf(p)) ?? 0))
+      : 0;
+
     const reuse = usedFrom.get(p.a.fromKey) ?? 0;
-    return novel * 6 + sep * 5 - p.size * 0.25 - (p.distance - 1) * 2 - reuse * 1.5;
+    return (
+      novel * 6 +
+      sep * 10 +
+      freshLesson * 11 +
+      freshShape * 5 -
+      p.size * 0.25 -
+      (p.distance - 1) * 2 -
+      reuse * 1.5
+    );
   };
 
   for (const t of ['one', 'both', 'neither'] as PairType[]) {
@@ -275,6 +319,12 @@ export function selectPairs<S>(
       usedFrom.set(best.a.fromKey, (usedFrom.get(best.a.fromKey) ?? 0) + 1);
       for (const m of best.misconceptions) coverage.set(m, (coverage.get(m) ?? 0) + 1);
       for (const t of relevantTargets(best)) sepCoverage.set(t, (sepCoverage.get(t) ?? 0) + 1);
+      const ls = lessonOf(best);
+      lessonCoverage.set(ls, (lessonCoverage.get(ls) ?? 0) + 1);
+      if (opts.shapeOf) {
+        const sh = opts.shapeOf(best);
+        shapeCoverage.set(sh, (shapeCoverage.get(sh) ?? 0) + 1);
+      }
     }
   }
   return chosen;

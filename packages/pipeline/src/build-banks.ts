@@ -41,7 +41,7 @@ import {
   type Msg,
   type PaxosState,
 } from '@dyp/models';
-import { buildAnchoredBank } from './anchored.js';
+import { BALLOT_PLANS, buildAnchoredBank } from './anchored.js';
 import {
   CONTENT_STATUS,
   MISCONCEPTIONS,
@@ -262,6 +262,19 @@ function stratify(
   return out;
 }
 
+/** The shape of the situation a question is set in. Feeds the variety term in
+ *  selection: two questions about the same rule in differently-shaped
+ *  situations are worth showing, two in identically-shaped ones are not. */
+function shapeOfPair(p: PairCand<PaxosState>): string {
+  const s = p.a.pre;
+  const voted = s.maxVBal.filter((b) => b >= 0).length;
+  const ballots = [...new Set(s.msgs.map((m) => m.bal))].sort((x, y) => x - y);
+  const values = new Set(s.msgs.map((m) => ('val' in m ? m.val : null)).filter(Boolean));
+  const gap = ballots.some((b, i) => i > 0 && b !== ballots[i - 1] + 1);
+  const phases = [...new Set(s.msgs.map((m) => m.t))].sort().join('');
+  return `v${voted}/b${ballots.length}/x${values.size}/${gap ? 'gap' : 'seq'}/${phases}`;
+}
+
 /* ---- step levels ------------------------------------------------------ */
 
 interface LevelSpec {
@@ -284,7 +297,7 @@ const STEP_LEVELS: LevelSpec[] = [
       'Which of these two steps does Paxos allow?',
     actions: ['Phase1a', 'Phase1b'],
     mutants: PHASE1_MUTANTS,
-    total: 24,
+    total: 30,
     msgRange: [0, 8],
     perBucket: 60,
   },
@@ -296,7 +309,7 @@ const STEP_LEVELS: LevelSpec[] = [
       'This is where the protocol is won or lost.',
     actions: ['Phase2a', 'Phase2b'],
     mutants: PHASE2_MUTANTS,
-    total: 40,
+    total: 52,
     msgRange: [1, 14],
     perBucket: 70,
   },
@@ -411,6 +424,8 @@ for (const spec of STEP_LEVELS) {
     mix: { one: 0.6, both: 0.2, neither: 0.2 },
     total: spec.total,
     seed: SEED,
+    correct: CORRECT,
+    shapeOf: shapeOfPair,
     restrictTo: spec.mutants,
   });
 
@@ -481,8 +496,21 @@ for (const spec of STEP_LEVELS) {
  * around. See packages/pipeline/src/anchored.ts. */
 {
   t = Date.now();
-  const { bank, report } = buildAnchoredBank(SEED);
-  for (const line of report) console.log(line);
+  /* Two runs: one in a consecutive-ballot world, one in a world with a gap.
+   * Merged into a single bank so the level shows both. */
+  const runs = BALLOT_PLANS.map((plan) => buildAnchoredBank(SEED, plan));
+  for (const r of runs) for (const line of r.report) console.log(line);
+
+  const cfgs = runs.map((r) => r.bank.configs.join(','));
+  if (new Set(cfgs).size !== 1)
+    throw new Error(`anchored runs collapsed candidates differently: ${cfgs.join(' | ')}`);
+
+  const bank = runs[0].bank;
+  bank.questions = runs
+    .flatMap((r) => r.bank.questions)
+    .map((q, i) => ({ ...q, id: `paxos-anchored-${String(i).padStart(3, '0')}` }));
+  bank.mix = { one: 0, both: 0, neither: 0 };
+  for (const q of bank.questions) bank.mix[q.type]++;
   const cover = new Map<string, number>();
   for (const q of bank.questions) for (const d of q.misconceptions) cover.set(d, (cover.get(d) ?? 0) + 1);
   writeBank(

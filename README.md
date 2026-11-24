@@ -47,11 +47,13 @@ writes. If the app says it cannot load the banks, you skipped that step.
 Generated at 3 acceptors, 2 values, ballots `{0,1,2}`, BFS depth ≤ 14 — **74,439
 reachable states**.
 
-| Level | Questions | Mix (one/both/neither) | Targets |
-|---|---|---|---|
-| Phase 1 — promises | 24 | 14/5/5 | P5, P6, P11 |
-| Phase 2 — proposing and accepting | 40 | 24/8/8 | P1, P2, P3, P4, P7, P8, P9, P10 |
-| Is it already decided? | 34 | 16/18/0 | T1, T2, T3 |
+| Level | Questions | Mix (one/both/neither) | Distinct lessons | Targets |
+|---|---|---|---|---|
+| Phase 1 — promises | 30 | 18/6/6 | 12 | P5, P6, P11 |
+| Phase 2 — proposing and accepting | 51 | 31/10/10 | 23 | P1, P2, P3, P4, P7, P8, P9, P10 |
+| Is it already decided? | 68 | 32/36/0 | — | T1, T2, T3 |
+
+Each level shows 14 questions, drawn adaptively from its bank.
 
 Every targeted misconception is identified in **93–100%** of simulated runs, with
 off-diagonal confusion at or below 2% except for the P1/P2 pair noted below. No
@@ -89,6 +91,22 @@ rejects protocol notation in any reader-facing text: no `ballot b`, no `value v`
 `phase-2a`, no TLA+ variable names. Those checks are about information being present and
 legible; whether a person can actually follow the screen is a judgement no assertion
 makes for us, and the first build failed it badly.
+
+**Variety is a separate objective from diagnosis.** Selecting purely for
+diagnostic separation produces a bank that is formally excellent and deadly dull: the
+first release had 24 phase-1 questions carrying 7 distinct lessons, one of them repeated
+ten times, and readers said so. Selection now scores two further terms — the *lesson*
+(which rule each side turns on) and the *shape* of the situation (how many acceptors
+have voted, how many ballots are in play, whether the ballots have a gap) — as
+independent competitors to coverage. Folding shape into the lesson signature does not
+work; a pair then earns full credit for a novel shape while repeating a lesson for the
+eighth time.
+
+The anchored level needed more than scoring. Holding the top ballot in reserve for the
+bound-safety argument forced every situation into ballots {0,1}, so a gap was
+*structurally impossible* — the soundness trick had quietly deleted a whole class of
+scenario. Paxos only ever compares ballot numbers, so {0,2} is an ordinary reachable
+world; the level is now built twice, once in each, and merged.
 
 **Layer 5 — the bank actually diagnoses.** `npm run harness` runs the real selection and
 scoring against simulated learners: constant strategies must stay near chance, an honest

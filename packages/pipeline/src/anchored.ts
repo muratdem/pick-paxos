@@ -196,7 +196,31 @@ export interface AnchoredResult {
   report: string[];
 }
 
-export function buildAnchoredBank(seed: number): AnchoredResult {
+/** Ballot numbering for one run.
+ *
+ *  Paxos only ever compares ballot numbers, so a set like {0, 2} is a
+ *  perfectly ordinary reachable world with a gap in it — and the first release
+ *  could never show one, because holding the top ballot in reserve for the
+ *  bound-safety argument forced every situation into {0, 1}. The soundness
+ *  trick had quietly deleted an entire class of scenario, which readers
+ *  noticed as "the ballots are always consecutive".
+ *
+ *  `situation` is the world the shown state lives in; `answer` adds the
+ *  reserve ballot the reachability fixpoint runs in; `check` adds a second
+ *  reserve for the bound-stability re-derivation. */
+export interface BallotPlan {
+  situation: number[];
+  answer: number[];
+  check: number[];
+  label: string;
+}
+
+export const BALLOT_PLANS: BallotPlan[] = [
+  { situation: [0, 1], answer: [0, 1, 2], check: [0, 1, 2, 3], label: 'consecutive ballots' },
+  { situation: [0, 2], answer: [0, 2, 3], check: [0, 2, 3, 4], label: 'ballot gap' },
+];
+
+export function buildAnchoredBank(seed: number, plan: BallotPlan): AnchoredResult {
   const report: string[] = [];
 
   /* Situations are drawn from the two-ballot world, so every one of them has
@@ -206,16 +230,19 @@ export function buildAnchoredBank(seed: number): AnchoredResult {
    * majority of promises, propose what you are forced to propose, collect the
    * votes), and the stability check below confirms a second spare changes
    * nothing. */
-  const K2 = defaultConstants([0, 1]);
-  const K3 = defaultConstants([0, 1, 2]);
-  const K4 = defaultConstants([0, 1, 2, 3]);
+  const K2 = defaultConstants(plan.situation);
+  const K3 = defaultConstants(plan.answer);
+  const K4 = defaultConstants(plan.check);
   const m2 = paxos(K2);
   const m3 = paxos(K3);
   const values = K3.values;
 
   let t = Date.now();
   const g3 = buildIndex(m3);
-  report.push(`  reachability graph: ${g3.key.length} states at three ballots (${Date.now() - t}ms)`);
+  report.push(
+    `  [${plan.label}] situations in {${plan.situation}}, answers in {${plan.answer}}: ` +
+      `${g3.key.length} states (${Date.now() - t}ms)`,
+  );
 
   const chosen = (v: string) => (s: PaxosState) => m3.predicates[`C0:${v}`](s);
   const reachMarks = values.map((v) => canReach(g3, chosen(v)));
@@ -425,11 +452,26 @@ export function buildAnchoredBank(seed: number): AnchoredResult {
     return out;
   };
 
+  /* Shape, so the sealed situations are not sixteen retellings of one story.
+   * The first release shipped exactly that: every sealed case was two
+   * proposals of the same value, voted by two acceptors in two ballots, with
+   * only the names changed. */
+  const shapeCoverage = new Map<string, number>();
+  const shapeOf = (c: Cand) => {
+    const votes = c.s.msgs.filter((m) => m.t === '2b');
+    const props = c.s.msgs.filter((m) => m.t === '2a');
+    const vb = new Set(votes.map((m) => m.bal));
+    const pv = new Set(props.map((m) => ('val' in m ? m.val : '')));
+    return `n${votes.length}/b${vb.size}/p${props.length}/v${pv.size}`;
+  };
+
   const picked: Cand[] = [];
   const take = (c: Cand) => {
     picked.push(c);
     for (const d of mis(c)) coverage.set(d, (coverage.get(d) ?? 0) + 1);
     for (const sp of seps(c)) sepCoverage.set(sp, (sepCoverage.get(sp) ?? 0) + 1);
+    const sh = shapeOf(c);
+    shapeCoverage.set(sh, (shapeCoverage.get(sh) ?? 0) + 1);
   };
 
   // floor per theory, so a rare one cannot be squeezed out by greedy scoring
@@ -483,7 +525,8 @@ export function buildAnchoredBank(seed: number): AnchoredResult {
         if (!ms.length) continue;
         const novel = ms.reduce((a, d) => a + 1 / (1 + (coverage.get(d) ?? 0)), 0);
         const sep = seps(c).reduce((a, sp) => a + 1 / (1 + (sepCoverage.get(sp) ?? 0)), 0);
-        const score = novel * 4 + sep * 5 - c.s.msgs.length * 0.3;
+        const freshShape = 1 / (1 + (shapeCoverage.get(shapeOf(c)) ?? 0));
+        const score = novel * 4 + sep * 5 + freshShape * 9 - c.s.msgs.length * 0.3;
         if (score > bestScore) {
           bestScore = score;
           best = c;

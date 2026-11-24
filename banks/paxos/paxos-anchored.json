@@ -7191,11 +7191,7151 @@
    "size": 11,
    "subject": "Bob/Alice",
    "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-034",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       0,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       0,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-035",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       0,
+       2,
+       2
+      ],
+      "maxVBal": [
+       0,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       "Alice",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       0,
+       2,
+       2
+      ],
+      "maxVBal": [
+       0,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       "Alice",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-036",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       2,
+       0,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       2,
+       0,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 11,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-037",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       0
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       0
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-038",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 12,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-039",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       0,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       "Alice",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       0,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       "Alice",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 11,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-040",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVBal": [
+       0,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVBal": [
+       0,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-041",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       0
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       0
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 11,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-042",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       2,
+       0,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       2,
+       0,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-043",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       0,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       0
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       0,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       0
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-044",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 2 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2",
+    "T3"
+   ],
+   "size": 11,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-045",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       -1
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 2 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       -1
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2",
+    "T3"
+   ],
+   "size": 9,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-046",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       0,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       -1
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       0,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       -1
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2",
+    "T3"
+   ],
+   "size": 9,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-047",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       2
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       2
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2",
+    "T3"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-048",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       -1
+      ],
+      "maxVal": [
+       null,
+       "Alice",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 3 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       -1
+      ],
+      "maxVal": [
+       null,
+       "Alice",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 3 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2",
+    "T3"
+   ],
+   "size": 8,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-049",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2",
+    "T3"
+   ],
+   "size": 7,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-050",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2",
+    "T3"
+   ],
+   "size": 8,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-051",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2",
+    "T3"
+   ],
+   "size": 9,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-052",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       -1
+      ],
+      "maxVal": [
+       null,
+       "Alice",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 2 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       -1
+      ],
+      "maxVal": [
+       null,
+       "Alice",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2",
+    "T3"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-053",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2"
+   ],
+   "size": 11,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-054",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2",
+    "T3"
+   ],
+   "size": 9,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-055",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2"
+   ],
+   "size": 11,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-056",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       0
+      ],
+      "maxVal": [
+       null,
+       "Alice",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       0
+      ],
+      "maxVal": [
+       null,
+       "Alice",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-057",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       0
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       0
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-058",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2"
+   ],
+   "size": 12,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-059",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       0
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       0
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2"
+   ],
+   "size": 11,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-060",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       -1
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       -1
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2"
+   ],
+   "size": 11,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-061",
+   "kind": "future",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       -1
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       -1
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 6 more steps from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T2"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-062",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     false,
+     true
+    ],
+    "T3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-063",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-064",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       0
+      ],
+      "maxVal": [
+       null,
+       "Alice",
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       0
+      ],
+      "maxVal": [
+       null,
+       "Alice",
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-065",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       0,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       0,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 11,
+   "subject": "Bob/Alice",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-066",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Alice",
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Alice can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       0,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Alice",
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Bob can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Alice as the highest vote it has seen, which forces that proposer to propose Alice rather than Bob. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 11,
+   "subject": "Alice/Bob",
+   "boundStable": true
+  },
+  {
+   "id": "paxos-anchored-067",
+   "kind": "future",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes. Bob can still end up being chosen — it takes 1 more step from here, and nothing in the situation rules it out."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — and this is the point. Alice can never be chosen now, in any continuation whatsoever, even though nothing has been chosen yet and no acceptor could tell you so. Every majority a future proposer could gather would report Bob as the highest vote it has seen, which forces that proposer to propose Bob rather than Alice. The outcome was sealed before anyone could observe it."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "T1": [
+     true,
+     true
+    ],
+    "T2": [
+     true,
+     false
+    ],
+    "T3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "T1"
+   ],
+   "size": 11,
+   "subject": "Bob/Alice",
+   "boundStable": true
   }
  ],
  "mix": {
-  "one": 16,
-  "both": 18,
+  "one": 32,
+  "both": 36,
   "neither": 0
  }
 }
