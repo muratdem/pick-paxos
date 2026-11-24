@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck && npx tsc --noEmit -p packages/web/tsconfig.json
+
+      - name: Unit tests
+        run: npm test
+
+      # Deterministic generation is a requirement, not a nicety: the banks are
+      # committed so that changes to generated questions show up in PR diffs.
+      - name: Banks are reproducible
+        run: |
+          npm run build:banks
+          if ! git diff --quiet -- banks/; then
+            echo "::error::Regenerating the banks changed them. Either commit the new banks or fix nondeterminism in the generator."
+            git diff --stat -- banks/
+            exit 1
+          fi
+
+      # Layer 5. Runs on every PR because it is pure TypeScript and fast, and
+      # because it is the only check that tells us the game works at all.
+      - name: Synthetic-learner harness
+        run: npm run harness
+
+  tlc:
+    # Layer 1: the TypeScript models must agree with the TLA+ specs, which are
+    # the semantic source of truth. Slower, so only when the semantics can move.
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: changed
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE=$(git merge-base origin/${{ github.base_ref }} HEAD)
+            if git diff --name-only "$BASE" HEAD | grep -qE '^(specs/|packages/models/|packages/pipeline/)'; then
+              echo "run=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "run=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/setup-node@v4
+        if: steps.changed.outputs.run == 'true'
+        with:
+          node-version: 20
+          cache: npm
+      - uses: actions/setup-java@v4
+        if: steps.changed.outputs.run == 'true'
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Cache tla2tools
+        if: steps.changed.outputs.run == 'true'
+        uses: actions/cache@v4
+        with:
+          path: tools/tla2tools.jar
+          key: tla2tools-v1.7.1
+      - if: steps.changed.outputs.run == 'true'
+        run: npm ci
+      - name: TLC cross-check
+        if: steps.changed.outputs.run == 'true'
+        run: npm run crosscheck

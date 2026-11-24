@@ -1,0 +1,207 @@
+# One entry per candidate in the family (DESIGN.md §5.3, §5.4).
+# HOUSE RULE: no notation reaches the reader. No "ballot b", no "value v", no
+# "phase 1a / 1b / 2a / 2b". This text is shown to someone who may never have
+# seen the protocol written down.
+#
+# TODO(Murat): review all of this text. P9-P11 were added for answer balance
+# rather than because they are commonly held - replace them if you have better
+# restricting misconceptions from real students or engineers.
+status: draft
+
+misconceptions:
+  P1:
+    title: The leader proposes its own value
+    belief: >-
+      Once a proposer has won phase 1, it is free to propose whatever value it
+      wanted to propose in the first place.
+    correct: >-
+      Winning phase 1 does not buy the proposer the right to choose. If any
+      acceptor in its quorum reported a previous vote, the proposer must propose
+      the value reported with the highest ballot. It only gets a free choice when
+      the whole quorum reports no vote at all.
+    whyItMatters: >-
+      This is the single most common misreading of Paxos, and it is fatal:
+      a value can already have been chosen without the new proposer knowing it,
+      and proposing something else overwrites a decision that clients may already
+      have acted on.
+
+  P2:
+    title: Any previously accepted value is safe to re-propose
+    belief: >-
+      The proposer must propose one of the reported values, but it may pick any
+      of them.
+    correct: >-
+      Only the value reported with the HIGHEST ballot may be proposed. The others
+      are stale: they were superseded by later ballots and cannot have been the
+      chosen value.
+    whyItMatters: >-
+      This is the subtler sibling of "the leader proposes its own value", and the
+      one that survives casual testing. It needs three separate attempts before
+      it goes wrong at all, which is exactly why it is easy to hold and hard to
+      catch.
+
+  P3:
+    title: One promise is enough to start phase 2
+    belief: >-
+      Once some acceptor has promised the ballot, the proposer may go ahead and
+      propose.
+    correct: >-
+      Promises from a whole quorum - a majority - are required before proposing.
+    whyItMatters: >-
+      Quorums are not about counting votes, they are about intersection. A single
+      promise guarantees nothing, because that one acceptor may be precisely the
+      one that knows nothing about a value the other two already chose.
+
+  P4:
+    title: Acceptors accept whatever they are sent
+    belief: >-
+      An acceptor is a passive store: when a proposal arrives, it records it.
+    correct: >-
+      An acceptor votes in a ballot only if that ballot is at least as high as
+      the highest one it has promised. A promise is a commitment to ignore
+      everything older.
+    whyItMatters: >-
+      Without this check, phase 1 means nothing at all: a proposer could win a
+      quorum of promises and still have its proposal undercut by an older ballot
+      arriving late.
+
+  P5:
+    title: A promise is just an acknowledgement
+    belief: >-
+      Promising is a simple "yes, I hear you" - a handshake that carries no
+      information back to the proposer.
+    correct: >-
+      A promise carries the ballot and value of the acceptor's last vote. That
+      report is the only channel through which an already-chosen value becomes
+      visible to a new proposer.
+    whyItMatters: >-
+      Asking for promises exists to discover what might already have been agreed.
+      Strip the report out and the whole first round becomes a pointless trip,
+      and the proposer has nothing to carry forward.
+
+  P6:
+    title: Promising does not constrain future accepts
+    belief: >-
+      Replying to a prepare request tells the proposer something, but does not
+      change what the acceptor will do later.
+    correct: >-
+      Sending a promise raises the acceptor's promised ballot to the one it just
+      promised. From then on it refuses anything below that.
+    whyItMatters: >-
+      A promise that does not bind is not a promise. If the acceptor can still
+      accept older ballots afterwards, the proposer's quorum tells it nothing
+      about the future, and two ballots can both succeed.
+
+  P7:
+    title: Two proposals can share a ballot
+    belief: >-
+      The ballot number identifies the round, and more than one value can be
+      floated within a round.
+    correct: >-
+      A proposer makes at most one proposal per ballot. A ballot number
+      identifies a single proposal, not a round that several can share.
+    whyItMatters: >-
+      If two values share a ballot, two quorums could accept them both at that
+      ballot and both would be chosen. Nothing anywhere else in Paxos would catch
+      it.
+
+  P8:
+    title: An acceptor cannot accept the ballot it promised
+    belief: >-
+      Having promised a ballot, the acceptor will only vote in something
+      strictly higher than it.
+    correct: >-
+      The test is "at least as high", not "higher". Promising a ballot and then
+      voting in that same ballot is the normal path through the protocol, not an
+      exception to it.
+    whyItMatters: >-
+      This one does not break safety - it breaks liveness, completely. An
+      acceptor that will never vote in the ballot it just promised can never
+      vote at all, so nothing is ever chosen.
+
+  P9:
+    title: Phase 1 needs everyone, not a majority
+    belief: >-
+      The proposer must hear from all acceptors before it may propose.
+    correct: >-
+      A majority suffices. Majorities are enough because any two of them
+      intersect.
+    whyItMatters: >-
+      Waiting for everyone throws away the entire point of the protocol: Paxos
+      exists to keep going when some acceptors are slow, crashed, or
+      unreachable.
+
+  P10:
+    title: An acceptor votes at most once, ever
+    belief: >-
+      Once an acceptor has voted for a value, it is committed and will not vote
+      again.
+    correct: >-
+      An acceptor may vote repeatedly, in increasing ballots, and may vote for
+      different values over time.
+    whyItMatters: >-
+      Safety does not come from acceptors being stubborn. It comes from the
+      rule that forces each later proposer to carry forward whatever might
+      already have been agreed. Acceptors are free to change their vote precisely
+      because proposers are not free to change the value.
+
+  P11:
+    title: Ballots must be used in order, with no gaps
+    belief: >-
+      Ballot numbers form a sequence that must be followed: you cannot jump from
+      ballot 0 to ballot 2.
+    correct: >-
+      Any proposer may pick any ballot number at any time. Gaps are normal and
+      harmless; all that matters is that ballot numbers are unique per proposer
+      and comparable.
+    whyItMatters: >-
+      There is no coordinator handing out ballot numbers in order - if there
+      were, you would already have the consensus you are trying to build.
+
+# Definition-level candidates for the `chosen` level (DESIGN.md §5.4).
+definitions:
+  D1:
+    title: Chosen means a majority accepted it at some point
+    belief: >-
+      If a majority of acceptors have each voted for a value at some point, then
+      it is chosen - it does not matter which ballot each of them was voting in.
+    correct: >-
+      The quorum must have voted for v in the SAME ballot. Votes for v scattered
+      across different ballots do not add up to a decision.
+    whyItMatters: >-
+      This is the most important confusion in the whole protocol and the hardest
+      to shake. Votes from different ballots are not comparable: between them,
+      other values may have been proposed and accepted, so the scattered majority
+      never existed at any single moment.
+
+  D2:
+    title: Chosen means proposed
+    belief: A value is chosen once a proposer has proposed it.
+    correct: >-
+      Proposing is a request. A value is chosen only when a quorum has voted for
+      it in one ballot.
+    whyItMatters: >-
+      A proposal can be ignored entirely - by a quorum that has promised a higher
+      ballot, for instance - and then it is simply dead.
+
+  D3:
+    title: Chosen means accepted by anyone
+    belief: A value is chosen as soon as some acceptor has voted for it.
+    correct: A quorum must vote for it, in the same ballot.
+    whyItMatters: >-
+      A single vote can be left behind by a later ballot. One acceptor's vote is
+      evidence, not a decision.
+
+  D4:
+    title: Chosen means a majority currently holds it
+    belief: >-
+      Look at the acceptors' current state: if a majority have v as their last
+      accepted value, v is chosen.
+    correct: >-
+      Chosen is a property of the message history, not of the current state. The
+      quorum must have voted for v in one ballot, which the current snapshot may
+      no longer show.
+    whyItMatters: >-
+      This one is seductive because the state table is right in front of you. But
+      acceptors overwrite their last vote, so the present snapshot can both hide
+      a value that was chosen and display a majority that never voted together.

@@ -1,0 +1,32 @@
+{
+  "name": "do-you-paxos",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "packages/engine",
+    "packages/models",
+    "packages/pipeline",
+    "packages/web"
+  ],
+  "scripts": {
+    "build:banks": "npm run build:banks -w @dyp/pipeline",
+    "harness": "npm run harness -w @dyp/pipeline",
+    "measure": "npm run measure -w @dyp/pipeline",
+    "crosscheck": "npm run crosscheck -w @dyp/pipeline",
+    "dev": "npm run dev -w @dyp/web",
+    "build": "npm run build:banks && npm run build -w @dyp/web",
+    "preview": "npm run preview -w @dyp/web",
+    "test": "vitest run",
+    "typecheck": "tsc -b packages/engine packages/models packages/pipeline"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "yaml": "^2.9.1"
+  }
+}

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+packages/web/public/banks/
+specs/tla/tracecheck/
+tools/
+*.log
+.DS_Store
+*.tsbuildinfo

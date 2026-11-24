@@ -1,0 +1,13 @@
+{
+  "name": "@dyp/pipeline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "measure": "NODE_OPTIONS=--max-old-space-size=6144 tsx src/measure.ts",
+    "build:banks": "NODE_OPTIONS=--max-old-space-size=6144 tsx src/build-banks.ts",
+    "harness": "tsx src/harness.ts",
+    "crosscheck": "NODE_OPTIONS=--max-old-space-size=6144 tsx src/crosscheck.ts"
+  },
+  "dependencies": { "@dyp/engine": "*", "@dyp/models": "*" }
+}

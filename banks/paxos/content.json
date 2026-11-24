@@ -1,0 +1,194 @@
+{
+ "status": "draft",
+ "misconceptions": {
+  "P1": {
+   "title": "The leader proposes its own value",
+   "belief": "Once a proposer has won phase 1, it is free to propose whatever value it wanted to propose in the first place.",
+   "correct": "Winning phase 1 does not buy the proposer the right to choose. If any acceptor in its quorum reported a previous vote, the proposer must propose the value reported with the highest ballot. It only gets a free choice when the whole quorum reports no vote at all.",
+   "whyItMatters": "This is the single most common misreading of Paxos, and it is fatal: a value can already have been chosen without the new proposer knowing it, and proposing something else overwrites a decision that clients may already have acted on."
+  },
+  "P2": {
+   "title": "Any previously accepted value is safe to re-propose",
+   "belief": "The proposer must propose one of the reported values, but it may pick any of them.",
+   "correct": "Only the value reported with the HIGHEST ballot may be proposed. The others are stale: they were superseded by later ballots and cannot have been the chosen value.",
+   "whyItMatters": "This is the subtler sibling of \"the leader proposes its own value\", and the one that survives casual testing. It needs three separate attempts before it goes wrong at all, which is exactly why it is easy to hold and hard to catch."
+  },
+  "P3": {
+   "title": "One promise is enough to start phase 2",
+   "belief": "Once some acceptor has promised the ballot, the proposer may go ahead and propose.",
+   "correct": "Promises from a whole quorum - a majority - are required before proposing.",
+   "whyItMatters": "Quorums are not about counting votes, they are about intersection. A single promise guarantees nothing, because that one acceptor may be precisely the one that knows nothing about a value the other two already chose."
+  },
+  "P4": {
+   "title": "Acceptors accept whatever they are sent",
+   "belief": "An acceptor is a passive store: when a proposal arrives, it records it.",
+   "correct": "An acceptor votes in a ballot only if that ballot is at least as high as the highest one it has promised. A promise is a commitment to ignore everything older.",
+   "whyItMatters": "Without this check, phase 1 means nothing at all: a proposer could win a quorum of promises and still have its proposal undercut by an older ballot arriving late."
+  },
+  "P5": {
+   "title": "A promise is just an acknowledgement",
+   "belief": "Promising is a simple \"yes, I hear you\" - a handshake that carries no information back to the proposer.",
+   "correct": "A promise carries the ballot and value of the acceptor's last vote. That report is the only channel through which an already-chosen value becomes visible to a new proposer.",
+   "whyItMatters": "Asking for promises exists to discover what might already have been agreed. Strip the report out and the whole first round becomes a pointless trip, and the proposer has nothing to carry forward."
+  },
+  "P6": {
+   "title": "Promising does not constrain future accepts",
+   "belief": "Replying to a prepare request tells the proposer something, but does not change what the acceptor will do later.",
+   "correct": "Sending a promise raises the acceptor's promised ballot to the one it just promised. From then on it refuses anything below that.",
+   "whyItMatters": "A promise that does not bind is not a promise. If the acceptor can still accept older ballots afterwards, the proposer's quorum tells it nothing about the future, and two ballots can both succeed."
+  },
+  "P7": {
+   "title": "Two proposals can share a ballot",
+   "belief": "The ballot number identifies the round, and more than one value can be floated within a round.",
+   "correct": "A proposer makes at most one proposal per ballot. A ballot number identifies a single proposal, not a round that several can share.",
+   "whyItMatters": "If two values share a ballot, two quorums could accept them both at that ballot and both would be chosen. Nothing anywhere else in Paxos would catch it."
+  },
+  "P8": {
+   "title": "An acceptor cannot accept the ballot it promised",
+   "belief": "Having promised a ballot, the acceptor will only vote in something strictly higher than it.",
+   "correct": "The test is \"at least as high\", not \"higher\". Promising a ballot and then voting in that same ballot is the normal path through the protocol, not an exception to it.",
+   "whyItMatters": "This one does not break safety - it breaks liveness, completely. An acceptor that will never vote in the ballot it just promised can never vote at all, so nothing is ever chosen."
+  },
+  "P9": {
+   "title": "Phase 1 needs everyone, not a majority",
+   "belief": "The proposer must hear from all acceptors before it may propose.",
+   "correct": "A majority suffices. Majorities are enough because any two of them intersect.",
+   "whyItMatters": "Waiting for everyone throws away the entire point of the protocol: Paxos exists to keep going when some acceptors are slow, crashed, or unreachable."
+  },
+  "P10": {
+   "title": "An acceptor votes at most once, ever",
+   "belief": "Once an acceptor has voted for a value, it is committed and will not vote again.",
+   "correct": "An acceptor may vote repeatedly, in increasing ballots, and may vote for different values over time.",
+   "whyItMatters": "Safety does not come from acceptors being stubborn. It comes from the rule that forces each later proposer to carry forward whatever might already have been agreed. Acceptors are free to change their vote precisely because proposers are not free to change the value."
+  },
+  "P11": {
+   "title": "Ballots must be used in order, with no gaps",
+   "belief": "Ballot numbers form a sequence that must be followed: you cannot jump from ballot 0 to ballot 2.",
+   "correct": "Any proposer may pick any ballot number at any time. Gaps are normal and harmless; all that matters is that ballot numbers are unique per proposer and comparable.",
+   "whyItMatters": "There is no coordinator handing out ballot numbers in order - if there were, you would already have the consensus you are trying to build."
+  },
+  "D1": {
+   "title": "Chosen means a majority accepted it at some point",
+   "belief": "If a majority of acceptors have each voted for a value at some point, then it is chosen - it does not matter which ballot each of them was voting in.",
+   "correct": "The quorum must have voted for v in the SAME ballot. Votes for v scattered across different ballots do not add up to a decision.",
+   "whyItMatters": "This is the most important confusion in the whole protocol and the hardest to shake. Votes from different ballots are not comparable: between them, other values may have been proposed and accepted, so the scattered majority never existed at any single moment."
+  },
+  "D2": {
+   "title": "Chosen means proposed",
+   "belief": "A value is chosen once a proposer has proposed it.",
+   "correct": "Proposing is a request. A value is chosen only when a quorum has voted for it in one ballot.",
+   "whyItMatters": "A proposal can be ignored entirely - by a quorum that has promised a higher ballot, for instance - and then it is simply dead."
+  },
+  "D3": {
+   "title": "Chosen means accepted by anyone",
+   "belief": "A value is chosen as soon as some acceptor has voted for it.",
+   "correct": "A quorum must vote for it, in the same ballot.",
+   "whyItMatters": "A single vote can be left behind by a later ballot. One acceptor's vote is evidence, not a decision."
+  },
+  "D4": {
+   "title": "Chosen means a majority currently holds it",
+   "belief": "Look at the acceptors' current state: if a majority have v as their last accepted value, v is chosen.",
+   "correct": "Chosen is a property of the message history, not of the current state. The quorum must have voted for v in one ballot, which the current snapshot may no longer show.",
+   "whyItMatters": "This one is seductive because the state table is right in front of you. But acceptors overwrite their last vote, so the present snapshot can both hide a value that was chosen and display a majority that never voted together."
+  }
+ },
+ "rules": {
+  "phase1a.noGaps": {
+   "short": "ballots must be used in order, with no gaps",
+   "text": "A proposer may only start a ballot if the ballot numbered one below it has already been started. This is NOT a Paxos rule. Paxos places no ordering constraint on ballot numbers at all: any proposer may pick any ballot number it likes, at any time, and gaps are entirely normal."
+  },
+  "phase1b.requestExists": {
+   "short": "there must be a request to respond to",
+   "text": "An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
+  },
+  "phase1b.newer": {
+   "short": "the ballot must be higher than anything already promised",
+   "text": "An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
+  },
+  "phase2a.noPriorProposal": {
+   "short": "a ballot may carry at most one proposal",
+   "text": "A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
+  },
+  "phase2a.quorumPromised": {
+   "short": "a majority must have promised this ballot",
+   "text": "Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
+  },
+  "phase2a.someOnePromised": {
+   "short": "at least one acceptor has promised this ballot",
+   "text": "One promise is enough to start proposing. This is NOT a Paxos rule. A single acceptor's promise carries no overlap guarantee: the one acceptor that answered may be the only one that knows nothing about a value the other two already agreed on."
+  },
+  "phase2a.unanimousPromised": {
+   "short": "every acceptor must have promised this ballot",
+   "text": "All three acceptors, not merely a majority, must promise before a value may be proposed. This is NOT a Paxos rule, and requiring it would throw away the fault tolerance that is the whole reason for running Paxos: one crashed acceptor would block all progress forever."
+  },
+  "phase2a.highestReported": {
+   "short": "propose the value reported from the highest ballot",
+   "text": "If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+  },
+  "phase2a.anyReported": {
+   "short": "propose any value that was reported",
+   "text": "Any previously accepted value may be proposed again. This is NOT a Paxos rule. Among the reported votes, only the one from the highest ballot could possibly be the agreed value; proposing an older one can overwrite a decision that has already been made."
+  },
+  "phase2b.proposalExists": {
+   "short": "there must be a proposal to accept",
+   "text": "An acceptor only votes for a value that some proposer actually proposed for that ballot. It cannot vote for something nobody put forward."
+  },
+  "phase2b.ballotAtLeastPromised": {
+   "short": "the ballot must be at least as high as the promise",
+   "text": "An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+  },
+  "phase2b.ballotStrictlyGreater": {
+   "short": "the ballot must be strictly higher than the promise",
+   "text": "An acceptor only votes in a ballot strictly higher than the one it promised. This is NOT a Paxos rule, and it would stop the protocol dead: an acceptor could never vote in the very ballot it just promised, which is exactly what it is supposed to do."
+  },
+  "phase2b.neverVoted": {
+   "short": "an acceptor votes at most once, ever",
+   "text": "Having voted once, an acceptor never votes again. This is NOT a Paxos rule. An acceptor may vote many times, in increasing ballots. What keeps that safe is not the acceptor refusing to change its mind, but the rule that forces later proposers to carry the same value forward."
+  },
+  "Phase1a.effect": {
+   "short": "a request to promise carries only the ballot number",
+   "text": "When a proposer asks for promises, it says which ballot and nothing else."
+  },
+  "Phase1b.effect": {
+   "short": "a promise reports the acceptor's last vote",
+   "text": "A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+  },
+  "Phase2a.effect": {
+   "short": "a proposal names the ballot and the value",
+   "text": "A proposal says which ballot it belongs to and which value is being put forward."
+  },
+  "Phase2b.effect": {
+   "short": "voting records the ballot and value, and raises the promise",
+   "text": "When an acceptor votes for a value in some ballot, it records that ballot as both its promised ballot and the ballot of its last vote, records the value it voted for, and announces the vote so everyone can see it."
+  }
+ },
+ "members": {
+  "D1+D4": [
+   "D1",
+   "D4"
+  ],
+  "D2": [
+   "D2"
+  ],
+  "D3": [
+   "D3"
+  ]
+ },
+ "levels": [
+  {
+   "id": "paxos-phase1-steps",
+   "order": 1,
+   "track": "both"
+  },
+  {
+   "id": "paxos-phase2-steps",
+   "order": 2,
+   "track": "both"
+  },
+  {
+   "id": "paxos-chosen",
+   "order": 3,
+   "track": "both"
+  }
+ ]
+}

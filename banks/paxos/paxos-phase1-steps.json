@@ -1,0 +1,8679 @@
+{
+ "protocol": "paxos",
+ "level": "paxos-phase1-steps",
+ "title": "Phase 1 — promises",
+ "blurb": "A proposer asks the acceptors to promise a ballot, and each acceptor answers. Which of these two steps does Paxos allow?",
+ "generatedFrom": {
+  "modelVersion": "0.1.0",
+  "constants": {
+   "acceptors": 3,
+   "values": [
+    "Alice",
+    "Bob"
+   ],
+   "ballots": [
+    0,
+    1,
+    2
+   ],
+   "quorums": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ]
+   ],
+   "genDepth": 14
+  },
+  "configs": [
+   "C",
+   "P1",
+   "P2",
+   "P3",
+   "P4",
+   "P5",
+   "P6",
+   "P7",
+   "P8",
+   "P9",
+   "P10",
+   "P11"
+  ],
+  "seed": 20261123
+ },
+ "configs": [
+  "C",
+  "P1",
+  "P2",
+  "P3",
+  "P4",
+  "P5",
+  "P6",
+  "P7",
+  "P8",
+  "P9",
+  "P10",
+  "P11"
+ ],
+ "questions": [
+  {
+   "id": "paxos-phase1-steps-000",
+   "kind": "step",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       0,
+       0
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       1,
+       0,
+       0
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 0,
+      "bal": 1
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 0,
+       "bal": 1,
+       "mbal": 0,
+       "mval": "Bob"
+      }
+     ],
+     "describe": "Acceptor 1 promises ballot 1, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      }
+     ],
+     "text": "Paxos allows this step — there must be a request to respond to; the ballot must be higher than anything already promised. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       0,
+       0
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       0,
+       0,
+       0
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 0,
+      "bal": 1
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 0,
+       "bal": 1,
+       "mbal": 0,
+       "mval": "Bob"
+      }
+     ],
+     "describe": "Acceptor 1 promises ballot 1, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "P1": [
+     true,
+     false
+    ],
+    "P2": [
+     true,
+     false
+    ],
+    "P3": [
+     true,
+     false
+    ],
+    "P4": [
+     true,
+     false
+    ],
+    "P5": [
+     false,
+     false
+    ],
+    "P6": [
+     false,
+     true
+    ],
+    "P7": [
+     true,
+     false
+    ],
+    "P8": [
+     true,
+     false
+    ],
+    "P9": [
+     true,
+     false
+    ],
+    "P10": [
+     true,
+     false
+    ],
+    "P11": [
+     true,
+     false
+    ]
+   },
+   "targets": [
+    "C|P5",
+    "C|P6",
+    "P1|P5",
+    "P1|P6",
+    "P2|P5",
+    "P2|P6",
+    "P3|P5",
+    "P3|P6",
+    "P4|P5",
+    "P4|P6",
+    "P5|P6",
+    "P5|P7",
+    "P5|P8",
+    "P5|P9",
+    "P5|P10",
+    "P5|P11",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P5",
+    "P6"
+   ],
+   "size": 6
+  },
+  {
+   "id": "paxos-phase1-steps-001",
+   "kind": "step",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 2
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 1,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 1,
+       "bal": 2,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 2 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 2
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       }
+      ]
+     },
+     "action": "Phase1a",
+     "params": {
+      "bal": 1
+     },
+     "reads": [],
+     "sends": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "describe": "The proposer running ballot 1 asks every acceptor to promise ballot 1."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Paxos allows this step. When a proposer asks for promises, it says which ballot and nothing else."
+    }
+   },
+   "distance": 2,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "P1": [
+     false,
+     true
+    ],
+    "P2": [
+     false,
+     true
+    ],
+    "P3": [
+     false,
+     true
+    ],
+    "P4": [
+     false,
+     true
+    ],
+    "P5": [
+     false,
+     true
+    ],
+    "P6": [
+     true,
+     true
+    ],
+    "P7": [
+     false,
+     true
+    ],
+    "P8": [
+     false,
+     true
+    ],
+    "P9": [
+     false,
+     true
+    ],
+    "P10": [
+     false,
+     true
+    ],
+    "P11": [
+     false,
+     false
+    ]
+   },
+   "targets": [
+    "C|P6",
+    "C|P11",
+    "P1|P6",
+    "P1|P11",
+    "P2|P6",
+    "P2|P11",
+    "P3|P6",
+    "P3|P11",
+    "P4|P6",
+    "P4|P11",
+    "P5|P6",
+    "P5|P11",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11",
+    "P7|P11",
+    "P8|P11",
+    "P9|P11",
+    "P10|P11"
+   ],
+   "misconceptions": [
+    "P6",
+    "P11"
+   ],
+   "size": 1
+  },
+  {
+   "id": "paxos-phase1-steps-002",
+   "kind": "step",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       0,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       0
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       0,
+       2,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       0
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 1,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 1,
+       "bal": 2,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 2 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      }
+     ],
+     "text": "Paxos allows this step — there must be a request to respond to; the ballot must be higher than anything already promised. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       0,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       0
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       0,
+       0,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       0
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 2,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 2,
+       "bal": 2,
+       "mbal": 0,
+       "mval": "Alice"
+      }
+     ],
+     "describe": "Acceptor 3 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "P1": [
+     true,
+     false
+    ],
+    "P2": [
+     true,
+     false
+    ],
+    "P3": [
+     true,
+     false
+    ],
+    "P4": [
+     true,
+     false
+    ],
+    "P5": [
+     true,
+     true
+    ],
+    "P6": [
+     false,
+     false
+    ],
+    "P7": [
+     true,
+     false
+    ],
+    "P8": [
+     true,
+     false
+    ],
+    "P9": [
+     true,
+     false
+    ],
+    "P10": [
+     true,
+     false
+    ],
+    "P11": [
+     true,
+     false
+    ]
+   },
+   "targets": [
+    "C|P5",
+    "C|P6",
+    "P1|P5",
+    "P1|P6",
+    "P2|P5",
+    "P2|P6",
+    "P3|P5",
+    "P3|P6",
+    "P4|P5",
+    "P4|P6",
+    "P5|P6",
+    "P5|P7",
+    "P5|P8",
+    "P5|P9",
+    "P5|P10",
+    "P5|P11",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P5",
+    "P6"
+   ],
+   "size": 6
+  },
+  {
+   "id": "paxos-phase1-steps-003",
+   "kind": "step",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 0,
+      "bal": 0
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 0
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 0,
+       "bal": 0,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 1 promises ballot 0, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       }
+      ]
+     },
+     "action": "Phase1a",
+     "params": {
+      "bal": 2
+     },
+     "reads": [],
+     "sends": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "describe": "The proposer running ballot 2 asks every acceptor to promise ballot 2."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Paxos allows this step. When a proposer asks for promises, it says which ballot and nothing else."
+    }
+   },
+   "distance": 2,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "P1": [
+     false,
+     true
+    ],
+    "P2": [
+     false,
+     true
+    ],
+    "P3": [
+     false,
+     true
+    ],
+    "P4": [
+     false,
+     true
+    ],
+    "P5": [
+     false,
+     true
+    ],
+    "P6": [
+     true,
+     true
+    ],
+    "P7": [
+     false,
+     true
+    ],
+    "P8": [
+     false,
+     true
+    ],
+    "P9": [
+     false,
+     true
+    ],
+    "P10": [
+     false,
+     true
+    ],
+    "P11": [
+     false,
+     false
+    ]
+   },
+   "targets": [
+    "C|P6",
+    "C|P11",
+    "P1|P6",
+    "P1|P11",
+    "P2|P6",
+    "P2|P11",
+    "P3|P6",
+    "P3|P11",
+    "P4|P6",
+    "P4|P11",
+    "P5|P6",
+    "P5|P11",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11",
+    "P7|P11",
+    "P8|P11",
+    "P9|P11",
+    "P10|P11"
+   ],
+   "misconceptions": [
+    "P6",
+    "P11"
+   ],
+   "size": 1
+  },
+  {
+   "id": "paxos-phase1-steps-004",
+   "kind": "step",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       1
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 1,
+        "val": "Alice"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       1
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 1,
+        "val": "Alice"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 0,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 0,
+       "bal": 2,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 1 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       1
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 1,
+        "val": "Alice"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       1,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       1
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": 1,
+        "mval": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 1,
+        "val": "Alice"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 2,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 2,
+       "bal": 2,
+       "mbal": 1,
+       "mval": "Alice"
+      }
+     ],
+     "describe": "Acceptor 3 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      }
+     ],
+     "text": "Paxos allows this step — there must be a request to respond to; the ballot must be higher than anything already promised. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "P1": [
+     false,
+     true
+    ],
+    "P2": [
+     false,
+     true
+    ],
+    "P3": [
+     false,
+     true
+    ],
+    "P4": [
+     false,
+     true
+    ],
+    "P5": [
+     false,
+     false
+    ],
+    "P6": [
+     true,
+     false
+    ],
+    "P7": [
+     false,
+     true
+    ],
+    "P8": [
+     false,
+     true
+    ],
+    "P9": [
+     false,
+     true
+    ],
+    "P10": [
+     false,
+     true
+    ],
+    "P11": [
+     false,
+     true
+    ]
+   },
+   "targets": [
+    "C|P5",
+    "C|P6",
+    "P1|P5",
+    "P1|P6",
+    "P2|P5",
+    "P2|P6",
+    "P3|P5",
+    "P3|P6",
+    "P4|P5",
+    "P4|P6",
+    "P5|P6",
+    "P5|P7",
+    "P5|P8",
+    "P5|P9",
+    "P5|P10",
+    "P5|P11",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P5",
+    "P6"
+   ],
+   "size": 6
+  },
+  {
+   "id": "paxos-phase1-steps-005",
+   "kind": "step",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       0,
+       -1
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       0,
+       0,
+       -1
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 2,
+      "bal": 1
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 2,
+       "bal": 1,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 3 promises ballot 1, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       0,
+       -1
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       1,
+       0,
+       -1
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 0,
+      "bal": 1
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 0,
+       "bal": 1,
+       "mbal": 0,
+       "mval": "Bob"
+      }
+     ],
+     "describe": "Acceptor 1 promises ballot 1, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      }
+     ],
+     "text": "Paxos allows this step — there must be a request to respond to; the ballot must be higher than anything already promised. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "P1": [
+     false,
+     true
+    ],
+    "P2": [
+     false,
+     true
+    ],
+    "P3": [
+     false,
+     true
+    ],
+    "P4": [
+     false,
+     true
+    ],
+    "P5": [
+     false,
+     false
+    ],
+    "P6": [
+     true,
+     false
+    ],
+    "P7": [
+     false,
+     true
+    ],
+    "P8": [
+     false,
+     true
+    ],
+    "P9": [
+     false,
+     true
+    ],
+    "P10": [
+     false,
+     true
+    ],
+    "P11": [
+     false,
+     true
+    ]
+   },
+   "targets": [
+    "C|P5",
+    "C|P6",
+    "P1|P5",
+    "P1|P6",
+    "P2|P5",
+    "P2|P6",
+    "P3|P5",
+    "P3|P6",
+    "P4|P5",
+    "P4|P6",
+    "P5|P6",
+    "P5|P7",
+    "P5|P8",
+    "P5|P9",
+    "P5|P10",
+    "P5|P11",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P5",
+    "P6"
+   ],
+   "size": 6
+  },
+  {
+   "id": "paxos-phase1-steps-006",
+   "kind": "step",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       2,
+       1,
+       1
+      ],
+      "maxVBal": [
+       1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 0,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 0,
+       "bal": 2,
+       "mbal": 1,
+       "mval": "Bob"
+      }
+     ],
+     "describe": "Acceptor 1 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       1,
+       2,
+       1
+      ],
+      "maxVBal": [
+       1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 1,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 1,
+       "bal": 2,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 2 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      }
+     ],
+     "text": "Paxos allows this step — there must be a request to respond to; the ballot must be higher than anything already promised. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "P1": [
+     false,
+     true
+    ],
+    "P2": [
+     false,
+     true
+    ],
+    "P3": [
+     false,
+     true
+    ],
+    "P4": [
+     false,
+     true
+    ],
+    "P5": [
+     true,
+     true
+    ],
+    "P6": [
+     false,
+     false
+    ],
+    "P7": [
+     false,
+     true
+    ],
+    "P8": [
+     false,
+     true
+    ],
+    "P9": [
+     false,
+     true
+    ],
+    "P10": [
+     false,
+     true
+    ],
+    "P11": [
+     false,
+     true
+    ]
+   },
+   "targets": [
+    "C|P5",
+    "C|P6",
+    "P1|P5",
+    "P1|P6",
+    "P2|P5",
+    "P2|P6",
+    "P3|P5",
+    "P3|P6",
+    "P4|P5",
+    "P4|P6",
+    "P5|P6",
+    "P5|P7",
+    "P5|P8",
+    "P5|P9",
+    "P5|P10",
+    "P5|P11",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P5",
+    "P6"
+   ],
+   "size": 6
+  },
+  {
+   "id": "paxos-phase1-steps-007",
+   "kind": "step",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 1,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 1,
+       "bal": 2,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 2 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1a",
+     "params": {
+      "bal": 1
+     },
+     "reads": [],
+     "sends": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "describe": "The proposer running ballot 1 asks every acceptor to promise ballot 1."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Paxos allows this step. When a proposer asks for promises, it says which ballot and nothing else."
+    }
+   },
+   "distance": 2,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "P1": [
+     false,
+     true
+    ],
+    "P2": [
+     false,
+     true
+    ],
+    "P3": [
+     false,
+     true
+    ],
+    "P4": [
+     false,
+     true
+    ],
+    "P5": [
+     false,
+     true
+    ],
+    "P6": [
+     true,
+     true
+    ],
+    "P7": [
+     false,
+     true
+    ],
+    "P8": [
+     false,
+     true
+    ],
+    "P9": [
+     false,
+     true
+    ],
+    "P10": [
+     false,
+     true
+    ],
+    "P11": [
+     false,
+     false
+    ]
+   },
+   "targets": [
+    "C|P6",
+    "C|P11",
+    "P1|P6",
+    "P1|P11",
+    "P2|P6",
+    "P2|P11",
+    "P3|P6",
+    "P3|P11",
+    "P4|P6",
+    "P4|P11",
+    "P5|P6",
+    "P5|P11",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11",
+    "P7|P11",
+    "P8|P11",
+    "P9|P11",
+    "P10|P11"
+   ],
+   "misconceptions": [
+    "P6",
+    "P11"
+   ],
+   "size": 2
+  },
+  {
+   "id": "paxos-phase1-steps-008",
+   "kind": "step",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       -1,
+       0
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       2,
+       -1,
+       0
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Bob"
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 0,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 0,
+       "bal": 2,
+       "mbal": 0,
+       "mval": "Bob"
+      }
+     ],
+     "describe": "Acceptor 1 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      }
+     ],
+     "text": "Paxos allows this step — there must be a request to respond to; the ballot must be higher than anything already promised. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       -1,
+       0
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       0,
+       -1,
+       0
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Bob"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 1,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 1,
+       "bal": 2,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 2 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "P1": [
+     true,
+     false
+    ],
+    "P2": [
+     true,
+     false
+    ],
+    "P3": [
+     true,
+     false
+    ],
+    "P4": [
+     true,
+     false
+    ],
+    "P5": [
+     false,
+     false
+    ],
+    "P6": [
+     false,
+     true
+    ],
+    "P7": [
+     true,
+     false
+    ],
+    "P8": [
+     true,
+     false
+    ],
+    "P9": [
+     true,
+     false
+    ],
+    "P10": [
+     true,
+     false
+    ],
+    "P11": [
+     true,
+     false
+    ]
+   },
+   "targets": [
+    "C|P5",
+    "C|P6",
+    "P1|P5",
+    "P1|P6",
+    "P2|P5",
+    "P2|P6",
+    "P3|P5",
+    "P3|P6",
+    "P4|P5",
+    "P4|P6",
+    "P5|P6",
+    "P5|P7",
+    "P5|P8",
+    "P5|P9",
+    "P5|P10",
+    "P5|P11",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P5",
+    "P6"
+   ],
+   "size": 6
+  },
+  {
+   "id": "paxos-phase1-steps-009",
+   "kind": "step",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 2,
+      "bal": 1
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 2,
+       "bal": 1,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 3 promises ballot 1, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 0,
+      "bal": 1
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 0,
+       "bal": 1,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 1 promises ballot 1, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      }
+     ],
+     "text": "Paxos allows this step — there must be a request to respond to; the ballot must be higher than anything already promised. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "P1": [
+     false,
+     true
+    ],
+    "P2": [
+     false,
+     true
+    ],
+    "P3": [
+     false,
+     true
+    ],
+    "P4": [
+     false,
+     true
+    ],
+    "P5": [
+     false,
+     true
+    ],
+    "P6": [
+     true,
+     false
+    ],
+    "P7": [
+     false,
+     true
+    ],
+    "P8": [
+     false,
+     true
+    ],
+    "P9": [
+     false,
+     true
+    ],
+    "P10": [
+     false,
+     true
+    ],
+    "P11": [
+     false,
+     true
+    ]
+   },
+   "targets": [
+    "C|P6",
+    "P1|P6",
+    "P2|P6",
+    "P3|P6",
+    "P4|P6",
+    "P5|P6",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P6"
+   ],
+   "size": 1
+  },
+  {
+   "id": "paxos-phase1-steps-010",
+   "kind": "step",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       0,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       0
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       0,
+       2,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       0
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 1,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 1,
+       "bal": 2,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 2 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      }
+     ],
+     "text": "Paxos allows this step — there must be a request to respond to; the ballot must be higher than anything already promised. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       0,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       0
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       0,
+       0,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       0
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 2,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 2,
+       "bal": 2,
+       "mbal": 0,
+       "mval": "Alice"
+      }
+     ],
+     "describe": "Acceptor 3 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "P1": [
+     true,
+     false
+    ],
+    "P2": [
+     true,
+     false
+    ],
+    "P3": [
+     true,
+     false
+    ],
+    "P4": [
+     true,
+     false
+    ],
+    "P5": [
+     true,
+     true
+    ],
+    "P6": [
+     false,
+     false
+    ],
+    "P7": [
+     true,
+     false
+    ],
+    "P8": [
+     true,
+     false
+    ],
+    "P9": [
+     true,
+     false
+    ],
+    "P10": [
+     true,
+     false
+    ],
+    "P11": [
+     true,
+     false
+    ]
+   },
+   "targets": [
+    "C|P5",
+    "C|P6",
+    "P1|P5",
+    "P1|P6",
+    "P2|P5",
+    "P2|P6",
+    "P3|P5",
+    "P3|P6",
+    "P4|P5",
+    "P4|P6",
+    "P5|P6",
+    "P5|P7",
+    "P5|P8",
+    "P5|P9",
+    "P5|P10",
+    "P5|P11",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P5",
+    "P6"
+   ],
+   "size": 7
+  },
+  {
+   "id": "paxos-phase1-steps-011",
+   "kind": "step",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 2,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 2,
+       "bal": 2,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 3 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      }
+     ],
+     "text": "Paxos allows this step — there must be a request to respond to; the ballot must be higher than anything already promised. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 2,
+      "bal": 0
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 0
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 2,
+       "bal": 0,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 3 promises ballot 0, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "P1": [
+     true,
+     false
+    ],
+    "P2": [
+     true,
+     false
+    ],
+    "P3": [
+     true,
+     false
+    ],
+    "P4": [
+     true,
+     false
+    ],
+    "P5": [
+     true,
+     false
+    ],
+    "P6": [
+     false,
+     true
+    ],
+    "P7": [
+     true,
+     false
+    ],
+    "P8": [
+     true,
+     false
+    ],
+    "P9": [
+     true,
+     false
+    ],
+    "P10": [
+     true,
+     false
+    ],
+    "P11": [
+     true,
+     false
+    ]
+   },
+   "targets": [
+    "C|P6",
+    "P1|P6",
+    "P2|P6",
+    "P3|P6",
+    "P4|P6",
+    "P5|P6",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P6"
+   ],
+   "size": 2
+  },
+  {
+   "id": "paxos-phase1-steps-012",
+   "kind": "step",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 0,
+      "bal": 1
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 0,
+       "bal": 1,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 1 promises ballot 1, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 2,
+      "bal": 1
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 2,
+       "bal": 1,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 3 promises ballot 1, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      }
+     ],
+     "text": "Paxos allows this step — there must be a request to respond to; the ballot must be higher than anything already promised. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "P1": [
+     false,
+     true
+    ],
+    "P2": [
+     false,
+     true
+    ],
+    "P3": [
+     false,
+     true
+    ],
+    "P4": [
+     false,
+     true
+    ],
+    "P5": [
+     false,
+     true
+    ],
+    "P6": [
+     true,
+     false
+    ],
+    "P7": [
+     false,
+     true
+    ],
+    "P8": [
+     false,
+     true
+    ],
+    "P9": [
+     false,
+     true
+    ],
+    "P10": [
+     false,
+     true
+    ],
+    "P11": [
+     false,
+     true
+    ]
+   },
+   "targets": [
+    "C|P6",
+    "P1|P6",
+    "P2|P6",
+    "P3|P6",
+    "P4|P6",
+    "P5|P6",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P6"
+   ],
+   "size": 2
+  },
+  {
+   "id": "paxos-phase1-steps-013",
+   "kind": "step",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 2,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 2,
+       "bal": 2,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 3 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "phase1b.requestExists",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      }
+     ],
+     "text": "Paxos does not allow this step — there must be a request to respond to. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 2,
+      "bal": 0
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 0
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 2,
+       "bal": 0,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 3 promises ballot 0, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      }
+     ],
+     "text": "Paxos allows this step — there must be a request to respond to; the ballot must be higher than anything already promised. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "P1": [
+     false,
+     true
+    ],
+    "P2": [
+     false,
+     true
+    ],
+    "P3": [
+     false,
+     true
+    ],
+    "P4": [
+     false,
+     true
+    ],
+    "P5": [
+     false,
+     true
+    ],
+    "P6": [
+     false,
+     false
+    ],
+    "P7": [
+     false,
+     true
+    ],
+    "P8": [
+     false,
+     true
+    ],
+    "P9": [
+     false,
+     true
+    ],
+    "P10": [
+     false,
+     true
+    ],
+    "P11": [
+     false,
+     true
+    ]
+   },
+   "targets": [
+    "C|P6",
+    "P1|P6",
+    "P2|P6",
+    "P3|P6",
+    "P4|P6",
+    "P5|P6",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P6"
+   ],
+   "size": 2
+  },
+  {
+   "id": "paxos-phase1-steps-014",
+   "kind": "step",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": []
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       }
+      ]
+     },
+     "action": "Phase1a",
+     "params": {
+      "bal": 1
+     },
+     "reads": [],
+     "sends": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "describe": "The proposer running ballot 1 asks every acceptor to promise ballot 1."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Paxos allows this step. When a proposer asks for promises, it says which ballot and nothing else."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": []
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 2
+       }
+      ]
+     },
+     "action": "Phase1a",
+     "params": {
+      "bal": 2
+     },
+     "reads": [],
+     "sends": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "describe": "The proposer running ballot 2 asks every acceptor to promise ballot 2."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Paxos allows this step. When a proposer asks for promises, it says which ballot and nothing else."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "P1": [
+     true,
+     true
+    ],
+    "P2": [
+     true,
+     true
+    ],
+    "P3": [
+     true,
+     true
+    ],
+    "P4": [
+     true,
+     true
+    ],
+    "P5": [
+     true,
+     true
+    ],
+    "P6": [
+     true,
+     true
+    ],
+    "P7": [
+     true,
+     true
+    ],
+    "P8": [
+     true,
+     true
+    ],
+    "P9": [
+     true,
+     true
+    ],
+    "P10": [
+     true,
+     true
+    ],
+    "P11": [
+     false,
+     false
+    ]
+   },
+   "targets": [
+    "C|P11",
+    "P1|P11",
+    "P2|P11",
+    "P3|P11",
+    "P4|P11",
+    "P5|P11",
+    "P6|P11",
+    "P7|P11",
+    "P8|P11",
+    "P9|P11",
+    "P10|P11"
+   ],
+   "misconceptions": [
+    "P11"
+   ],
+   "size": 0
+  },
+  {
+   "id": "paxos-phase1-steps-015",
+   "kind": "step",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1a",
+     "params": {
+      "bal": 2
+     },
+     "reads": [],
+     "sends": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "describe": "The proposer running ballot 2 asks every acceptor to promise ballot 2."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Paxos allows this step. When a proposer asks for promises, it says which ballot and nothing else."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1a",
+     "params": {
+      "bal": 1
+     },
+     "reads": [],
+     "sends": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "describe": "The proposer running ballot 1 asks every acceptor to promise ballot 1."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Paxos allows this step. When a proposer asks for promises, it says which ballot and nothing else."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "P1": [
+     true,
+     true
+    ],
+    "P2": [
+     true,
+     true
+    ],
+    "P3": [
+     true,
+     true
+    ],
+    "P4": [
+     true,
+     true
+    ],
+    "P5": [
+     true,
+     true
+    ],
+    "P6": [
+     true,
+     true
+    ],
+    "P7": [
+     true,
+     true
+    ],
+    "P8": [
+     true,
+     true
+    ],
+    "P9": [
+     true,
+     true
+    ],
+    "P10": [
+     true,
+     true
+    ],
+    "P11": [
+     false,
+     true
+    ]
+   },
+   "targets": [
+    "C|P11",
+    "P1|P11",
+    "P2|P11",
+    "P3|P11",
+    "P4|P11",
+    "P5|P11",
+    "P6|P11",
+    "P7|P11",
+    "P8|P11",
+    "P9|P11",
+    "P10|P11"
+   ],
+   "misconceptions": [
+    "P11"
+   ],
+   "size": 2
+  },
+  {
+   "id": "paxos-phase1-steps-016",
+   "kind": "step",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       -1,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       0,
+       -1,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1a",
+     "params": {
+      "bal": 1
+     },
+     "reads": [],
+     "sends": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "describe": "The proposer running ballot 1 asks every acceptor to promise ballot 1."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Paxos allows this step. When a proposer asks for promises, it says which ballot and nothing else."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       -1,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       0,
+       -1,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1a",
+     "params": {
+      "bal": 2
+     },
+     "reads": [],
+     "sends": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "describe": "The proposer running ballot 2 asks every acceptor to promise ballot 2."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Paxos allows this step. When a proposer asks for promises, it says which ballot and nothing else."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "P1": [
+     true,
+     true
+    ],
+    "P2": [
+     true,
+     true
+    ],
+    "P3": [
+     true,
+     true
+    ],
+    "P4": [
+     true,
+     true
+    ],
+    "P5": [
+     true,
+     true
+    ],
+    "P6": [
+     true,
+     true
+    ],
+    "P7": [
+     true,
+     true
+    ],
+    "P8": [
+     true,
+     true
+    ],
+    "P9": [
+     true,
+     true
+    ],
+    "P10": [
+     true,
+     true
+    ],
+    "P11": [
+     true,
+     false
+    ]
+   },
+   "targets": [
+    "C|P11",
+    "P1|P11",
+    "P2|P11",
+    "P3|P11",
+    "P4|P11",
+    "P5|P11",
+    "P6|P11",
+    "P7|P11",
+    "P8|P11",
+    "P9|P11",
+    "P10|P11"
+   ],
+   "misconceptions": [
+    "P11"
+   ],
+   "size": 3
+  },
+  {
+   "id": "paxos-phase1-steps-017",
+   "kind": "step",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1a",
+     "params": {
+      "bal": 1
+     },
+     "reads": [],
+     "sends": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "describe": "The proposer running ballot 1 asks every acceptor to promise ballot 1."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Paxos allows this step. When a proposer asks for promises, it says which ballot and nothing else."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1a",
+     "params": {
+      "bal": 0
+     },
+     "reads": [],
+     "sends": [
+      {
+       "t": "1a",
+       "bal": 0
+      }
+     ],
+     "describe": "The proposer running ballot 0 asks every acceptor to promise ballot 0."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Paxos allows this step. When a proposer asks for promises, it says which ballot and nothing else."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "P1": [
+     true,
+     true
+    ],
+    "P2": [
+     true,
+     true
+    ],
+    "P3": [
+     true,
+     true
+    ],
+    "P4": [
+     true,
+     true
+    ],
+    "P5": [
+     true,
+     true
+    ],
+    "P6": [
+     true,
+     true
+    ],
+    "P7": [
+     true,
+     true
+    ],
+    "P8": [
+     true,
+     true
+    ],
+    "P9": [
+     true,
+     true
+    ],
+    "P10": [
+     true,
+     true
+    ],
+    "P11": [
+     false,
+     true
+    ]
+   },
+   "targets": [
+    "C|P11",
+    "P1|P11",
+    "P2|P11",
+    "P3|P11",
+    "P4|P11",
+    "P5|P11",
+    "P6|P11",
+    "P7|P11",
+    "P8|P11",
+    "P9|P11",
+    "P10|P11"
+   ],
+   "misconceptions": [
+    "P11"
+   ],
+   "size": 3
+  },
+  {
+   "id": "paxos-phase1-steps-018",
+   "kind": "step",
+   "type": "both",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       1,
+       -1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 0,
+      "bal": 1
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 0,
+       "bal": 1,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 1 promises ballot 1, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      }
+     ],
+     "text": "Paxos allows this step — there must be a request to respond to; the ballot must be higher than anything already promised. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 1,
+      "bal": 1
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 1,
+       "bal": 1,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 2 promises ballot 1, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      }
+     ],
+     "text": "Paxos allows this step — there must be a request to respond to; the ballot must be higher than anything already promised. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     true
+    ],
+    "P1": [
+     true,
+     true
+    ],
+    "P2": [
+     true,
+     true
+    ],
+    "P3": [
+     true,
+     true
+    ],
+    "P4": [
+     true,
+     true
+    ],
+    "P5": [
+     true,
+     true
+    ],
+    "P6": [
+     false,
+     false
+    ],
+    "P7": [
+     true,
+     true
+    ],
+    "P8": [
+     true,
+     true
+    ],
+    "P9": [
+     true,
+     true
+    ],
+    "P10": [
+     true,
+     true
+    ],
+    "P11": [
+     true,
+     true
+    ]
+   },
+   "targets": [
+    "C|P6",
+    "P1|P6",
+    "P2|P6",
+    "P3|P6",
+    "P4|P6",
+    "P5|P6",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P6"
+   ],
+   "size": 2
+  },
+  {
+   "id": "paxos-phase1-steps-019",
+   "kind": "step",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       -1,
+       0
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       0
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       0,
+       -1,
+       1
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       0
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 2,
+      "bal": 1
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 2,
+       "bal": 1,
+       "mbal": 0,
+       "mval": "Alice"
+      }
+     ],
+     "describe": "Acceptor 3 promises ballot 1, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       0,
+       -1,
+       0
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       0
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       0,
+       -1,
+       0
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       0
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 1,
+      "bal": 1
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 1,
+       "bal": 1,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 2 promises ballot 1, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "P1": [
+     false,
+     false
+    ],
+    "P2": [
+     false,
+     false
+    ],
+    "P3": [
+     false,
+     false
+    ],
+    "P4": [
+     false,
+     false
+    ],
+    "P5": [
+     true,
+     false
+    ],
+    "P6": [
+     false,
+     true
+    ],
+    "P7": [
+     false,
+     false
+    ],
+    "P8": [
+     false,
+     false
+    ],
+    "P9": [
+     false,
+     false
+    ],
+    "P10": [
+     false,
+     false
+    ],
+    "P11": [
+     false,
+     false
+    ]
+   },
+   "targets": [
+    "C|P5",
+    "C|P6",
+    "P1|P5",
+    "P1|P6",
+    "P2|P5",
+    "P2|P6",
+    "P3|P5",
+    "P3|P6",
+    "P4|P5",
+    "P4|P6",
+    "P5|P6",
+    "P5|P7",
+    "P5|P8",
+    "P5|P9",
+    "P5|P10",
+    "P5|P11",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P5",
+    "P6"
+   ],
+   "size": 7
+  },
+  {
+   "id": "paxos-phase1-steps-020",
+   "kind": "step",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 0,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 0,
+       "bal": 2,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 1 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 2,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 2,
+       "bal": 2,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 3 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "P1": [
+     false,
+     false
+    ],
+    "P2": [
+     false,
+     false
+    ],
+    "P3": [
+     false,
+     false
+    ],
+    "P4": [
+     false,
+     false
+    ],
+    "P5": [
+     false,
+     false
+    ],
+    "P6": [
+     true,
+     true
+    ],
+    "P7": [
+     false,
+     false
+    ],
+    "P8": [
+     false,
+     false
+    ],
+    "P9": [
+     false,
+     false
+    ],
+    "P10": [
+     false,
+     false
+    ],
+    "P11": [
+     false,
+     false
+    ]
+   },
+   "targets": [
+    "C|P6",
+    "P1|P6",
+    "P2|P6",
+    "P3|P6",
+    "P4|P6",
+    "P5|P6",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P6"
+   ],
+   "size": 3
+  },
+  {
+   "id": "paxos-phase1-steps-021",
+   "kind": "step",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 1,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 1,
+       "bal": 2,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 2 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 1,
+      "bal": 0
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 0
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 1,
+       "bal": 0,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 2 promises ballot 0, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "P1": [
+     false,
+     false
+    ],
+    "P2": [
+     false,
+     false
+    ],
+    "P3": [
+     false,
+     false
+    ],
+    "P4": [
+     false,
+     false
+    ],
+    "P5": [
+     false,
+     false
+    ],
+    "P6": [
+     true,
+     true
+    ],
+    "P7": [
+     false,
+     false
+    ],
+    "P8": [
+     false,
+     false
+    ],
+    "P9": [
+     false,
+     false
+    ],
+    "P10": [
+     false,
+     false
+    ],
+    "P11": [
+     false,
+     false
+    ]
+   },
+   "targets": [
+    "C|P6",
+    "P1|P6",
+    "P2|P6",
+    "P3|P6",
+    "P4|P6",
+    "P5|P6",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P6"
+   ],
+   "size": 3
+  },
+  {
+   "id": "paxos-phase1-steps-022",
+   "kind": "step",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       1,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 0,
+      "bal": 1
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 1
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 0,
+       "bal": 1,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 1 promises ballot 1, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "phase1b.requestExists",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      }
+     ],
+     "text": "Paxos does not allow this step — there must be a request to respond to. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 0,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 0,
+       "bal": 2,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 1 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "P1": [
+     false,
+     false
+    ],
+    "P2": [
+     false,
+     false
+    ],
+    "P3": [
+     false,
+     false
+    ],
+    "P4": [
+     false,
+     false
+    ],
+    "P5": [
+     false,
+     false
+    ],
+    "P6": [
+     false,
+     true
+    ],
+    "P7": [
+     false,
+     false
+    ],
+    "P8": [
+     false,
+     false
+    ],
+    "P9": [
+     false,
+     false
+    ],
+    "P10": [
+     false,
+     false
+    ],
+    "P11": [
+     false,
+     false
+    ]
+   },
+   "targets": [
+    "C|P6",
+    "P1|P6",
+    "P2|P6",
+    "P3|P6",
+    "P4|P6",
+    "P5|P6",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P6"
+   ],
+   "size": 3
+  },
+  {
+   "id": "paxos-phase1-steps-023",
+   "kind": "step",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       0,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       0,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 2,
+      "bal": 2
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 2
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 2,
+       "bal": 2,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 3 promises ballot 2, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "phase1b.requestExists",
+     "refs": [
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      }
+     ],
+     "text": "Paxos does not allow this step — there must be a request to respond to. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "step",
+     "pre": {
+      "maxBal": [
+       -1,
+       0,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "post": {
+      "maxBal": [
+       -1,
+       0,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       }
+      ]
+     },
+     "action": "Phase1b",
+     "params": {
+      "acc": 2,
+      "bal": 0
+     },
+     "reads": [
+      {
+       "t": "1a",
+       "bal": 0
+      }
+     ],
+     "sends": [
+      {
+       "t": "1b",
+       "acc": 2,
+       "bal": 0,
+       "mbal": -1,
+       "mval": null
+      }
+     ],
+     "describe": "Acceptor 3 promises ballot 0, and reports its last vote."
+    },
+    "justification": {
+     "verdict": "illegal",
+     "conjunct": "Phase1b.effect",
+     "refs": [
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
+      }
+     ],
+     "text": "Paxos does not allow this step — a promise reports the acceptor's last vote. A promise is not a bare acknowledgement. It carries the ballot and value of the last vote the acceptor cast, or says it has never voted. It also raises the acceptor's promised ballot. Both halves matter: the report is how an already-agreed value is discovered, and the raise is what makes the promise binding."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "P1": [
+     false,
+     false
+    ],
+    "P2": [
+     false,
+     false
+    ],
+    "P3": [
+     false,
+     false
+    ],
+    "P4": [
+     false,
+     false
+    ],
+    "P5": [
+     false,
+     false
+    ],
+    "P6": [
+     false,
+     true
+    ],
+    "P7": [
+     false,
+     false
+    ],
+    "P8": [
+     false,
+     false
+    ],
+    "P9": [
+     false,
+     false
+    ],
+    "P10": [
+     false,
+     false
+    ],
+    "P11": [
+     false,
+     false
+    ]
+   },
+   "targets": [
+    "C|P6",
+    "P1|P6",
+    "P2|P6",
+    "P3|P6",
+    "P4|P6",
+    "P5|P6",
+    "P6|P7",
+    "P6|P8",
+    "P6|P9",
+    "P6|P10",
+    "P6|P11"
+   ],
+   "misconceptions": [
+    "P6"
+   ],
+   "size": 3
+  }
+ ],
+ "mix": {
+  "one": 14,
+  "both": 5,
+  "neither": 5
+ }
+}

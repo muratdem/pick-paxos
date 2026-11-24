@@ -1,0 +1,7514 @@
+{
+ "protocol": "paxos",
+ "level": "paxos-chosen",
+ "title": "What does \"chosen\" mean?",
+ "blurb": "One situation, two candidate values. Decide which of them has actually been chosen — it may be one, or neither. The definition is exact, and the plausible near-misses are not it.",
+ "generatedFrom": {
+  "modelVersion": "0.1.0",
+  "constants": {
+   "acceptors": 3,
+   "values": [
+    "Alice",
+    "Bob"
+   ],
+   "ballots": [
+    0,
+    1,
+    2
+   ],
+   "quorums": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ]
+   ]
+  },
+  "configs": [
+   "C",
+   "D1+D4",
+   "D2",
+   "D3"
+  ],
+  "seed": 20261123
+ },
+ "configs": [
+  "C",
+  "D1+D4",
+  "D2",
+  "D3"
+ ],
+ "exclusive": true,
+ "questions": [
+  {
+   "id": "paxos-chosen-000",
+   "kind": "chosen",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       0
+      ],
+      "maxVBal": [
+       1,
+       -1,
+       0
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       0
+      ],
+      "maxVBal": [
+       1,
+       -1,
+       0
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Bob within a single ballot. Votes for Bob scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Bob right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     false
+    ],
+    "D3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D1+D4",
+    "D2",
+    "D3"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-001",
+   "kind": "chosen",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       1,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       "Alice",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 1,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Bob within a single ballot. Votes for Bob scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Bob right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       1,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       "Alice",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 1,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     false,
+     true
+    ],
+    "D3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D1+D4",
+    "D2",
+    "D3"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-002",
+   "kind": "chosen",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       0
+      ],
+      "maxVal": [
+       null,
+       "Alice",
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       0
+      ],
+      "maxVal": [
+       null,
+       "Alice",
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Bob within a single ballot. Votes for Bob scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Bob right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     false
+    ],
+    "D3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D1+D4",
+    "D2",
+    "D3"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-003",
+   "kind": "chosen",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       2,
+       1,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       "Alice",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 1,
+        "mval": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Bob within a single ballot. Votes for Bob scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Bob right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       2,
+       1,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       "Alice",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": 1,
+        "mval": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     false,
+     true
+    ],
+    "D3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D1+D4",
+    "D2",
+    "D3"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-004",
+   "kind": "chosen",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       0
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       0
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Bob within a single ballot. Votes for Bob scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Bob right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     false
+    ],
+    "D3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D1+D4",
+    "D2",
+    "D3"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-005",
+   "kind": "chosen",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Bob within a single ballot. Votes for Bob scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Bob right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": 0,
+        "mval": "Alice"
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     false,
+     true
+    ],
+    "D3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D1+D4",
+    "D2",
+    "D3"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-006",
+   "kind": "chosen",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       0,
+       0,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       0,
+       0,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Bob within a single ballot. Votes for Bob scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Bob right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "D1+D4": [
+     false,
+     false
+    ],
+    "D2": [
+     true,
+     false
+    ],
+    "D3": [
+     false,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 4,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-007",
+   "kind": "chosen",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Bob within a single ballot. Votes for Bob scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Bob right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "D1+D4": [
+     false,
+     false
+    ],
+    "D2": [
+     false,
+     true
+    ],
+    "D3": [
+     false,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 4,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-008",
+   "kind": "chosen",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Bob within a single ballot. Votes for Bob scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Bob right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "D1+D4": [
+     false,
+     false
+    ],
+    "D2": [
+     true,
+     false
+    ],
+    "D3": [
+     false,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 4,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-009",
+   "kind": "chosen",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Bob within a single ballot. Votes for Bob scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Bob right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "D1+D4": [
+     false,
+     false
+    ],
+    "D2": [
+     false,
+     true
+    ],
+    "D3": [
+     false,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 5,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-010",
+   "kind": "chosen",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Bob within a single ballot. Votes for Bob scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Bob right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "D1+D4": [
+     false,
+     false
+    ],
+    "D2": [
+     true,
+     false
+    ],
+    "D3": [
+     false,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 5,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-011",
+   "kind": "chosen",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       0,
+       0,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Bob within a single ballot. Votes for Bob scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Bob right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       0,
+       0,
+       0
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       null,
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "D1+D4": [
+     false,
+     false
+    ],
+    "D2": [
+     false,
+     true
+    ],
+    "D3": [
+     false,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 5,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-012",
+   "kind": "chosen",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       0,
+       0,
+       -1
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       0,
+       0,
+       -1
+      ],
+      "maxVBal": [
+       0,
+       -1,
+       -1
+      ],
+      "maxVal": [
+       "Alice",
+       null,
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Bob within a single ballot. Votes for Bob scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Bob right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "D1+D4": [
+     false,
+     false
+    ],
+    "D2": [
+     true,
+     false
+    ],
+    "D3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2",
+    "D3"
+   ],
+   "size": 5,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-013",
+   "kind": "chosen",
+   "type": "neither",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       2
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Bob within a single ballot. Votes for Bob scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Bob right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       -1,
+       2
+      ],
+      "maxVal": [
+       null,
+       null,
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     false
+    ],
+    "D1+D4": [
+     false,
+     false
+    ],
+    "D2": [
+     false,
+     true
+    ],
+    "D3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2",
+    "D3"
+   ],
+   "size": 5,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-018",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       1,
+       1
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       1,
+       1
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2",
+    "D3"
+   ],
+   "size": 11,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-019",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       1,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       1,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-020",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       -1
+      ],
+      "maxVBal": [
+       1,
+       1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       -1
+      ],
+      "maxVBal": [
+       1,
+       1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-021",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2",
+    "D3"
+   ],
+   "size": 11,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-022",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-023",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       1,
+       -1,
+       1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       1,
+       -1,
+       1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2",
+    "D3"
+   ],
+   "size": 11,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-024",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       0,
+       1
+      ],
+      "maxVBal": [
+       1,
+       -1,
+       1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       0,
+       1
+      ],
+      "maxVBal": [
+       1,
+       -1,
+       1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-025",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       1,
+       1
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       -1,
+       1,
+       1
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-026",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVal": [
+       "Bob",
+       "Alice",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVal": [
+       "Bob",
+       "Alice",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2",
+    "D3"
+   ],
+   "size": 11,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-027",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-028",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2",
+    "D3"
+   ],
+   "size": 11,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-029",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-030",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       1,
+       -1,
+       1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       1,
+       -1,
+       1
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-031",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       0
+      ],
+      "maxVBal": [
+       1,
+       1,
+       0
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       0
+      ],
+      "maxVBal": [
+       1,
+       1,
+       0
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2",
+    "D3"
+   ],
+   "size": 11,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-032",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       0,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-033",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-034",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       1,
+       1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       1,
+       1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2",
+    "D3"
+   ],
+   "size": 11,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-035",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       1,
+       1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       1,
+       1,
+       1
+      ],
+      "maxVBal": [
+       1,
+       1,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 1,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 1,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-036",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-037",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       -1,
+       2,
+       2
+      ],
+      "maxVal": [
+       null,
+       "Bob",
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-038",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVBal": [
+       2,
+       2,
+       0
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       "Alice"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2",
+    "D3"
+   ],
+   "size": 11,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-039",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       2,
+       -1
+      ],
+      "maxVal": [
+       "Bob",
+       "Bob",
+       null
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 1
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 1,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 2,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 1,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 1,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     false
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Bob/Alice"
+  },
+  {
+   "id": "paxos-chosen-040",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     false,
+     true
+    ],
+    "D1+D4": [
+     false,
+     true
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     false,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2"
+   ],
+   "size": 10,
+   "subject": "Alice/Bob"
+  },
+  {
+   "id": "paxos-chosen-041",
+   "kind": "chosen",
+   "type": "one",
+   "a": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Bob"
+    },
+    "justification": {
+     "verdict": "legal",
+     "refs": [],
+     "text": "Yes — some majority of acceptors all voted for Bob in the SAME ballot, which is what \"chosen\" means."
+    }
+   },
+   "b": {
+    "payload": {
+     "kind": "state",
+     "state": {
+      "maxBal": [
+       2,
+       2,
+       2
+      ],
+      "maxVBal": [
+       2,
+       -1,
+       2
+      ],
+      "maxVal": [
+       "Bob",
+       null,
+       "Bob"
+      ],
+      "msgs": [
+       {
+        "t": "1a",
+        "bal": 0
+       },
+       {
+        "t": "1a",
+        "bal": 2
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 0,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 0,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "1b",
+        "acc": 1,
+        "bal": 2,
+        "mbal": -1,
+        "mval": null
+       },
+       {
+        "t": "2a",
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2a",
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 0,
+        "bal": 2,
+        "val": "Bob"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 0,
+        "val": "Alice"
+       },
+       {
+        "t": "2b",
+        "acc": 2,
+        "bal": 2,
+        "val": "Bob"
+       }
+      ]
+     },
+     "subject": "Alice"
+    },
+    "justification": {
+     "verdict": "illegal",
+     "refs": [],
+     "text": "No — no majority voted for Alice within a single ballot. Votes for Alice scattered across different ballots do not add up to a decision; neither does a proposal, a single vote, or a majority that merely holds Alice right now."
+    }
+   },
+   "distance": 1,
+   "answer": {
+    "C": [
+     true,
+     false
+    ],
+    "D1+D4": [
+     true,
+     false
+    ],
+    "D2": [
+     true,
+     true
+    ],
+    "D3": [
+     true,
+     true
+    ]
+   },
+   "targets": [],
+   "misconceptions": [
+    "D2",
+    "D3"
+   ],
+   "size": 11,
+   "subject": "Bob/Alice"
+  }
+ ],
+ "mix": {
+  "one": 24,
+  "both": 0,
+  "neither": 14
+ }
+}
