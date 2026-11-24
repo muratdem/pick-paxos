@@ -248,9 +248,65 @@
        "kind": "acceptor",
        "acc": 0,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be at least as high as the promise. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not vote in the lower ballot 1 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
     }
    },
    "b": {
@@ -1033,15 +1089,68 @@
      "conjunct": "phase2a.highestReported",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — propose the value reported from the highest ballot. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "distance": 1,
@@ -1327,11 +1436,68 @@
      "conjunct": "phase2a.noPriorProposal",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a ballot may carry at most one proposal. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
+     "text": "Paxos does not allow this step: ballot 0 already carries a proposal of Alice, and a ballot carries at most one. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
     }
    },
    "b": {
@@ -2093,15 +2259,68 @@
      "conjunct": "phase2a.highestReported",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — propose the value reported from the highest ballot. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "distance": 2,
@@ -2402,15 +2621,68 @@
      "conjunct": "phase2a.quorumPromised",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a majority must have promised this ballot. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
+     "text": "Paxos does not allow this step: Acceptor 1 has not promised ballot 0, so the proposer has not heard from a full majority yet. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
     }
    },
    "b": {
@@ -2976,15 +3248,68 @@
      "conjunct": "phase2a.quorumPromised",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a majority must have promised this ballot. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
+     "text": "Paxos does not allow this step: Acceptor 1 has not promised ballot 1, so the proposer has not heard from a full majority yet. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
     }
    },
    "distance": 1,
@@ -3309,15 +3634,68 @@
      "conjunct": "phase2a.highestReported",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — propose the value reported from the highest ballot. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 0, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "b": {
@@ -4008,11 +4386,68 @@
      "conjunct": "phase2a.noPriorProposal",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a ballot may carry at most one proposal. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
+     "text": "Paxos does not allow this step: ballot 0 already carries a proposal of Alice, and a ballot carries at most one. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
     }
    },
    "distance": 1,
@@ -4288,9 +4723,65 @@
        "kind": "acceptor",
        "acc": 0,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be at least as high as the promise. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not vote in the lower ballot 1 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
     }
    },
    "b": {
@@ -5109,15 +5600,68 @@
      "conjunct": "phase2a.highestReported",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — propose the value reported from the highest ballot. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "distance": 1,
@@ -5561,11 +6105,67 @@
      "refs": [
       {
        "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
        "acc": 1,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be at least as high as the promise. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 2 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
     }
    },
    "distance": 2,
@@ -6060,11 +6660,68 @@
      "conjunct": "phase2a.noPriorProposal",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a ballot may carry at most one proposal. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
+     "text": "Paxos does not allow this step: ballot 0 already carries a proposal of Bob, and a ballot carries at most one. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
     }
    },
    "distance": 2,
@@ -6316,15 +6973,68 @@
      "conjunct": "phase2a.quorumPromised",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a majority must have promised this ballot. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
+     "text": "Paxos does not allow this step: Acceptor 2 and Acceptor 3 have not promised ballot 2, so the proposer has not heard from a full majority yet. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
     }
    },
    "b": {
@@ -6962,11 +7672,67 @@
      "refs": [
       {
        "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
        "acc": 2,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be at least as high as the promise. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 3 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
     }
    },
    "distance": 1,
@@ -7336,15 +8102,68 @@
      "conjunct": "phase2a.quorumPromised",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a majority must have promised this ballot. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
+     "text": "Paxos does not allow this step: Acceptor 2 has not promised ballot 1, so the proposer has not heard from a full majority yet. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
     }
    },
    "distance": 1,
@@ -7931,15 +8750,68 @@
      "conjunct": "phase2a.highestReported",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — propose the value reported from the highest ballot. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Alice in ballot 0, from Acceptor 1. That forces the proposer to propose Alice, not Bob. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "distance": 2,
@@ -8453,11 +9325,68 @@
      "conjunct": "phase2b.proposalExists",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — there must be a proposal to accept. An acceptor only votes for a value that some proposer actually proposed for that ballot. It cannot vote for something nobody put forward."
+     "text": "Paxos does not allow this step: nobody has proposed Bob in ballot 2, so there is nothing to vote for. An acceptor only votes for a value that some proposer actually proposed for that ballot. It cannot vote for something nobody put forward."
     }
    },
    "distance": 1,
@@ -8757,11 +9686,68 @@
      "conjunct": "phase2a.noPriorProposal",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a ballot may carry at most one proposal. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
+     "text": "Paxos does not allow this step: ballot 2 already carries a proposal of Bob, and a ballot carries at most one. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
     }
    },
    "b": {
@@ -9333,15 +10319,68 @@
      "conjunct": "phase2a.highestReported",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — propose the value reported from the highest ballot. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 3. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "b": {
@@ -10123,9 +11162,65 @@
        "kind": "acceptor",
        "acc": 0,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be at least as high as the promise. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
     }
    },
    "distance": 1,
@@ -10344,15 +11439,68 @@
      "conjunct": "phase2a.quorumPromised",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a majority must have promised this ballot. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
+     "text": "Paxos does not allow this step: Acceptor 2 has not promised ballot 0, so the proposer has not heard from a full majority yet. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
     }
    },
    "b": {
@@ -10854,11 +12002,68 @@
      "conjunct": "phase2a.noPriorProposal",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a ballot may carry at most one proposal. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
+     "text": "Paxos does not allow this step: ballot 1 already carries a proposal of Bob, and a ballot carries at most one. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
     }
    },
    "distance": 2,
@@ -11232,11 +12437,68 @@
      "conjunct": "phase2b.proposalExists",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — there must be a proposal to accept. An acceptor only votes for a value that some proposer actually proposed for that ballot. It cannot vote for something nobody put forward."
+     "text": "Paxos does not allow this step: nobody has proposed Alice in ballot 0, so there is nothing to vote for. An acceptor only votes for a value that some proposer actually proposed for that ballot. It cannot vote for something nobody put forward."
     }
    },
    "distance": 2,
@@ -11538,15 +12800,68 @@
      "conjunct": "phase2a.highestReported",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — propose the value reported from the highest ballot. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Alice in ballot 1, from Acceptor 3. That forces the proposer to propose Alice, not Bob. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "b": {
@@ -12051,9 +13366,65 @@
        "kind": "acceptor",
        "acc": 0,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be at least as high as the promise. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
     }
    },
    "b": {
@@ -12754,11 +14125,68 @@
      "conjunct": "phase2a.noPriorProposal",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a ballot may carry at most one proposal. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
+     "text": "Paxos does not allow this step: ballot 1 already carries a proposal of Alice, and a ballot carries at most one. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
     }
    },
    "distance": 2,
@@ -12998,11 +14426,68 @@
      "conjunct": "phase2a.noPriorProposal",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a ballot may carry at most one proposal. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
+     "text": "Paxos does not allow this step: ballot 0 already carries a proposal of Alice, and a ballot carries at most one. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
     }
    },
    "b": {
@@ -13356,15 +14841,68 @@
      "conjunct": "phase2a.quorumPromised",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a majority must have promised this ballot. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
+     "text": "Paxos does not allow this step: Acceptor 2 has not promised ballot 2, so the proposer has not heard from a full majority yet. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
     }
    },
    "b": {
@@ -13740,11 +15278,68 @@
      "conjunct": "phase2b.proposalExists",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — there must be a proposal to accept. An acceptor only votes for a value that some proposer actually proposed for that ballot. It cannot vote for something nobody put forward."
+     "text": "Paxos does not allow this step: nobody has proposed Bob in ballot 1, so there is nothing to vote for. An acceptor only votes for a value that some proposer actually proposed for that ballot. It cannot vote for something nobody put forward."
     }
    },
    "b": {
@@ -14473,15 +16068,68 @@
      "conjunct": "phase2a.highestReported",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — propose the value reported from the highest ballot. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 3. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "distance": 1,
@@ -14752,11 +16400,67 @@
      "refs": [
       {
        "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
        "acc": 1,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be at least as high as the promise. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 2 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
     }
    },
    "b": {
@@ -20077,15 +21781,68 @@
      "conjunct": "phase2a.highestReported",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — propose the value reported from the highest ballot. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Alice in ballot 1, from Acceptor 3. That forces the proposer to propose Alice, not Bob. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "b": {
@@ -20272,15 +22029,68 @@
      "conjunct": "phase2a.quorumPromised",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a majority must have promised this ballot. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
+     "text": "Paxos does not allow this step: Acceptor 1 has not promised ballot 2, so the proposer has not heard from a full majority yet. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
     }
    },
    "distance": 1,
@@ -20521,11 +22331,68 @@
      "conjunct": "phase2a.noPriorProposal",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a ballot may carry at most one proposal. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
+     "text": "Paxos does not allow this step: ballot 1 already carries a proposal of Bob, and a ballot carries at most one. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
     }
    },
    "b": {
@@ -20674,15 +22541,68 @@
      "conjunct": "phase2a.quorumPromised",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a majority must have promised this ballot. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
+     "text": "Paxos does not allow this step: Acceptor 1 has not promised ballot 2, so the proposer has not heard from a full majority yet. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
     }
    },
    "distance": 1,
@@ -20949,15 +22869,68 @@
      "conjunct": "phase2a.highestReported",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — propose the value reported from the highest ballot. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Alice in ballot 0, from Acceptor 2. That forces the proposer to propose Alice, not Bob. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "b": {
@@ -21139,11 +23112,68 @@
      "conjunct": "phase2a.noPriorProposal",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a ballot may carry at most one proposal. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
+     "text": "Paxos does not allow this step: ballot 0 already carries a proposal of Alice, and a ballot carries at most one. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
     }
    },
    "distance": 1,
@@ -21444,11 +23474,68 @@
      "conjunct": "phase2a.noPriorProposal",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a ballot may carry at most one proposal. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
+     "text": "Paxos does not allow this step: ballot 0 already carries a proposal of Bob, and a ballot carries at most one. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
     }
    },
    "b": {
@@ -21655,11 +23742,67 @@
      "refs": [
       {
        "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
        "acc": 2,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be at least as high as the promise. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 3 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
     }
    },
    "distance": 2,
@@ -21915,11 +24058,68 @@
      "conjunct": "phase2a.noPriorProposal",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a ballot may carry at most one proposal. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
+     "text": "Paxos does not allow this step: ballot 1 already carries a proposal of Bob, and a ballot carries at most one. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
     }
    },
    "b": {
@@ -22089,11 +24289,68 @@
      "conjunct": "phase2a.noPriorProposal",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a ballot may carry at most one proposal. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
+     "text": "Paxos does not allow this step: ballot 1 already carries a proposal of Bob, and a ballot carries at most one. A proposer makes at most one proposal per ballot. If two different values could be proposed under the same ballot number, two different values could both be accepted by a majority at that ballot, and the acceptors would have agreed on two things at once."
     }
    },
    "distance": 1,
@@ -22421,15 +24678,68 @@
      "conjunct": "phase2a.highestReported",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — propose the value reported from the highest ballot. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 3. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "b": {
@@ -22691,15 +25001,68 @@
      "conjunct": "phase2a.highestReported",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — propose the value reported from the highest ballot. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 3. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "distance": 1,
@@ -22933,9 +25296,65 @@
        "kind": "acceptor",
        "acc": 0,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be at least as high as the promise. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 1 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
     }
    },
    "b": {
@@ -23084,15 +25503,68 @@
      "conjunct": "phase2a.quorumPromised",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a majority must have promised this ballot. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
+     "text": "Paxos does not allow this step: Acceptor 3 has not promised ballot 2, so the proposer has not heard from a full majority yet. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
     }
    },
    "distance": 2,
@@ -23397,11 +25869,68 @@
      "conjunct": "phase2b.proposalExists",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
        "kind": "msgset",
        "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — there must be a proposal to accept. An acceptor only votes for a value that some proposer actually proposed for that ballot. It cannot vote for something nobody put forward."
+     "text": "Paxos does not allow this step: nobody has proposed Alice in ballot 0, so there is nothing to vote for. An acceptor only votes for a value that some proposer actually proposed for that ballot. It cannot vote for something nobody put forward."
     }
    },
    "b": {
@@ -23622,11 +26151,67 @@
      "refs": [
       {
        "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
        "acc": 1,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be at least as high as the promise. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 2 has promised ballot 2, so it will not vote in the lower ballot 1 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
     }
    },
    "distance": 1,
@@ -23937,11 +26522,67 @@
      "refs": [
       {
        "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
        "acc": 1,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be at least as high as the promise. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
+     "text": "Paxos does not allow this step: Acceptor 2 has promised ballot 2, so it will not vote in the lower ballot 0 — that promise is exactly a commitment to ignore anything older. An acceptor votes in a ballot only if that ballot is the same as, or higher than, the highest ballot it has promised. The same as matters: the normal path through the protocol is an acceptor promising a ballot and then voting in that very ballot."
     }
    },
    "b": {
@@ -24193,15 +26834,68 @@
      "conjunct": "phase2a.highestReported",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — propose the value reported from the highest ballot. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
+     "text": "Paxos does not allow this step: the highest vote reported to this proposer is Bob in ballot 1, from Acceptor 1. That forces the proposer to propose Bob, not Alice. If any acceptor in the majority reported a previous vote, the proposer is not free to choose. It must propose the value that was reported together with the highest ballot number among those reports. This single rule is what makes Paxos safe: it is how a value that may already have been agreed on gets carried forward into every later attempt."
     }
    },
    "distance": 2,
@@ -24414,15 +27108,68 @@
      "conjunct": "phase2a.quorumPromised",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a majority must have promised this ballot. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
+     "text": "Paxos does not allow this step: Acceptor 3 has not promised ballot 1, so the proposer has not heard from a full majority yet. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
     }
    },
    "b": {
@@ -24542,15 +27289,68 @@
      "conjunct": "phase2a.quorumPromised",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
        "kind": "msgset",
        "msgType": "1b"
       },
       {
-       "kind": "param",
-       "name": "quorum"
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — a majority must have promised this ballot. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
+     "text": "Paxos does not allow this step: Acceptor 2 and Acceptor 3 have not promised ballot 1, so the proposer has not heard from a full majority yet. Before proposing, the proposer must have collected promises for this ballot from a majority of the acceptors. The point is not the count. It is that any two majorities share at least one acceptor, so this majority overlaps with any majority that might already have agreed on something — and that shared acceptor is what forces the proposer to hear about it."
     }
    },
    "distance": 1,

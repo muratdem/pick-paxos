@@ -393,12 +393,11 @@ function Results({
       </p>
 
       {likely.length === 0 ? (
-        /* Two very different situations end up here, and conflating them was a
-         * bug: telling someone "your answers match the protocol" after they got
-         * half of them wrong is simply false. Scoring badly without matching any
-         * single misconception is PICK's zero-candidate outcome, and the paper
-         * treats it as informative rather than as a failure - it means either
-         * you were guessing or you hold something that is not in our list. */
+        /* Three different outcomes land here and they are not the same news.
+         * An earlier version collapsed the last two and told someone who got
+         * 9 of 14 right that they had maybe been guessing, which is both wrong
+         * and rude: no pattern in the misses is the GOOD way to get things
+         * wrong. It means scattered slips rather than a rule held incorrectly. */
         right >= Math.ceil(scored * 0.75) ? (
           <div className="panel clean">
             <h3>Nothing to flag.</h3>
@@ -407,18 +406,30 @@ function Results({
               level is built to be able to give, not a default it falls back to.
             </p>
           </div>
-        ) : (
-          <div className="panel unclear">
-            <h3>No single misconception fits.</h3>
+        ) : right >= Math.ceil(scored * 0.45) ? (
+          <div className="panel clean">
+            <h3>Nothing systematic.</h3>
             <p>
-              You got {scored - right} of these wrong, but the wrong answers do not line up with
-              any one of the misunderstandings this level knows how to recognise.
+              You got {right} of {scored} right, and the {scored - right} you missed do not line up
+              with any of the misunderstandings this level looks for. Scattered slips rather than a
+              rule held wrongly — which is the good way to get things wrong.
             </p>
             <p>
-              That usually means one of two things. Either you were unsure and guessing, in which
-              case the explanations under each question are the thing to read. Or you are carrying
-              a misunderstanding that is not in our list, which is more interesting and which we
-              would like to hear about.
+              The explanation under each question stays on screen after you answer, so the misses
+              are worth a second look on the way past.
+            </p>
+          </div>
+        ) : (
+          <div className="panel unclear">
+            <h3>No clear pattern.</h3>
+            <p>
+              You got {right} of {scored} right, and the misses do not match any single
+              misunderstanding this level knows how to recognise.
+            </p>
+            <p>
+              That can mean the questions were not landing, in which case the explanation under
+              each one is the thing to read. Or it can mean you are working from something that is
+              not in our list, which is more interesting and which we would like to hear about.
             </p>
           </div>
         )

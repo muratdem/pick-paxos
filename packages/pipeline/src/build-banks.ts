@@ -148,6 +148,85 @@ function describeEffectDifference(step: StepCand<PaxosState>): string[] {
   return out;
 }
 
+/** Why THIS step fails THIS guard, in terms of the numbers on screen.
+ *
+ *  Naming the rule is not enough when the rule's wording does not fit the
+ *  case. A reader hit a step where an acceptor could not promise ballot 0 and
+ *  was told "an acceptor never goes back and promises something lower than it
+ *  has already promised" — but the ballot was equal, not lower, and the
+ *  acceptor had never promised anything. Its promised ballot had been raised
+ *  by ACCEPTING, since Phase2b sets the promised ballot too. Both halves of
+ *  the sentence were false for the situation it was explaining.
+ */
+function describeGuardFailure(step: StepCand<PaxosState>, id: string): string | null {
+  const s = step.pre;
+  const p = step.params;
+  const acc = p.acc as number;
+  const bal = p.bal as number;
+  const val = p.val as string;
+
+  switch (id) {
+    case 'phase1b.newer': {
+      const why = s.msgs.some((m) => m.t === '2b' && m.acc === acc && m.bal === s.maxBal[acc])
+        ? `, which was raised when it accepted ${s.maxVal[acc]} in that ballot — accepting a ballot commits an acceptor to it just as promising does`
+        : s.msgs.some((m) => m.t === '1b' && m.acc === acc && m.bal === s.maxBal[acc])
+          ? ', from the promise it already sent'
+          : '';
+      return (
+        `${accName(acc)} is already committed to ballot ${s.maxBal[acc]}${why}. ` +
+        `A promise has to be for a ballot strictly higher than that, and ballot ${bal} is ` +
+        `${bal === s.maxBal[acc] ? 'the same, not higher' : 'lower'}`
+      );
+    }
+    case 'phase1b.requestExists':
+      return `nobody has asked the acceptors to promise ballot ${bal}`;
+
+    case 'phase2b.ballotAtLeastPromised':
+      return (
+        `${accName(acc)} has promised ballot ${s.maxBal[acc]}, so it will not vote in the ` +
+        `lower ballot ${bal} — that promise is exactly a commitment to ignore anything older`
+      );
+    case 'phase2b.ballotStrictlyGreater':
+      return `${accName(acc)} has promised ballot ${s.maxBal[acc]} and ballot ${bal} is not above it`;
+    case 'phase2b.proposalExists':
+      return `nobody has proposed ${val} in ballot ${bal}, so there is nothing to vote for`;
+    case 'phase2b.neverVoted':
+      return `${accName(acc)} has already voted once, for ${s.maxVal[acc]} in ballot ${s.maxVBal[acc]}`;
+
+    case 'phase2a.noPriorProposal': {
+      const prior = s.msgs.find((m) => m.t === '2a' && m.bal === bal);
+      return prior && prior.t === '2a'
+        ? `ballot ${bal} already carries a proposal of ${prior.val}, and a ballot carries at most one`
+        : null;
+    }
+    case 'phase2a.quorumPromised': {
+      const missing = (p.quorum as number[]).filter(
+        (a) => !s.msgs.some((m) => m.t === '1b' && m.acc === a && m.bal === bal),
+      );
+      return missing.length
+        ? `${missing.map(accName).join(' and ')} ${missing.length > 1 ? 'have' : 'has'} not ` +
+            `promised ballot ${bal}, so the proposer has not heard from a full majority yet`
+        : null;
+    }
+    case 'phase2a.unanimousPromised':
+      return `not every acceptor has promised ballot ${bal}`;
+    case 'phase2a.highestReported': {
+      const reports = (p.quorum as number[])
+        .map((a) => s.msgs.find((m) => m.t === '1b' && m.acc === a && m.bal === bal))
+        .filter((m): m is Extract<Msg, { t: '1b' }> => !!m && m.t === '1b' && m.mbal >= 0);
+      if (!reports.length) return null;
+      const top = Math.max(...reports.map((m) => m.mbal));
+      const must = reports.find((m) => m.mbal === top)!;
+      return (
+        `the highest vote reported to this proposer is ${must.mval} in ballot ${must.mbal}, ` +
+        `from ${accName(must.acc)}. That forces the proposer to propose ${must.mval}, not ${val}`
+      );
+    }
+    default:
+      return null;
+  }
+}
+
 function justify(step: StepCand<PaxosState>): Justification {
   const action = CM.actions.find((a) => a.name === step.action)!;
 
@@ -175,11 +254,16 @@ function justify(step: StepCand<PaxosState>): Justification {
       };
     }
 
+    const why = describeGuardFailure(step, id);
     return {
       verdict: 'illegal',
       conjunct: id,
-      refs,
-      text: `Paxos does not allow this step — ${rule.short}. ${rule.text}`,
+      // The concrete reason references the message history as well as the
+      // acceptor fields the conjunct itself reads.
+      refs: why ? CM.view.displayed(step.pre).filter((r) => r.kind !== 'param') : refs,
+      text: why
+        ? `Paxos does not allow this step: ${why}. ${rule.text}`
+        : `Paxos does not allow this step — ${rule.short}. ${rule.text}`,
     };
   }
 

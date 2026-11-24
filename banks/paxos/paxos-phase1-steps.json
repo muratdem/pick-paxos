@@ -959,11 +959,68 @@
      "conjunct": "phase1b.requestExists",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
        "kind": "msgset",
        "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — there must be a request to respond to. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
+     "text": "Paxos does not allow this step: nobody has asked the acceptors to promise ballot 1. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
     }
    },
    "b": {
@@ -1520,11 +1577,67 @@
      "refs": [
       {
        "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
        "acc": 1,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be higher than anything already promised. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
+     "text": "Paxos does not allow this step: Acceptor 2 is already committed to ballot 1, which was raised when it accepted Alice in that ballot — accepting a ballot commits an acceptor to it just as promising does. A promise has to be for a ballot strictly higher than that, and ballot 1 is the same, not higher. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
     }
    },
    "distance": 1,
@@ -1748,11 +1861,68 @@
      "conjunct": "phase1b.requestExists",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
        "kind": "msgset",
        "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — there must be a request to respond to. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
+     "text": "Paxos does not allow this step: nobody has asked the acceptors to promise ballot 1. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
     }
    },
    "distance": 2,
@@ -2543,11 +2713,67 @@
      "refs": [
       {
        "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
        "acc": 2,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be higher than anything already promised. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
+     "text": "Paxos does not allow this step: Acceptor 3 is already committed to ballot 0, which was raised when it accepted Bob in that ballot — accepting a ballot commits an acceptor to it just as promising does. A promise has to be for a ballot strictly higher than that, and ballot 0 is the same, not higher. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
     }
    },
    "distance": 2,
@@ -3047,11 +3273,68 @@
      "conjunct": "phase1b.requestExists",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
        "kind": "msgset",
        "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — there must be a request to respond to. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
+     "text": "Paxos does not allow this step: nobody has asked the acceptors to promise ballot 1. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
     }
    },
    "b": {
@@ -3336,11 +3619,67 @@
      "refs": [
       {
        "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
        "acc": 1,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be higher than anything already promised. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
+     "text": "Paxos does not allow this step: Acceptor 2 is already committed to ballot 2, from the promise it already sent. A promise has to be for a ballot strictly higher than that, and ballot 1 is lower. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
     }
    },
    "b": {
@@ -4090,11 +4429,68 @@
      "conjunct": "phase1b.requestExists",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
        "kind": "msgset",
        "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — there must be a request to respond to. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
+     "text": "Paxos does not allow this step: nobody has asked the acceptors to promise ballot 2. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
     }
    },
    "b": {
@@ -4504,11 +4900,68 @@
      "conjunct": "phase1b.requestExists",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
        "kind": "msgset",
        "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — there must be a request to respond to. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
+     "text": "Paxos does not allow this step: nobody has asked the acceptors to promise ballot 2. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
     }
    },
    "distance": 2,
@@ -4807,11 +5260,67 @@
      "refs": [
       {
        "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
        "acc": 1,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be higher than anything already promised. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
+     "text": "Paxos does not allow this step: Acceptor 2 is already committed to ballot 2, from the promise it already sent. A promise has to be for a ballot strictly higher than that, and ballot 0 is lower. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
     }
    },
    "distance": 1,
@@ -5168,11 +5677,67 @@
      "refs": [
       {
        "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
        "acc": 1,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be higher than anything already promised. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
+     "text": "Paxos does not allow this step: Acceptor 2 is already committed to ballot 0, which was raised when it accepted Alice in that ballot — accepting a ballot commits an acceptor to it just as promising does. A promise has to be for a ballot strictly higher than that, and ballot 0 is the same, not higher. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
     }
    },
    "distance": 2,
@@ -5712,9 +6277,65 @@
        "kind": "acceptor",
        "acc": 0,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be higher than anything already promised. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
+     "text": "Paxos does not allow this step: Acceptor 1 is already committed to ballot 1, from the promise it already sent. A promise has to be for a ballot strictly higher than that, and ballot 0 is lower. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
     }
    },
    "b": {
@@ -6044,11 +6665,68 @@
      "conjunct": "phase1b.requestExists",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
        "kind": "msgset",
        "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — there must be a request to respond to. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
+     "text": "Paxos does not allow this step: nobody has asked the acceptors to promise ballot 2. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
     }
    },
    "b": {
@@ -9001,11 +9679,68 @@
      "conjunct": "phase1b.requestExists",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
        "kind": "msgset",
        "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — there must be a request to respond to. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
+     "text": "Paxos does not allow this step: nobody has asked the acceptors to promise ballot 0. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
     }
    },
    "distance": 1,
@@ -9224,11 +9959,67 @@
      "refs": [
       {
        "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
        "acc": 2,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be higher than anything already promised. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
+     "text": "Paxos does not allow this step: Acceptor 3 is already committed to ballot 0, which was raised when it accepted Alice in that ballot — accepting a ballot commits an acceptor to it just as promising does. A promise has to be for a ballot strictly higher than that, and ballot 0 is the same, not higher. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
     }
    },
    "b": {
@@ -10303,11 +11094,68 @@
      "conjunct": "phase1b.requestExists",
      "refs": [
       {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
        "kind": "msgset",
        "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — there must be a request to respond to. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
+     "text": "Paxos does not allow this step: nobody has asked the acceptors to promise ballot 2. An acceptor only promises a ballot that some proposer actually asked it about. It does not promise ballots nobody has raised."
     }
    },
    "distance": 1,
@@ -10498,11 +11346,67 @@
      "refs": [
       {
        "kind": "acceptor",
+       "acc": 0,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 0,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 1,
+       "field": "maxVal"
+      },
+      {
+       "kind": "acceptor",
        "acc": 2,
        "field": "maxBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVBal"
+      },
+      {
+       "kind": "acceptor",
+       "acc": 2,
+       "field": "maxVal"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "1b"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2a"
+      },
+      {
+       "kind": "msgset",
+       "msgType": "2b"
       }
      ],
-     "text": "Paxos does not allow this step — the ballot must be higher than anything already promised. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
+     "text": "Paxos does not allow this step: Acceptor 3 is already committed to ballot 2, from the promise it already sent. A promise has to be for a ballot strictly higher than that, and ballot 0 is lower. An acceptor promises a ballot only if that ballot is strictly higher than the highest one it has already promised. Having promised, it never goes back and promises something lower — that is what makes a promise worth anything."
     }
    },
    "b": {
