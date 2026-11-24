@@ -131,8 +131,10 @@ works, and it is the one that found most of the real bugs.
 - **Some candidates turn out not to be misconceptions.** "A majority currently holds
   this value" is exactly the anchoring condition on every reachable situation the
   anchored level can show, so the build drops it rather than reporting a correct belief
-  as an error. The same machinery collapsed D1 and D4 in the earlier `chosen` level.
-  Both follow PICK's equivalence-collapsing step, and neither is a bound artifact.
+  as an error. This follows PICK's equivalence-collapsing step. **But an equivalence
+  found by search is only as good as the search**: an earlier release reported two
+  definitions of "chosen" as provably equivalent, on the strength of a depth-14 probe.
+  They separate at depth 15. See §5.4 of the design doc.
 - **"Whoever has the highest vote wins" and "the first vote locks it in" agree on 165 of
   179 situations.** The bank reserves a floor of the 14 that separate them; without it
   the posterior splits and a learner holding either is told nothing.

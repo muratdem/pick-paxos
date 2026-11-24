@@ -257,7 +257,21 @@ Some misconceptions are about definitions, not rules. These are predicates evalu
 
 D1 vs C0 is the most important one. It is also the classic trap behind "the value with the highest ballot among a majority" reasoning.
 
-**D1 and D4 are equivalent and must be collapsed.** They agree on every reachable Paxos state — verified over 34,913 of them. This is not an artifact of the bound; it is the safety theorem showing through. For a majority that voted for `v` to stop *holding* `v`, some acceptor in it would have to vote for something else later, and any quorum promising a later ballot intersects that majority and is forced to re-propose `v`. So no question can ever separate them, and shipping both would mean naming a misconception the learner may not hold. The generator detects the equivalence over the reachable set and merges them into one candidate, which is PICK's own "collapse equivalent candidates" step (paper §2.3).
+**D1 and D4 are NOT equivalent, and an earlier version of this document said they were.**
+
+The claim here used to be that they agree on every reachable Paxos state, verified over 34,913 of them, and that this was the safety theorem showing through rather than an artifact of the bound. That was wrong, and wrong in the most embarrassing way available: it was an artifact of the bound, asserted as a theorem *because* a bound-limited measurement agreed with a plausible-sounding argument.
+
+The probe explored to depth 14. The smallest state separating them sits at **depth 15**:
+
+- Acceptor 1 accepts Alice in ballot 0.
+- The ballot-1 proposer gathers its majority from acceptors 2 and 3, who report nothing, so it is free to propose Bob. Acceptor 1 accepts Bob in ballot 1, **overwriting** its own earlier acceptance.
+- The ballot-2 proposer again gathers from 2 and 3, again hears nothing, and proposes Alice. Acceptor 2 accepts Alice in ballot 2.
+
+Now a majority — acceptors 1 and 2 — have each accepted Alice at some point, so D1 says Alice is chosen. But acceptor 1 no longer holds Alice, so D4 says it is not. They differ on 36 states at depth 15 and 120 at depth 16.
+
+The lesson is the §10.4 lesson again, one level up: a bounded search that confirms your hypothesis is not evidence for it. The fix that would have caught this is the same one that catches bound artifacts elsewhere — re-derive at a larger bound and require agreement — and it was not applied to the equivalence check because an equivalence felt like a fact rather than a measurement.
+
+The generator still collapses genuinely equivalent candidates, which is PICK's own step (paper §2.3). It simply must not be trusted to have found a theorem when all it has found is the edge of the search.
 
 Note also that the definitions form a **containment chain**: `D1+D4 ⊂ D3 ⊂ D2`. Every state that is evidence for a stricter definition is equally evidence for every looser one. That has consequences for scoring — see §7.2.
 
@@ -667,7 +681,7 @@ Recorded here because the numbers are the point, and because most of them contra
 | Claim in the original spec | What measurement said |
 |---|---|
 | Mutants are adding or restricting | P5 and P6 are **overlapping** — effect edits both gain and lose states |
-| D1 and D4 are distinct misconceptions | **Equivalent on every reachable state**; collapsed, per PICK §2.3 |
+| D1 and D4 agree on every reachable state | **False** — an artifact of a depth-14 probe. They separate at depth 15 (§5.4) |
 | Independent per-candidate Bayes throughout | Wrong for definitions; they are exclusive and need a categorical posterior |
 | Contrasting pairs supply answer balance | Not on their own — the generator's enumeration order leaked into the key and "always answer A" scored 43% until sides were deterministically alternated |
 | K=20 representatives per mutant suffices | Stratified sampling draws **zero** P2-separating states; a targeted scan is required |

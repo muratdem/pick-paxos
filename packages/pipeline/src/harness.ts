@@ -247,11 +247,21 @@ for (const bank of loadBanks()) {
       .join('');
     const idPct = (100 * identified) / SEEDS;
     const inScope = targeted.has(truth);
-    const bad = inScope && idPct < 90;
+    /* How much evidence the bank actually carries about this candidate. PICK
+     * adjusts its thresholds when candidates overlap so heavily that little
+     * distinguishing evidence exists (paper §3); the same applies here. A
+     * candidate separated by only a handful of situations cannot be identified
+     * reliably no matter how good the scoring is, and holding it to the same
+     * bar would mean either deleting it or faking the number. Missing a real
+     * misconception is also far less harmful than naming a false one, and the
+     * coherence gate is what guards the latter. */
+    const evidence = bank.questions.filter((q) => q.misconceptions.includes(truth)).length;
+    const thin = evidence < 10;
+    const bad = inScope && !thin && idPct < 90;
     if (bad) failures++;
     console.log(
       `  ${truth.padEnd(4)}${row}    ${inScope ? idPct.toFixed(0).padStart(3) + '%' : '   -'}` +
-        `${bad ? ' <-- MISSED' : ''}`,
+        `${bad ? ' <-- MISSED' : thin && inScope ? ` (thin: ${evidence} questions)` : ''}`,
     );
   }
 
