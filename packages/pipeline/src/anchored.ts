@@ -19,6 +19,7 @@
 import {
   Rng,
   type Bank,
+  type Params,
   type Question,
   type Scenario,
   type Value,
@@ -115,6 +116,26 @@ export function canReach(g: ReachIndex, goal: (s: PaxosState) => boolean): Uint8
 
 /** Shortest sequence of states from `from` to any state satisfying `goal`,
  *  as a witness for "yes, this could still happen". */
+/** One step of a run, said plainly. The model's own description of a promise
+ *  says "reports what it last accepted" without saying WHAT, which is the only
+ *  interesting part when the point is that an old promise reports less. */
+function sentenceFor(
+  model: ReturnType<typeof paxos>,
+  s: PaxosState,
+  action: string,
+  p: Params,
+): string {
+  if (action === 'Phase1b') {
+    const acc = p.acc as number;
+    const rep =
+      s.maxVBal[acc] < 0
+        ? 'reporting that it has accepted nothing'
+        : `reporting ${s.maxVal[acc]} in ballot ${s.maxVBal[acc]}`;
+    return `${accName(acc)} promises ballot ${p.bal}, ${rep}.`;
+  }
+  return model.actions.find((a) => a.name === action)!.describe(p);
+}
+
 export function witnessTo(
   g: ReachIndex,
   from: number,
@@ -300,6 +321,53 @@ export function buildAnchoredBank(seed: number, plan: BallotPlan): AnchoredResul
       if (!frontier.length) break;
     }
     return found;
+  }
+
+  /** How a value actually gets chosen from here, as a run.
+   *
+   *  Needed because some values stay reachable for a reason the current state
+   *  does not show: a ballot that was started and never finished still has
+   *  usable promises, and those promises report what each acceptor knew AT THE
+   *  TIME, which may be less than it knows now. A reader shown only "yes, this
+   *  is still possible" cannot check that, and reasonably reads it as a bug. */
+  function witnessFor(
+    model: ReturnType<typeof paxos>,
+    s0: PaxosState,
+    target: string,
+    maxDepth: number,
+  ): { steps: string[]; usesStaleBallot: boolean } | null {
+    const prev = new Map<string, { k: string; from: PaxosState; a: string; p: Params }>();
+    const seen = new Set<string>([model.key(s0)]);
+    const topBallot = Math.max(-1, ...s0.msgs.map((m) => m.bal));
+    let frontier = [s0];
+    for (let d = 0; d <= maxDepth; d++) {
+      const next: PaxosState[] = [];
+      for (const st of frontier) {
+        if (model.predicates[`C0:${target}`](st)) {
+          const out: string[] = [];
+          let stale = false;
+          let k = model.key(st);
+          while (prev.has(k)) {
+            const e = prev.get(k)!;
+            if (e.a === 'Phase2a' && (e.p.bal as number) < topBallot) stale = true;
+            out.unshift(sentenceFor(model, e.from, e.a, e.p));
+            k = e.k;
+          }
+          return { steps: out, usesStaleBallot: stale };
+        }
+        for (const inst of model.successors(st)) {
+          const k = model.key(inst.next);
+          if (seen.has(k)) continue;
+          if (seen.size > VISIT_CAP) return null;
+          seen.add(k);
+          prev.set(k, { k: model.key(st), from: st, a: inst.action, p: inst.params });
+          next.push(inst.next);
+        }
+      }
+      frontier = next;
+      if (!frontier.length) break;
+    }
+    return null;
   }
 
   let t = Date.now();
@@ -520,11 +588,11 @@ export function buildAnchoredBank(seed: number, plan: BallotPlan): AnchoredResul
     throw new Error('no anchored situations found — the level would teach nothing');
 
   /* ---- justifications --------------------------------------------- */
-  const explainYes = (c: Cand, vi: number): string => {
-    /* Name the majority that keeps it alive. That is the whole reasoning:
-     * a proposer that happens to ask these acceptors is free to propose it,
-     * or is forced to. */
+  const explainYes = (c: Cand, vi: number): { text: string; steps?: string[] } => {
     const v = values[vi];
+    /* If some majority as it stands right now would let a fresh proposer land
+     * on v, say which one — that is a reason the reader can check against the
+     * table in front of them. */
     const open = KS.quorums.find((q) => {
       let top = -1;
       let val: string | null = null;
@@ -535,13 +603,35 @@ export function buildAnchoredBank(seed: number, plan: BallotPlan): AnchoredResul
         }
       return top < 0 || val === v;
     });
-    if (!open) return `Yes. ${v} can still be chosen.`;
-    const silent = open.every((a) => c.s.maxVBal[a] < 0);
-    return silent
-      ? `Yes. A proposer that opens a new ballot and hears from ${qName(open)} learns nothing ` +
-          `about any earlier acceptance, so it is free to propose ${v}, and they can accept it.`
-      : `Yes. A proposer that opens a new ballot and hears from ${qName(open)} would see ${v} as ` +
-          `the highest acceptance among them, so it would have to propose ${v}, and they can accept it.`;
+    if (open) {
+      const silent = open.every((a) => c.s.maxVBal[a] < 0);
+      return {
+        text: silent
+          ? `Yes. A proposer that opens a new ballot and hears from ${qName(open)} learns nothing ` +
+            `about any earlier acceptance, so it is free to propose ${v}, and they can accept it.`
+          : `Yes. A proposer that opens a new ballot and hears from ${qName(open)} would see ${v} as ` +
+            `the highest acceptance among them, so it would have to propose ${v}, and they can accept it.`,
+      };
+    }
+
+    /* Otherwise nothing in the current state explains it, and the honest
+     * answer is a run. This is the interesting case: every majority as it
+     * stands would force the OTHER value, and v survives only through a ballot
+     * that was started and never finished, whose promises still report what
+     * the acceptors knew at the time. */
+    const w = witnessFor(mA, c.s, v, 12);
+    if (!w) return { text: `Yes. ${v} can still be chosen.` };
+    return {
+      text:
+        `Yes, though nothing in the state above shows it. Every majority you could read off the ` +
+        `table right now would force a new proposer to propose ${values[1 - vi]}. ` +
+        (w.usesStaleBallot
+          ? `What keeps ${v} alive is an earlier ballot that was started and never finished: its ` +
+            `promises are still usable, and they report what those acceptors had accepted at the ` +
+            `time, which is less than they have accepted since. One way it plays out:`
+          : `One way it plays out:`),
+      steps: w.steps,
+    };
   };
 
   const explainNo = (c: Cand, vi: number): string => {
@@ -732,7 +822,7 @@ export function buildAnchoredBank(seed: number, plan: BallotPlan): AnchoredResul
         justification: {
           verdict: c.truth[v] ? 'legal' : 'illegal',
           refs: [],
-          text: c.truth[v] ? explainYes(c, v) : explainNo(c, v),
+          ...(c.truth[v] ? explainYes(c, v) : { text: explainNo(c, v) }),
         },
       };
     };

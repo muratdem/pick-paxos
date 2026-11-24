@@ -184,7 +184,18 @@ function ScenarioCard({
         <StepDelta pre={stepPre(scenario)} post={stepPost(scenario)} reads={p.reads as Msg[]} />
       )}
 
-      {revealed && <p className="why">{scenario.justification.text}</p>}
+      {revealed && (
+        <div className="why">
+          <p>{scenario.justification.text}</p>
+          {scenario.justification.steps && (
+            <ol className="run">
+              {scenario.justification.steps.map((x, i) => (
+                <li key={i}>{x}</li>
+              ))}
+            </ol>
+          )}
+        </div>
+      )}
     </div>
   );
 }

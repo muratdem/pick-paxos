@@ -245,3 +245,8 @@ kbd {
   border-left: 3px solid var(--accent); padding-left: 10px;
 }
 .panel.unclear { border-left-color: var(--new); }
+
+/* a concrete run, shown when the state alone cannot justify the answer */
+.why .run { margin: 9px 0 0; padding-left: 20px; display: grid; gap: 3px; }
+.why .run li { font-size: 13px; }
+.why p { margin: 0; }

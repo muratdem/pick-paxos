@@ -89,6 +89,10 @@ export interface Justification {
   conjunct?: string;
   refs: FieldRef[];
   text: string;
+  /** A concrete run, when the answer cannot be justified from the state alone.
+   *  Some values stay reachable only through a ballot that was started and
+   *  never finished, which no amount of staring at the current state reveals. */
+  steps?: string[];
 }
 
 export interface StepPayload {
