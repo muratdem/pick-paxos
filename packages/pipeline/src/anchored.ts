@@ -335,7 +335,7 @@ export function buildAnchoredBank(seed: number, plan: BallotPlan): AnchoredResul
     s0: PaxosState,
     target: string,
     maxDepth: number,
-  ): { steps: string[]; usesStaleBallot: boolean } | null {
+  ): { steps: string[]; staleBallot: number | null } | null {
     const prev = new Map<string, { k: string; from: PaxosState; a: string; p: Params }>();
     const seen = new Set<string>([model.key(s0)]);
     const topBallot = Math.max(-1, ...s0.msgs.map((m) => m.bal));
@@ -345,15 +345,18 @@ export function buildAnchoredBank(seed: number, plan: BallotPlan): AnchoredResul
       for (const st of frontier) {
         if (model.predicates[`C0:${target}`](st)) {
           const out: string[] = [];
-          let stale = false;
+          let stale: number | null = null;
           let k = model.key(st);
           while (prev.has(k)) {
             const e = prev.get(k)!;
-            if (e.a === 'Phase2a' && (e.p.bal as number) < topBallot) stale = true;
+            // A proposal made at a ballot BELOW the highest one already in play
+            // is the giveaway: that ballot was left unfinished, and its old
+            // promises are what make this run possible.
+            if (e.a === 'Phase2a' && (e.p.bal as number) < topBallot) stale = e.p.bal as number;
             out.unshift(sentenceFor(model, e.from, e.a, e.p));
             k = e.k;
           }
-          return { steps: out, usesStaleBallot: stale };
+          return { steps: out, staleBallot: stale };
         }
         for (const inst of model.successors(st)) {
           const k = model.key(inst.next);
@@ -621,15 +624,38 @@ export function buildAnchoredBank(seed: number, plan: BallotPlan): AnchoredResul
      * the acceptors knew at the time. */
     const w = witnessFor(mA, c.s, v, 12);
     if (!w) return { text: `Yes. ${v} can still be chosen.` };
+    /* Name the unfinished ballot and whose promise for it has gone stale.
+     * "An earlier ballot" is true but unusable; the reader cannot find it on
+     * the screen without being told which one it is and who promised it
+     * before they had accepted anything. */
+    let why = 'One way it plays out:';
+    if (w.staleBallot !== null) {
+      const b = w.staleBallot;
+      const stalePromisers = c.s.msgs
+        .filter((m) => m.t === '1b' && m.bal === b && m.mbal < 0 && c.s.maxVBal[m.acc] >= 0)
+        .map((m) => (m.t === '1b' ? m.acc : -1));
+      const canStillPromise = c.s.maxBal
+        .map((mb, a) => (mb < b && !c.s.msgs.some((m) => m.t === '1b' && m.acc === a && m.bal === b) ? a : -1))
+        .filter((a) => a >= 0);
+      why =
+        `What keeps ${v} alive is ballot ${b}, which was started and never finished. ` +
+        (stalePromisers.length
+          ? `${qName(stalePromisers)} promised it before accepting anything, so that promise still ` +
+            `reports nothing even though ${stalePromisers.length > 1 ? 'they have' : 'it has'} ` +
+            `accepted something since — a promise reports what the acceptor knew at the time, and ` +
+            `it never expires. `
+          : '') +
+        (canStillPromise.length
+          ? `${qName(canStillPromise)} can still promise ballot ${b} too, also reporting nothing. ` +
+            `Between them that is a majority reporting nothing at all, which leaves the ballot-${b} ` +
+            `proposer free to propose ${v}. `
+          : '') +
+        `One way it plays out:`;
+    }
     return {
       text:
         `Yes, though nothing in the state above shows it. Every majority you could read off the ` +
-        `table right now would force a new proposer to propose ${values[1 - vi]}. ` +
-        (w.usesStaleBallot
-          ? `What keeps ${v} alive is an earlier ballot that was started and never finished: its ` +
-            `promises are still usable, and they report what those acceptors had accepted at the ` +
-            `time, which is less than they have accepted since. One way it plays out:`
-          : `One way it plays out:`),
+        `table right now would force a new proposer to propose ${values[1 - vi]}. ${why}`,
       steps: w.steps,
     };
   };

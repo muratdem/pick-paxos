@@ -6648,7 +6648,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes, though nothing in the state above shows it. Every majority you could read off the table right now would force a new proposer to propose Alice. What keeps Bob alive is an earlier ballot that was started and never finished: its promises are still usable, and they report what those acceptors had accepted at the time, which is less than they have accepted since. One way it plays out:",
+     "text": "Yes, though nothing in the state above shows it. Every majority you could read off the table right now would force a new proposer to propose Alice. What keeps Bob alive is ballot 1, which was started and never finished. Acceptor 3 promised it before accepting anything, so that promise still reports nothing even though it has accepted something since — a promise reports what the acceptor knew at the time, and it never expires. Acceptor 2 can still promise ballot 1 too, also reporting nothing. Between them that is a majority reporting nothing at all, which leaves the ballot-1 proposer free to propose Bob. One way it plays out:",
      "steps": [
       "The proposer running ballot 3 asks every acceptor to promise ballot 3.",
       "Acceptor 1 promises ballot 3, reporting Alice in ballot 0.",
@@ -7310,7 +7310,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes, though nothing in the state above shows it. Every majority you could read off the table right now would force a new proposer to propose Bob. What keeps Alice alive is an earlier ballot that was started and never finished: its promises are still usable, and they report what those acceptors had accepted at the time, which is less than they have accepted since. One way it plays out:",
+     "text": "Yes, though nothing in the state above shows it. Every majority you could read off the table right now would force a new proposer to propose Bob. What keeps Alice alive is ballot 1, which was started and never finished. Acceptor 3 promised it before accepting anything, so that promise still reports nothing even though it has accepted something since — a promise reports what the acceptor knew at the time, and it never expires. One way it plays out:",
      "steps": [
       "The proposer running ballot 3 asks every acceptor to promise ballot 3.",
       "Acceptor 1 promises ballot 3, reporting that it has accepted nothing.",
@@ -18817,7 +18817,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes, though nothing in the state above shows it. Every majority you could read off the table right now would force a new proposer to propose Alice. What keeps Bob alive is an earlier ballot that was started and never finished: its promises are still usable, and they report what those acceptors had accepted at the time, which is less than they have accepted since. One way it plays out:",
+     "text": "Yes, though nothing in the state above shows it. Every majority you could read off the table right now would force a new proposer to propose Alice. What keeps Bob alive is ballot 2, which was started and never finished. Acceptor 3 promised it before accepting anything, so that promise still reports nothing even though it has accepted something since — a promise reports what the acceptor knew at the time, and it never expires. Acceptor 2 can still promise ballot 2 too, also reporting nothing. Between them that is a majority reporting nothing at all, which leaves the ballot-2 proposer free to propose Bob. One way it plays out:",
      "steps": [
       "The proposer running ballot 4 asks every acceptor to promise ballot 4.",
       "Acceptor 1 promises ballot 4, reporting Alice in ballot 0.",
@@ -19479,7 +19479,7 @@
     "justification": {
      "verdict": "legal",
      "refs": [],
-     "text": "Yes, though nothing in the state above shows it. Every majority you could read off the table right now would force a new proposer to propose Bob. What keeps Alice alive is an earlier ballot that was started and never finished: its promises are still usable, and they report what those acceptors had accepted at the time, which is less than they have accepted since. One way it plays out:",
+     "text": "Yes, though nothing in the state above shows it. Every majority you could read off the table right now would force a new proposer to propose Bob. What keeps Alice alive is ballot 2, which was started and never finished. Acceptor 3 promised it before accepting anything, so that promise still reports nothing even though it has accepted something since — a promise reports what the acceptor knew at the time, and it never expires. One way it plays out:",
      "steps": [
       "The proposer running ballot 4 asks every acceptor to promise ballot 4.",
       "Acceptor 1 promises ballot 4, reporting that it has accepted nothing.",
